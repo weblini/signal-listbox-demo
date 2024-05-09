@@ -119,14 +119,18 @@ export class Option<T> {
 
   protected select() {
     if (!this.isDisabled()) {
+      const value = this.value();
+
       this.listbox.value.update(lastOptions => {
-        let newList = [...lastOptions]
-        let optionsIndex = lastOptions.findIndex(currentValue => currentValue === this.value());
+        const newList = [...lastOptions]
+        const optionsIndex = lastOptions.indexOf(value);
+
         if (optionsIndex > -1) {
           newList.splice(optionsIndex, 1)
         } else {
-          newList.push(this.value())
+          newList.push(value)
         }
+        
         return newList
       })
     }
