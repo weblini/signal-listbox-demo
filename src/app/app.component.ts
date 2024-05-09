@@ -3,11 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { Listbox, Option, Orientation } from './listbox';
 import { Vegetable, VegetablesService } from './vegetables.service';
 import { CardComponent } from './card/card.component';
+import { JsonPipe } from '@angular/common'
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Listbox, Option, CardComponent],
+  imports: [RouterOutlet, Listbox, Option, CardComponent, JsonPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -18,7 +19,7 @@ export class AppComponent {
   protected readonly availableVegetables = this.vegetableService.getVegetables();
   selectedToppings: Vegetable[] = [];
 
-  protected orientation = signal<Orientation>('horizontal');
+  protected orientation = signal<Orientation>('vertical');
 
   logValueChange(newValue: Vegetable[]) {
     console.log(newValue);
