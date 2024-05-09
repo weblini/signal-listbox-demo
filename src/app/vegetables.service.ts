@@ -1,0 +1,45 @@
+import { Injectable } from '@angular/core';
+
+export interface Vegetable {
+  id: number,
+  name: string,
+  description: string,
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class VegetablesService {
+  private readonly vegetables: Vegetable[] = [
+    {
+      id: 1,
+      name: 'Carrot',
+      description: 'A root vegetable, usually orange in color, with a crisp texture when fresh'
+    },
+    {
+      id: 2,
+      name: 'Potato',
+      description: 'A versatile vegetable that is good for boiling, roasting, baking and making chips'
+    },
+    {
+      id: 3,
+      name: 'Tomato',
+      description: 'A red or yellowish fruit with a juicy pulp, used as a vegetable in cooking'
+    },
+    {
+      id: 4,
+      name: 'Cucumber',
+      description: 'A long, green-skinned fruit with watery flesh, usually eaten raw in salads or pickled'
+    },
+    {
+      id: 5,
+      name: 'Broccoli',
+      description: 'A plant of the cabbage family, whose large, edible flower head is eaten as a vegetable'
+    },
+  ];
+
+  getVegetables(): Vegetable[] {
+    return [...this.vegetables];
+  }
+
+}
