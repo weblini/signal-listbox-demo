@@ -20,10 +20,9 @@
       [orientation]="orientation()"
       (orientationChange)="logOrientationChange($event)"
       (valueChange)="logValueChange($event)">
-    <jm-option value="onion">Onion</jm-option>
-    <jm-option value="tomato">Tomato</jm-option>
-    <jm-option value="garlic">Garlic</jm-option>
-    <jm-option value="pepper">Pepper</jm-option>
+      @for (vegetable of availableVegetables; track vegetable.id) {
+        <jm-option [value]='vegetable.name'>{{vegetable.name}}</jm-option>
+      }
   </jm-listbox>
 
   <hr>
