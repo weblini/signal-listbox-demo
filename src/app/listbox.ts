@@ -19,11 +19,11 @@ export type Orientation = 'vertical' | 'horizontal';
     'role': 'listbox',
     '[tabIndex]': 'disabled() || activeOption() ? -1 : 0',
     '(focus)': 'activateOption()',
+    '[style.flex-direction]': 'orientationStyle()'
   },
   styles: `
     :host {
       display: flex;
-      flex-direction: column;
       border: 1px solid black;
       padding: 4px;
     }
@@ -42,6 +42,8 @@ export class Listbox<T> {
   activeOption = signal<Option<T> | undefined>(undefined);
 
   readonly orientationChange = output<Orientation>();
+
+  protected readonly orientationStyle = computed(() => this.orientation() === 'horizontal' ? 'row' : 'column')
 
   constructor() {
     effect(() => {
@@ -89,6 +91,7 @@ export class Listbox<T> {
       margin: 4px;
       padding: 4px;
       cursor: pointer;
+      min-width: 8rem;
     }
     
     :host[aria-disabled="true"] {
