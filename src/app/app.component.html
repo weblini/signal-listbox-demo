@@ -21,7 +21,7 @@
       (orientationChange)="logOrientationChange($event)"
       (valueChange)="logValueChange($event)">
       @for (vegetable of availableVegetables; track vegetable.id) {
-        <jm-option [value]='vegetable.name'>{{vegetable.name}}</jm-option>
+        <jm-option [value]='vegetable'>{{vegetable.name}}</jm-option>
       }
   </jm-listbox>
 

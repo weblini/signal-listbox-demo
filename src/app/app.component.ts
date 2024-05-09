@@ -15,7 +15,7 @@ export class AppComponent {
 
   private vegetableService = inject(VegetablesService);
   protected readonly availableVegetables = this.vegetableService.getVegetables();
-  selectedToppings: string[] = [this.availableVegetables[0].name];
+  selectedToppings: string[] = [];
 
   protected orientation = signal<Orientation>('horizontal');
 
