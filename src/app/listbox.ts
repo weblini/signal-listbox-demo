@@ -26,6 +26,7 @@ export type Orientation = 'vertical' | 'horizontal';
       display: flex;
       border: 1px solid black;
       padding: 4px;
+      overflow-x: auto;
     }
     
     :host:focus {
