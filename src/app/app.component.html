@@ -11,7 +11,7 @@
   <hr>
 
   <jm-listbox #listbox
-      [(value)]="selectedTopping"
+      [(value)]="selectedToppings"
       [orientation]="orientation()"
       (orientationChange)="logOrientationChange($event)"
       (valueChange)="logValueChange($event)">
@@ -23,7 +23,7 @@
 
   <hr>
   <p>Listbox value: {{listbox.value()}}</p>
-  <p>selectedTopping: {{selectedTopping}}</p>
+  <p>selectedToppings: {{selectedToppings}}</p>
   <button type="button" (click)="toggleOrientation()">
     Change orientation
   </button>

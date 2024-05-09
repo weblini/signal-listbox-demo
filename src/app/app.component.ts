@@ -11,10 +11,10 @@ import {Listbox, Option, Orientation} from './listbox';
 })
 export class AppComponent {
   title = 'try-signals';
-  selectedTopping: string = 'onion';
+  selectedToppings: string[] = ['onion'];
   protected orientation = signal<Orientation>('horizontal');
 
-  logValueChange(newValue: string | undefined) {
+  logValueChange(newValue: string[]) {
     console.log(newValue);
   }
 

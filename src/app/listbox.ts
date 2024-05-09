@@ -18,7 +18,7 @@ export type Orientation = 'vertical' | 'horizontal';
   host: {
     'role': 'listbox',
     '[tabIndex]': 'disabled() || activeOption() ? -1 : 0',
-    '(focus)' : 'activateOption()',
+    '(focus)': 'activateOption()',
   },
   styles: `
     :host {
@@ -34,7 +34,7 @@ export type Orientation = 'vertical' | 'horizontal';
   `,
 })
 export class Listbox<T> {
-  readonly value = model<T>();
+  readonly value = model<T[]>([]);
   readonly disabled = input(false);
   readonly orientation = input<Orientation>('horizontal');
 
@@ -109,14 +109,23 @@ export class Option<T> {
   readonly disabled = input(false);
 
   protected readonly isDisabled =
-      computed(() => this.listbox.disabled() || this.disabled());
+    computed(() => this.listbox.disabled() || this.disabled());
   readonly isSelected =
-      computed(() => this.value() === this.listbox.value());
+    computed(() => this.listbox.value().includes(this.value()));
   readonly isActive = computed(() => this === this.listbox.activeOption());
 
   protected select() {
     if (!this.isDisabled()) {
-      this.listbox.value.set(this.value());
+      this.listbox.value.update(lastOptions => {
+        let newList = [...lastOptions]
+        let optionsIndex = lastOptions.findIndex(currentValue => currentValue === this.value());
+        if (optionsIndex > -1) {
+          newList.splice(optionsIndex, 1)
+        } else {
+          newList.push(this.value())
+        }
+        return newList
+      })
     }
   }
 }
