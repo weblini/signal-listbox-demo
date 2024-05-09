@@ -1,12 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Listbox, Option, Orientation } from './listbox';
-import { VegetablesService } from './vegetables.service';
+import { Vegetable, VegetablesService } from './vegetables.service';
+import { CardComponent } from './card/card.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Listbox, Option],
+  imports: [RouterOutlet, Listbox, Option, CardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -15,11 +16,11 @@ export class AppComponent {
 
   private vegetableService = inject(VegetablesService);
   protected readonly availableVegetables = this.vegetableService.getVegetables();
-  selectedToppings: string[] = [];
+  selectedToppings: Vegetable[] = [];
 
   protected orientation = signal<Orientation>('horizontal');
 
-  logValueChange(newValue: string[]) {
+  logValueChange(newValue: Vegetable[]) {
     console.log(newValue);
   }
 
