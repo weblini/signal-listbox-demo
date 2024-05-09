@@ -1,6 +1,7 @@
-import {Component, signal} from '@angular/core';
-import {RouterOutlet} from '@angular/router';
-import {Listbox, Option, Orientation} from './listbox';
+import { Component, inject, signal } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { Listbox, Option, Orientation } from './listbox';
+import { VegetablesService } from './vegetables.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +12,11 @@ import {Listbox, Option, Orientation} from './listbox';
 })
 export class AppComponent {
   title = 'try-signals';
-  selectedToppings: string[] = ['onion'];
+
+  private vegetableService = inject(VegetablesService);
+  protected readonly availableVegetables = this.vegetableService.getVegetables();
+  selectedToppings: string[] = [this.availableVegetables[0].name];
+
   protected orientation = signal<Orientation>('horizontal');
 
   logValueChange(newValue: string[]) {
@@ -24,8 +29,8 @@ export class AppComponent {
 
   toggleOrientation() {
     this.orientation.update(oldValue =>
-        oldValue === 'horizontal' ?
-            'vertical' :
-            'horizontal');
+      oldValue === 'horizontal' ?
+        'vertical' :
+        'horizontal');
   }
 }
