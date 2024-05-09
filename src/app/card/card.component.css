@@ -1,16 +1,16 @@
 :host {
-    padding: 1rem;
-    border-radius: 0.5rem;
-    display: block;
-    border: solid 1px;
-    margin: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  display: block;
+  border: solid 1px;
+  margin: 0.5rem;
 
-    .title {
-        font-weight: bold;
-        font-size: 1.25em;
-    }
+  .title {
+    font-weight: bold;
+    font-size: 1.25em;
+  }
 
-    p {
-        margin: 0;
-    }
+  p {
+    margin: 0;
+  }
 }
