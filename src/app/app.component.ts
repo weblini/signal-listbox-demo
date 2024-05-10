@@ -1,5 +1,5 @@
-import { Component, effect, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { Listbox, Option, Orientation } from './listbox';
 import { Vegetable, VegetablesService } from './vegetables.service';
 import { CardComponent } from './card/card.component';
@@ -20,27 +20,25 @@ export class AppComponent {
     this.vegetableService.getVegetables();
   protected selectedToppings: Vegetable[] = [];
 
-  private route = inject(ActivatedRoute);
   private router = inject(Router);
 
   protected orientation = signal<Orientation>('vertical');
 
   constructor() {
-    this.route.queryParamMap.subscribe((queryParams) => {
-      const currentIds = queryParams.get('ids')?.split(',') ?? [];
+    const searchParams = new URLSearchParams(window.location.search);
+    const currentIds = searchParams.get('ids')?.split(',') ?? [];
 
-      let selectionFromQuery: Vegetable[] = [];
-      for (const id of currentIds) {
-        const matchedVegetable = this.availableVegetables.find(
-          (vegetable) => vegetable.id === Number(id)
-        );
-        if (matchedVegetable) {
-          selectionFromQuery.push(matchedVegetable);
-        }
+    let selectionFromQuery: Vegetable[] = [];
+    for (const id of currentIds) {
+      const matchedVegetable = this.availableVegetables.find(
+        (vegetable) => vegetable.id === Number(id)
+      );
+      if (matchedVegetable) {
+        selectionFromQuery.push(matchedVegetable);
       }
+    }
 
-      this.selectedToppings = selectionFromQuery;
-    });
+    this.selectedToppings = selectionFromQuery;
   }
 
   updateQueryParams(newSelection: Vegetable[]) {
