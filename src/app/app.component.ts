@@ -27,7 +27,7 @@ export class AppComponent {
 
   constructor() {
     this.route.queryParamMap.subscribe((queryParams) => {
-      const currentIds = queryParams.getAll('ids');
+      const currentIds = queryParams.get('ids')?.split(',') ?? [];
 
       let selectionFromQuery: Vegetable[] = [];
       for (const id of currentIds) {
@@ -44,7 +44,7 @@ export class AppComponent {
   }
 
   updateQueryParams(newSelection: Vegetable[]) {
-    const newIds = newSelection.map((vegetable) => vegetable.id);
+    const newIds = newSelection.map((vegetable) => vegetable.id).join(',');
 
     this.router.navigate([], {
       queryParams: {
