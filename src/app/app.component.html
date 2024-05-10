@@ -1,11 +1,3 @@
-<style>
-  :host {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
-  }
-</style>
-
 <main>
   <h1>Hello, {{ title }}</h1>
 
@@ -20,7 +12,7 @@
     [(value)]="selectedToppings"
     [orientation]="orientation()"
     (orientationChange)="logOrientationChange($event)"
-    (valueChange)="logValueChange($event)"
+    (valueChange)="updateQueryParams($event)"
   >
     @for (vegetable of availableVegetables; track vegetable.id) {
     <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
