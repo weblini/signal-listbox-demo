@@ -1,11 +1,9 @@
 <main>
-  <h1>Hello, {{ title }}</h1>
+  <h1>Hello, {{ title }}!</h1>
 
-  <button type="button" (click)="toggleOrientation()">
-    Change orientation
+  <button type="button" (click)="toggleOrientation()" class="btn">
+    Change listbox orientation
   </button>
-
-  <hr />
 
   <jm-listbox
     #listbox
@@ -19,18 +17,17 @@
     }
   </jm-listbox>
 
-  <hr />
-
-  <h2>Your picks ({{selectedToppings.length}} items):</h2>
+  <h2>Your picks ({{ selectedToppings.length }} items):</h2>
   <div class="cards">
     @for (item of selectedToppings; track item.id) {
-      <app-card [title]="item.name" [description]="item.description" @myInsertRemoveTrigger/>
+    <app-card
+      [title]="item.name"
+      [description]="item.description"
+      @myInsertRemoveTrigger
+    />
     }
   </div>
-
-  <hr />
-  <p>Listbox value:</p>
-  <code><pre>{{ listbox.value() | json }}</pre></code>
 </main>
+<pre class="codesnippet"><code>{{ listbox.value() | json }}</code></pre>
 
 <router-outlet />
