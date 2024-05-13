@@ -8,8 +8,7 @@ import {
   trigger,
   style,
   animate,
-  transition,
-  state
+  transition
 } from '@angular/animations';
 
 @Component({
