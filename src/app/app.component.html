@@ -22,9 +22,11 @@
   <hr />
 
   <h2>Your picks ({{selectedToppings.length}} items):</h2>
-  @for (item of selectedToppings; track item.id) {
-  <app-card [title]="item.name" [description]="item.description" />
-  }
+  <div class="cards">
+    @for (item of selectedToppings; track item.id) {
+      <app-card [title]="item.name" [description]="item.description" @myInsertRemoveTrigger/>
+    }
+  </div>
 
   <hr />
   <p>Listbox value:</p>

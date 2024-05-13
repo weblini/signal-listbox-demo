@@ -7,3 +7,9 @@ pre {
       Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol";
 }
+
+.cards {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, 320px);
+}

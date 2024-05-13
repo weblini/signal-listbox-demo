@@ -4,6 +4,13 @@ import { Listbox, Option, Orientation } from './listbox';
 import { Vegetable, VegetablesService } from './vegetables.service';
 import { CardComponent } from './card/card.component';
 import { JsonPipe } from '@angular/common';
+import {
+  trigger,
+  style,
+  animate,
+  transition,
+  state
+} from '@angular/animations';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +18,12 @@ import { JsonPipe } from '@angular/common';
   imports: [RouterOutlet, Listbox, Option, CardComponent, JsonPipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  animations: [
+    trigger('myInsertRemoveTrigger', [
+      transition(':enter', [style({opacity: 0}), animate('200ms', style({opacity: 1}))]),
+      transition(':leave', [animate('200ms', style({opacity: 0}))]),
+    ]),
+  ],
 })
 export class AppComponent {
   title = 'try-signals';
