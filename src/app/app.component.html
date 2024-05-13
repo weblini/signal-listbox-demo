@@ -26,6 +26,9 @@
       @myInsertRemoveTrigger
     />
     }
+    @empty {
+      <p @offsetEnter class="info">Please select a vegetable from the listbox above.</p>
+    }
   </div>
 </main>
 <pre class="codesnippet"><code>{{ listbox.value() | json }}</code></pre>

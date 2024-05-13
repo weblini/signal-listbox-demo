@@ -35,4 +35,15 @@
     padding: 1rem;
     white-space: pre-wrap;
   }
+
+  .info {
+    display: block;
+    padding: 1rem 2rem;
+    background-color: #fff7f0;
+    border-radius: 1rem;
+    border: solid 4px #fbbe8f;
+    text-align: center;
+    color: #d65d00;
+    font-weight: bold;
+  }
 }
