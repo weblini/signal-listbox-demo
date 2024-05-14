@@ -1,0 +1,4 @@
+{
+  "/vegetables/search\\?q=:q": "/vegetables/?name=:q",
+  "/*": "/$1"
+}

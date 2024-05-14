@@ -30,6 +30,8 @@ import {
 export class AppComponent {
   title = 'try-signals';
 
+  private readonly URL_IDS_PARAM = 'ids';
+
   private vegetableService = inject(VegetablesService);
   protected readonly availableVegetables =
     this.vegetableService.getVegetables();
@@ -37,11 +39,11 @@ export class AppComponent {
 
   private router = inject(Router);
 
-  protected orientation = signal<Orientation>('vertical');
+  protected orientation = signal<Orientation>(Orientation.Vertical);
 
   constructor() {
     const searchParams = new URLSearchParams(window.location.search);
-    const currentIds = searchParams.get('ids')?.split(',') ?? [];
+    const currentIds = searchParams.get(this.URL_IDS_PARAM)?.split(',') ?? [];
 
     let selectionFromQuery: Vegetable[] = [];
     for (const id of currentIds) {
@@ -58,11 +60,10 @@ export class AppComponent {
 
   updateQueryParams(newSelection: Vegetable[]) {
     const newIds = newSelection.map((vegetable) => vegetable.id).join(',');
-
+    const queryParams = {[this.URL_IDS_PARAM]: newIds};
     this.router.navigate([], {
-      queryParams: {
-        ids: newIds,
-      },
+      queryParams,
+      replaceUrl: true,
     });
   }
 
@@ -72,7 +73,7 @@ export class AppComponent {
 
   toggleOrientation() {
     this.orientation.update((oldValue) =>
-      oldValue === 'horizontal' ? 'vertical' : 'horizontal'
+      oldValue === Orientation.Horizontal ? Orientation.Vertical : Orientation.Horizontal
     );
   }
 }
