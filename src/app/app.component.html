@@ -1,41 +1,36 @@
-<style>
-  :host {
-    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
-  }
-</style>
-
 <main>
-  <h1>Hello, {{ title }}</h1>
+  <h1>Hello, {{ title }}!</h1>
 
-  <button type="button" (click)="toggleOrientation()">
-    Change orientation
+  <button type="button" (click)="toggleOrientation()" class="btn">
+    Change listbox orientation
   </button>
-
-  <hr />
 
   <jm-listbox
     #listbox
     [(value)]="selectedToppings"
     [orientation]="orientation()"
     (orientationChange)="logOrientationChange($event)"
-    (valueChange)="logValueChange($event)"
+    (valueChange)="updateQueryParams($event)"
   >
     @for (vegetable of availableVegetables; track vegetable.id) {
     <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
     }
   </jm-listbox>
 
-  <hr />
-
-  <h2>Your picks ({{selectedToppings.length}} items):</h2>
-  @for (item of selectedToppings; track item.id) {
-  <app-card [title]="item.name" [description]="item.description" />
-  }
-
-  <hr />
-  <p>Listbox value: {{ listbox.value() }}</p>
+  <h2>Your picks ({{ selectedToppings.length }} items):</h2>
+  <div class="cards">
+    @for (item of selectedToppings; track item.id) {
+    <app-card
+      [title]="item.name"
+      [description]="item.description"
+      @myInsertRemoveTrigger
+    />
+    }
+    @empty {
+      <p @offsetEnter class="info">Please select a vegetable from the listbox above.</p>
+    }
+  </div>
 </main>
+<pre class="codesnippet"><code>{{ listbox.value() | json }}</code></pre>
 
 <router-outlet />

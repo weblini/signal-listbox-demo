@@ -1,9 +1,8 @@
 :host {
   padding: 1rem;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   display: block;
-  border: solid 1px;
-  margin: 0.5rem;
+  border: solid 4px #f7afd4;
 
   .title {
     font-weight: bold;
