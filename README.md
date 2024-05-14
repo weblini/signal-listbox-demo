@@ -25,3 +25,14 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+----------
+
+FAKE API
+
+```shell
+npm install -g json-server@v0
+cp -f api.init.json api.json
+json-server --watch api.json --routes api-routes-config.json --delay 1000
+```
