@@ -12,7 +12,10 @@ import {
   signal,
 } from '@angular/core';
 
-export type Orientation = 'vertical' | 'horizontal';
+export enum Orientation {
+  Vertical,
+  Horizontal,
+}
 
 @Component({
   selector: 'jm-listbox',
@@ -38,7 +41,7 @@ export type Orientation = 'vertical' | 'horizontal';
 export class Listbox<T> {
   readonly value = model<T[]>([]);
   readonly disabled = input(false);
-  readonly orientation = input<Orientation>('horizontal');
+  readonly orientation = input<Orientation>(Orientation.Horizontal);
 
   readonly options = contentChildren(Option);
   activeOption = signal<Option<T> | undefined>(undefined);
@@ -46,7 +49,7 @@ export class Listbox<T> {
   readonly orientationChange = output<Orientation>();
 
   protected readonly orientationStyle = computed(() =>
-    this.orientation() === 'horizontal' ? 'row' : 'column'
+    this.orientation() === Orientation.Horizontal ? 'row' : 'column'
   );
 
   constructor() {
@@ -137,13 +140,13 @@ export class Listbox<T> {
       border-radius: 2rem;
       overflow: hidden;
     }
-    
+
     :host[aria-disabled="true"] {
       color: lightgray;
       border-color: lightgray;
       cursor: default;
     }
-    
+
     :host:focus {
       outline: 3px dashed orange;
     }

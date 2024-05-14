@@ -39,7 +39,7 @@ export class AppComponent {
 
   private router = inject(Router);
 
-  protected orientation = signal<Orientation>('vertical');
+  protected orientation = signal<Orientation>(Orientation.Vertical);
 
   constructor() {
     const searchParams = new URLSearchParams(window.location.search);
@@ -73,7 +73,7 @@ export class AppComponent {
 
   toggleOrientation() {
     this.orientation.update((oldValue) =>
-      oldValue === 'horizontal' ? 'vertical' : 'horizontal'
+      oldValue === Orientation.Horizontal ? Orientation.Vertical : Orientation.Horizontal
     );
   }
 }
