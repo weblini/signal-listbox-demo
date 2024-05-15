@@ -37,8 +37,6 @@ import { retry, tap } from 'rxjs';
   ],
 })
 export class AppComponent {
-  title = 'try-signals';
-
   private readonly URL_IDS_PARAM = 'ids';
 
   private vegetableService = inject(VegetablesService);
