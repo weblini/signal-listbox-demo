@@ -12,8 +12,10 @@
     (orientationChange)="logOrientationChange($event)"
     (valueChange)="updateQueryParams($event)"
   >
-    @for (vegetable of availableVegetables; track vegetable.id) {
+    @for (vegetable of availableVegetables$ | async; track vegetable.id) {
     <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
+    } @empty {
+    <p>Loading availableVegetables...</p>
     }
   </jm-listbox>
 
@@ -25,9 +27,10 @@
       [description]="item.description"
       @myInsertRemoveTrigger
     />
-    }
-    @empty {
-      <p @offsetEnter class="info">Please select a vegetable from the listbox above.</p>
+    } @empty {
+    <p @offsetEnter class="info">
+      Please select a vegetable from the listbox above.
+    </p>
     }
   </div>
 </main>
