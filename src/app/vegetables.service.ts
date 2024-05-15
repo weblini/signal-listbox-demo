@@ -13,7 +13,7 @@ export interface Vegetable {
 export class VegetablesService {
   readonly #VEGETABLE_URL = 'http://localhost:3000/vegetables';
 
-  http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   getVegetables() {
     return this.http.get<Vegetable[]>(this.#VEGETABLE_URL);
