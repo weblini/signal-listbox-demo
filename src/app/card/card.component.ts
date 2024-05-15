@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 
-// TODO: animate cards enter/leave view
+// TODO: handle edit actions
 
 @Component({
   selector: 'app-card',

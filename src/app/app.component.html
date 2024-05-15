@@ -1,9 +1,7 @@
 <main>
   <h1>Hello, {{ title }}!</h1>
 
-  <button type="button" (click)="toggleOrientation()" class="btn">
-    Change listbox orientation
-  </button>
+  <p>Select vegetables to inspect and edit them:</p>
 
   <jm-listbox
     #listbox
@@ -12,10 +10,19 @@
     (orientationChange)="logOrientationChange($event)"
     (valueChange)="updateQueryParams($event)"
   >
-    @for (vegetable of availableVegetables; track vegetable.id) {
+    @for (vegetable of availableVegetables$ | async; track vegetable.id) {
     <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
+    } @empty {
+    <div class="info wide">
+      <span class="loader"></span>
+      <p>Loading available vegetables</p>
+    </div>
     }
   </jm-listbox>
+
+  <button type="button" (click)="toggleOrientation()" class="btn">
+    Change listbox orientation
+  </button>
 
   <h2>Your picks ({{ selectedToppings.length }} items):</h2>
   <div class="cards">
@@ -25,11 +32,13 @@
       [description]="item.description"
       @myInsertRemoveTrigger
     />
-    }
-    @empty {
-      <p @offsetEnter class="info">Please select a vegetable from the listbox above.</p>
+    } @empty {
+    <p @offsetEnter class="info">
+      Please select a vegetable from the listbox above.
+    </p>
     }
   </div>
+  <button class="btn" type="button">Add vegetable</button>
 </main>
 <pre class="codesnippet"><code>{{ listbox.value() | json }}</code></pre>
 
