@@ -13,7 +13,10 @@
     @for (vegetable of availableVegetables$ | async; track vegetable.id) {
     <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
     } @empty {
-    <p>Loading availableVegetables...</p>
+    <div class="info wide">
+      <span class="loader"></span>
+      <p>Loading available vegetables</p>
+    </div>
     }
   </jm-listbox>
 

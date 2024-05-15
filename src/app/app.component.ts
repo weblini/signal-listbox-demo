@@ -5,7 +5,7 @@ import { Vegetable, VegetablesService } from './vegetables.service';
 import { CardComponent } from './card/card.component';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
-import { tap } from 'rxjs';
+import { retry, tap } from 'rxjs';
 
 // TODO: add signalstore to hold app state and talk to the data service
 
@@ -54,8 +54,9 @@ export class AppComponent {
     const currentIds = searchParams.get(this.URL_IDS_PARAM)?.split(',') ?? [];
 
     this.availableVegetables$ = this.vegetableService.getVegetables().pipe(
+      // TODO: handle http error
+      retry(1),
       tap((newVegetables) => {
-        console.log(newVegetables);
         this.selectedToppings =
           newVegetables?.filter((v) => currentIds.includes(v.id.toString())) ||
           [];

@@ -7,8 +7,6 @@ export interface Vegetable {
   description: string;
 }
 
-// TODO: Call API to get available vegetables
-
 @Injectable({
   providedIn: 'root',
 })
