@@ -5,8 +5,8 @@ import { Vegetable, VegetablesService } from './vegetables.service';
 import { CardComponent } from './card/card.component';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { tap } from 'rxjs';
 
-// TODO: create service that talks directly to API to handle application state
 // TODO: add signalstore to hold app state and talk to the data service
 
 @Component({
@@ -42,21 +42,25 @@ export class AppComponent {
   private readonly URL_IDS_PARAM = 'ids';
 
   private vegetableService = inject(VegetablesService);
-  protected readonly availableVegetables$ =
-    this.vegetableService.getVegetables();
+  protected readonly availableVegetables$;
   protected selectedToppings: Vegetable[] = [];
 
   private router = inject(Router);
 
-  protected orientation = signal<Orientation>(Orientation.Vertical);
+  protected orientation = signal<Orientation>(Orientation.Horizontal);
 
   constructor() {
     const searchParams = new URLSearchParams(window.location.search);
     const currentIds = searchParams.get(this.URL_IDS_PARAM)?.split(',') ?? [];
 
-    // this.selectedToppings = this.availableVegetables$.filter((v) =>
-    //   currentIds.includes(v.id.toString())
-    // );
+    this.availableVegetables$ = this.vegetableService.getVegetables().pipe(
+      tap((newVegetables) => {
+        console.log(newVegetables);
+        this.selectedToppings =
+          newVegetables?.filter((v) => currentIds.includes(v.id.toString())) ||
+          [];
+      })
+    );
   }
 
   updateQueryParams(newSelection: Vegetable[]) {

@@ -1,9 +1,7 @@
 <main>
   <h1>Hello, {{ title }}!</h1>
 
-  <button type="button" (click)="toggleOrientation()" class="btn">
-    Change listbox orientation
-  </button>
+  <p>Select vegetables to inspect and edit them:</p>
 
   <jm-listbox
     #listbox
@@ -19,6 +17,10 @@
     }
   </jm-listbox>
 
+  <button type="button" (click)="toggleOrientation()" class="btn">
+    Change listbox orientation
+  </button>
+
   <h2>Your picks ({{ selectedToppings.length }} items):</h2>
   <div class="cards">
     @for (item of selectedToppings; track item.id) {
@@ -33,6 +35,7 @@
     </p>
     }
   </div>
+  <button class="btn" type="button">Add vegetable</button>
 </main>
 <pre class="codesnippet"><code>{{ listbox.value() | json }}</code></pre>
 
