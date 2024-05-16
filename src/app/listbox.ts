@@ -62,6 +62,10 @@ export class Listbox<T> {
   }
 
   navigate(event: KeyboardEvent) {
+    if (event.key.startsWith('Arrow')) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
     switch (event.key) {
       case 'ArrowLeft':
       case 'ArrowUp':
@@ -101,9 +105,11 @@ export class Listbox<T> {
 @Component({
   selector: 'jm-option',
   template: `
-    <ng-content />
+    <ng-content/>
 
-    @if (isSelected()) { <span class="marker" @jumpIn>✓</span> }
+    @if (isSelected()) {
+      <span class="marker" @jumpIn>✓</span>
+    }
   `,
   standalone: true,
   animations: [
@@ -123,7 +129,7 @@ export class Listbox<T> {
     '[attr.aria-selected]': 'isSelected()',
     '[tabIndex]': 'isActive() ? 0 : -1',
     '(click)': 'select()',
-    '(keydown.space)': 'select()',
+    '(keydown.space)': 'select();$event.preventDefault();$event.stopPropagation();',
   },
   styles: `
     :host {

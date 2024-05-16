@@ -16,7 +16,7 @@ export class VegetablesService {
     'Content-Type': 'application/json',
   });
 
-  http = inject(HttpClient);
+  private readonly http = inject(HttpClient);
 
   // TODO: handle errors
 

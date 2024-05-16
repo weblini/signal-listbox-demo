@@ -1,11 +1,11 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, inject, Signal, signal, WritableSignal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Listbox, Option, Orientation } from './listbox';
 import { Vegetable, VegetablesService } from './vegetables.service';
 import { CardComponent } from './card/card.component';
 import { AsyncPipe, JsonPipe } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
-import { retry, tap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 // TODO: add signalstore to hold app state and talk to the data service
 
@@ -37,31 +37,29 @@ import { retry, tap } from 'rxjs';
   ],
 })
 export class AppComponent {
-  title = 'try-signals';
-
   private readonly URL_IDS_PARAM = 'ids';
+  private readonly router: Router = inject(Router);
+  private readonly vegetableService: VegetablesService = inject(VegetablesService);
 
-  private vegetableService = inject(VegetablesService);
-  protected readonly availableVegetables$;
-  protected selectedToppings: Vegetable[] = [];
-
-  private router = inject(Router);
+  protected readonly availableVegetables: Signal<Vegetable[] | undefined> = toSignal(this.vegetableService.getVegetables());
+  protected readonly selectedToppings: WritableSignal<Vegetable[]> = signal([]);
 
   protected orientation = signal<Orientation>(Orientation.Horizontal);
 
   constructor() {
-    const searchParams = new URLSearchParams(window.location.search);
-    const currentIds = searchParams.get(this.URL_IDS_PARAM)?.split(',') ?? [];
+    this.selectToppingsFromUrlAfterDataLoaded();
+  }
 
-    this.availableVegetables$ = this.vegetableService.getVegetables().pipe(
-      // TODO: handle http error
-      retry(1),
-      tap((newVegetables) => {
-        this.selectedToppings =
-          newVegetables?.filter((v) => currentIds.includes(v.id.toString())) ||
-          [];
-      })
-    );
+  private selectToppingsFromUrlAfterDataLoaded() {
+    effect(() => {
+      const availableVegetables = this.availableVegetables();
+      if (availableVegetables?.length) {
+        const searchParams = new URLSearchParams(window.location.search);
+        const currentIds = searchParams.get(this.URL_IDS_PARAM)?.split(',') ?? [];
+        const currentVegetables = availableVegetables.filter(v => currentIds.includes(v.id.toString()));
+        this.selectedToppings.set(currentVegetables);
+      }
+    }, {allowSignalWrites: true});
   }
 
   updateQueryParams(newSelection: Vegetable[]) {

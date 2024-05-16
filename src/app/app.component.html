@@ -1,6 +1,4 @@
 <main>
-  <h1>Hello, {{ title }}!</h1>
-
   <p>Select vegetables to inspect and edit them:</p>
 
   <jm-listbox
@@ -10,7 +8,7 @@
     (orientationChange)="logOrientationChange($event)"
     (valueChange)="updateQueryParams($event)"
   >
-    @for (vegetable of availableVegetables$ | async; track vegetable.id) {
+    @for (vegetable of availableVegetables(); track vegetable.id) {
     <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
     } @empty {
     <div class="info wide">
@@ -24,9 +22,9 @@
     Change listbox orientation
   </button>
 
-  <h2>Your picks ({{ selectedToppings.length }} items):</h2>
+  <h2>Your picks ({{ selectedToppings().length }} items):</h2>
   <div class="cards">
-    @for (item of selectedToppings; track item.id) {
+    @for (item of selectedToppings(); track item.id) {
     <app-card
       [title]="item.name"
       [description]="item.description"
