@@ -12,8 +12,9 @@ import { CardComponent } from './card/card.component';
 import { JsonPipe } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { finalize, tap } from 'rxjs';
+import { finalize } from 'rxjs';
 import { VegetableFormComponent } from './vegetable-form/vegetable-form.component';
+import { AddVegetableBtnComponent } from './add-vegetable-btn/add-vegetable-btn.component';
 
 // TODO: add signalstore to hold app state and talk to the data service
 
@@ -27,6 +28,7 @@ import { VegetableFormComponent } from './vegetable-form/vegetable-form.componen
     CardComponent,
     JsonPipe,
     VegetableFormComponent,
+    AddVegetableBtnComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -66,7 +68,7 @@ export class AppComponent {
 
   protected orientation = signal<Orientation>(Orientation.Horizontal);
 
-  protected readonly loading = signal(false);
+  protected readonly loading = signal(true);
   protected readonly deleting = new Set<number>();
 
   constructor() {
@@ -118,7 +120,6 @@ export class AppComponent {
       .getVegetables()
       .pipe(
         takeUntilDestroyed(),
-        tap(() => this.loading.set(true)),
         finalize(() => this.loading.set(false))
       )
       .subscribe({
