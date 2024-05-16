@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import {Component, input, output} from '@angular/core';
 
 // TODO: handle edit actions
 
@@ -12,4 +12,6 @@ import { Component, input } from '@angular/core';
 export class CardComponent {
   readonly title = input.required<string>();
   readonly description = input.required<string>();
+
+  delete = output<void>()
 }
