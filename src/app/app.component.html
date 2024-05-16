@@ -9,7 +9,7 @@
     (valueChange)="updateQueryParams($event)"
   >
     @for (vegetable of availableVegetables(); track vegetable.id) {
-    <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
+    <jm-option [value]="vegetable" [disabled]="!vegetable.id">{{ vegetable.name }}</jm-option>
     } @empty {
     <div class="info wide">
       <span class="loader"></span>
@@ -23,12 +23,16 @@
   </button>
 
   <h2>Your picks ({{ selectedToppings().length }} items):</h2>
+  @if (deleting.size) {
+    <h4>Deleting: {{deleting.size}}</h4>
+  }
   <div class="cards">
     @for (item of selectedToppings(); track item.id) {
     <app-card
       [title]="item.name"
       [description]="item.description"
       @myInsertRemoveTrigger
+      (delete)="onDelete(item)"
     />
     } @empty {
     <p @offsetEnter class="info">
