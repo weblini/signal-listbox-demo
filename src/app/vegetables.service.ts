@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 
 export interface Vegetable {
-  id: number;
+  id?: number;
   name: string;
   description: string;
 }
@@ -28,11 +28,11 @@ export class VegetablesService {
     return this.http.delete<Vegetable>(this.#VEGETABLE_URL + '/' + id);
   }
 
-  saveVegetable(vegetable: Partial<Vegetable>) {
-    return vegetable.id ? this.#updateVegetable(vegetable as Vegetable) : this.#addVegetable(vegetable)
+  saveVegetable(vegetable: Vegetable) {
+    return vegetable.id ? this.#updateVegetable(vegetable) : this.#addVegetable(vegetable)
   }
 
-  #addVegetable(newVegetable: Partial<Vegetable>) {
+  #addVegetable(newVegetable: Vegetable) {
     return this.http.post<Vegetable>(this.#VEGETABLE_URL, newVegetable, {
       headers: this.#JSON_HEADERS,
       observe: 'response',

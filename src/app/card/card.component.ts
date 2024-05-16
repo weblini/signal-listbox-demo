@@ -12,7 +12,7 @@ export class CardComponent {
   readonly title = input.required<string>();
   readonly description = input.required<string>();
 
-  isEditMode = input(false);
+  readonly isEditMode = input(false);
 
   delete = output<void>();
   edit = output<void>();

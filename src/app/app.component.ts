@@ -28,7 +28,7 @@ import { AddVegetableBtnComponent } from './add-vegetable-btn/add-vegetable-btn.
     CardComponent,
     JsonPipe,
     VegetableFormComponent,
-    AddVegetableBtnComponent
+    AddVegetableBtnComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -59,9 +59,9 @@ export class AppComponent {
   private readonly vegetableService: VegetablesService =
     inject(VegetablesService);
 
-  protected readonly availableVegetables: WritableSignal<
-    Vegetable[] | undefined
-  > = signal([]);
+  protected readonly availableVegetables: WritableSignal<Vegetable[]> = signal(
+    []
+  );
   protected readonly selectedToppings: WritableSignal<Vegetable[]> = signal([]);
 
   protected readonly currentlyEditedId = signal(0);
@@ -84,8 +84,8 @@ export class AppComponent {
           const searchParams = new URLSearchParams(window.location.search);
           const currentIds =
             searchParams.get(this.URL_IDS_PARAM)?.split(',') ?? [];
-          const currentVegetables = availableVegetables.filter((v) =>
-            currentIds.includes(v.id.toString())
+          const currentVegetables = availableVegetables.filter(
+            (v) => v.id && currentIds.includes(v.id.toString())
           );
           this.selectedToppings.set(currentVegetables);
         }
@@ -104,7 +104,7 @@ export class AppComponent {
   }
 
   logOrientationChange(newOrientation: Orientation) {
-    console.log(newOrientation);
+    console.log('Current orientation is: ', newOrientation);
   }
 
   toggleOrientation() {
@@ -133,14 +133,14 @@ export class AppComponent {
       if (index > -1) {
         data.splice(index, 1);
       }
-      return data;
+      return [...data];
     });
   }
   private removeFromAvailableByIndex(index: number): void {
     if (index > -1) {
       this.availableVegetables.update((data) => {
         data?.splice(index, 1);
-        return data;
+        return [...data];
       });
     }
   }
@@ -148,29 +148,68 @@ export class AppComponent {
     if (index > -1) {
       this.availableVegetables.update((data) => {
         data?.splice(index, 0, v);
-        return data;
+        return [...data];
       });
     }
   }
 
-  onDelete(v: Vegetable) {
-    const id = v.id;
-    let oldIndex: number = this.availableVegetables()?.indexOf(v) || -1;
-    this.deleting.add(id);
-    this.removeFromAvailableByIndex(oldIndex);
-    this.removeFromSelected(v);
-    this.vegetableService
-      .deleteVegetable(v.id)
-      .pipe(finalize(() => this.deleting.delete(id)))
-      .subscribe({
-        error: (err) => {
-          console.error(`Error while deleting vegetable "${v.name}" : `, err);
-          this.addToPreviousIndex(oldIndex, v);
-        },
+  private updateOrAddVegetable(index: number, v: Vegetable): void {
+    if (index > -1) {
+      this.availableVegetables.update((data) => {
+        data?.splice(index, 1, v);
+        return [...data];
       });
+    } else {
+      this.availableVegetables.update((items) => [...items, v]);
+    }
+  }
+
+  onDelete(v: Vegetable) {
+    if (v.id) {
+      const id = v.id;
+      let oldIndex: number = this.availableVegetables()?.indexOf(v) || -1;
+      this.deleting.add(id);
+      this.removeFromAvailableByIndex(oldIndex);
+      this.removeFromSelected(v);
+      this.vegetableService
+        .deleteVegetable(id)
+        .pipe(finalize(() => this.deleting.delete(id)))
+        .subscribe({
+          error: (err) => {
+            console.error(`Error while deleting vegetable "${v.name}" : `, err);
+            this.addToPreviousIndex(oldIndex, v);
+          },
+        });
+    }
   }
 
   onToggleEdit(id: number) {
     this.currentlyEditedId.update((currentId) => (currentId === id ? 0 : id));
+  }
+
+  onSave(v: Vegetable, id?: number) {
+    this.currentlyEditedId.set(0);
+    const vegetable = { ...v, id };
+    const oldIndex =
+      this.availableVegetables()?.findIndex((item) => vegetable.id && item.id === vegetable.id) || -1;
+    this.updateOrAddVegetable(oldIndex, vegetable);
+    this.vegetableService.saveVegetable(vegetable).subscribe({
+      next: (res) => {
+        if (!id && res.body?.id) {
+          this.availableVegetables.update((data) => {
+            const index = data.findIndex(
+              (item) => item.name === vegetable.name
+            );
+            const newData = [...data];
+            newData[index].id = res.body?.id;
+            return newData;
+          });
+        }
+      },
+      error: (err) => {
+        console.log(`Failed to save vegetable ${vegetable}: `, err);
+        // TODO: Revert optimistic update
+      },
+    });
   }
 }

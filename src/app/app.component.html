@@ -41,9 +41,9 @@
       [isEditMode]="currentlyEditedId() === item.id"
       @myInsertRemoveTrigger
       (delete)="onDelete(item)"
-      (edit)="onToggleEdit(item.id)"
+      (edit)="onToggleEdit(item.id ?? 0)"
     >
-      <app-vegetable-form [name]="item.name" [description]="item.description" />
+      <app-vegetable-form [name]="item.name" [description]="item.description" (save)="onSave($event, item.id)"/>
     </app-card>
     }
     <app-add-vegetable-btn
