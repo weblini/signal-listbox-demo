@@ -28,15 +28,19 @@ export class VegetablesService {
     return this.http.delete<Vegetable>(this.#VEGETABLE_URL + '/' + id);
   }
 
-  addVegetable(newVegetable: Vegetable) {
+  saveVegetable(vegetable: Partial<Vegetable>) {
+    return vegetable.id ? this.#updateVegetable(vegetable as Vegetable) : this.#addVegetable(vegetable)
+  }
+
+  #addVegetable(newVegetable: Partial<Vegetable>) {
     return this.http.post<Vegetable>(this.#VEGETABLE_URL, newVegetable, {
       headers: this.#JSON_HEADERS,
       observe: 'response',
     });
   }
 
-  updateVegetable(newVegetable: Vegetable) {
-    return this.http.put<Vegetable>(this.#VEGETABLE_URL, newVegetable, {
+  #updateVegetable(vegetable: Vegetable) {
+    return this.http.put<Vegetable>(`${this.#VEGETABLE_URL}/${vegetable.id}`, vegetable, {
       headers: this.#JSON_HEADERS,
       observe: 'response',
     });

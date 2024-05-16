@@ -132,13 +132,13 @@ export class AppComponent {
     this.deleting.add(id);
     this.removeFromAvailableByIndex(oldIndex);
     this.removeFromSelected(v);
-    this.vegetableService.getVegetables()
+    this.vegetableService.deleteVegetable(v.id)
       .pipe(
         finalize(() => this.deleting.delete(id))
       )
       .subscribe({
         error: (err) => {
-          console.error('Error while deleting vegetables', err);
+          console.error(`Error while deleting vegetable "${v.name}" : `, err);
           this.addToPreviousIndex(oldIndex, v);
         },
       })
