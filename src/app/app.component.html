@@ -1,29 +1,31 @@
 <main>
   <p>Select vegetables to inspect and edit them:</p>
 
-  <jm-listbox
-    #listbox
-    [(value)]="selectedToppings"
-    [orientation]="orientation()"
-    (orientationChange)="logOrientationChange($event)"
-    (valueChange)="updateQueryParams($event)"
-  >
-    @for (vegetable of availableVegetables(); track vegetable.id) {
-    <jm-option [value]="vegetable" [disabled]="!vegetable.id">{{
-      vegetable.name
-    }}</jm-option>
-    } @empty {
+  @if(loading()) {
     <div class="info wide">
-      @if (loading()) {
-        <span class="loader"></span>
-        <p>Loading available vegetables</p>
-      } @else {
-        <p><em>Oh no!</em></p>
-        <p>It seems there are no available vegetables.</p>
-      }
+      <span class="loader"></span>
+      <p>Loading available vegetables</p>
     </div>
-    }
-  </jm-listbox>
+  } @else {
+    <jm-listbox
+      #listbox
+      [(value)]="selectedToppings"
+      [orientation]="orientation()"
+      (orientationChange)="logOrientationChange($event)"
+      (valueChange)="updateQueryParams($event)"
+    >
+      @for (vegetable of availableVegetables(); track vegetable.id) {
+        <jm-option [value]="vegetable" [disabled]="!vegetable.id">{{
+            vegetable.name
+          }}</jm-option>
+      } @empty {
+        <div class="info wide">
+          <p><em>Oh no!</em></p>
+          <p>It seems there are no available vegetables.</p>
+        </div>
+      }
+    </jm-listbox>
+  }
 
   <button type="button" (click)="toggleOrientation()" class="btn">
     Change listbox orientation
@@ -43,7 +45,10 @@
       (delete)="onDelete(item)"
       (edit)="onToggleEdit(item.id ?? 0)"
     >
-      <app-vegetable-form [name]="item.name" [description]="item.description" (save)="onSave($event, item.id)"/>
+      <app-vegetable-form
+        [vegetable]="item"
+        (save)="onSave($event, item.id)"
+      />
     </app-card>
     }
     <app-add-vegetable-btn
@@ -52,6 +57,8 @@
     />
   </div>
 </main>
-<pre class="codesnippet"><code>{{ listbox.value() | json }}</code></pre>
+@if(listBox()) {
+  <pre class="codesnippet"><code>{{ listBox()?.value() | json }}</code></pre>
+}
 
 <router-outlet />

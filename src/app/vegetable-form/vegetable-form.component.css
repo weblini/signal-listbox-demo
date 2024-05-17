@@ -5,8 +5,14 @@ form {
     label {
         display: block;
     }
-    
+
     input {
         padding: .3rem .6rem;
     }
+}
+.ng-invalid {
+  border-color: red;
+}
+small {
+  display: block;
 }

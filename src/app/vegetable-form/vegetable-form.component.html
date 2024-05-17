@@ -1,11 +1,27 @@
-<form [formGroup]="vegetableForm" (ngSubmit)="handleForm()">
+<form [formGroup]="vegetableForm()" (ngSubmit)="handleForm()">
   <label for="name">
     Name:
     <input type="text" id="name" formControlName="name" />
+    @if(vegetableName().errors; as errors) {
+      @if(errors['maxlength']; as maxlength) {
+        <small>Max length: {{maxNameLength}} and {{maxlength['actualLength']}} is used</small>
+      }
+      @if(errors['required']) {
+        <small>Please provide name</small>
+      }
+    }
   </label>
   <label for="description">
     Description:
     <input type="text" id="description" formControlName="description" />
+    @if(vegetableDescription().errors; as errors) {
+      @if(errors['maxlength']; as maxlength) {
+        <small>Max length: {{maxDescriptionLength}} and {{maxlength['actualLength']}} is used</small>
+      }
+      @if(errors['required']) {
+        <small>Please provide description</small>
+      }
+    }
   </label>
-  <button class="btn" type="submit" [disabled]="!vegetableForm.valid">Save</button>
+  <button class="btn" type="submit" [disabled]="!vegetableForm().valid">Save</button>
 </form>

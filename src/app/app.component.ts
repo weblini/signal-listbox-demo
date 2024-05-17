@@ -3,6 +3,7 @@ import {
   effect,
   inject,
   signal,
+  viewChild,
   WritableSignal,
 } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
@@ -58,6 +59,8 @@ export class AppComponent {
   private readonly router: Router = inject(Router);
   private readonly vegetableService: VegetablesService =
     inject(VegetablesService);
+
+  readonly listBox = viewChild<Listbox<Vegetable>>("listbox");
 
   protected readonly availableVegetables: WritableSignal<Vegetable[]> = signal(
     []
@@ -167,7 +170,7 @@ export class AppComponent {
   onDelete(v: Vegetable) {
     if (v.id) {
       const id = v.id;
-      let oldIndex: number = this.availableVegetables()?.indexOf(v) || -1;
+      let oldIndex: number = this.availableVegetables()?.indexOf(v) ?? -1;
       this.deleting.add(id);
       this.removeFromAvailableByIndex(oldIndex);
       this.removeFromSelected(v);
