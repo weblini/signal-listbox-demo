@@ -1,8 +1,11 @@
-<section>
-  <p class="title">{{title()}}</p>
-  <p>{{description()}}</p>
-</section>
+@if (isEditMode()) {
+<ng-content/>
+} @else {
+<p class="title">{{ title() }}</p>
+<p>{{ description() }}</p>
+}
+
 <div class="editBar">
-    <button type="button" class="btn">Edit</button>
-    <button type="button" class="btn" (click)="delete.emit()">Remove</button>
+  <button type="button" class="btn" (click)="edit.emit()">Edit</button>
+  <button type="button" class="btn" (click)="delete.emit()">Remove</button>
 </div>

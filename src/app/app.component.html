@@ -9,11 +9,18 @@
     (valueChange)="updateQueryParams($event)"
   >
     @for (vegetable of availableVegetables(); track vegetable.id) {
-    <jm-option [value]="vegetable" [disabled]="!vegetable.id">{{ vegetable.name }}</jm-option>
+    <jm-option [value]="vegetable" [disabled]="!vegetable.id">{{
+      vegetable.name
+    }}</jm-option>
     } @empty {
     <div class="info wide">
-      <span class="loader"></span>
-      <p>Loading available vegetables</p>
+      @if (loading()) {
+        <span class="loader"></span>
+        <p>Loading available vegetables</p>
+      } @else {
+        <p><em>Oh no!</em></p>
+        <p>It seems there are no available vegetables.</p>
+      }
     </div>
     }
   </jm-listbox>
@@ -24,23 +31,26 @@
 
   <h2>Your picks ({{ selectedToppings().length }} items):</h2>
   @if (deleting.size) {
-    <h4>Deleting: {{deleting.size}}</h4>
+  <h4>Deleting: {{ deleting.size }}</h4>
   }
   <div class="cards">
     @for (item of selectedToppings(); track item.id) {
     <app-card
       [title]="item.name"
       [description]="item.description"
+      [isEditMode]="currentlyEditedId() === item.id"
       @myInsertRemoveTrigger
       (delete)="onDelete(item)"
-    />
-    } @empty {
-    <p @offsetEnter class="info">
-      Please select a vegetable from the listbox above.
-    </p>
+      (edit)="onToggleEdit(item.id ?? 0)"
+    >
+      <app-vegetable-form [name]="item.name" [description]="item.description" (save)="onSave($event, item.id)"/>
+    </app-card>
     }
+    <app-add-vegetable-btn
+      (activate)="currentlyEditedId.set($event ? -1 : 0)"
+      [isActive]="currentlyEditedId() === -1"
+    />
   </div>
-  <button class="btn" type="button">Add vegetable</button>
 </main>
 <pre class="codesnippet"><code>{{ listbox.value() | json }}</code></pre>
 
