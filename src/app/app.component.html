@@ -45,7 +45,10 @@
       (delete)="onDelete(item)"
       (edit)="onToggleEdit(item.id ?? 0)"
     >
-      <app-vegetable-form [name]="item.name" [description]="item.description" (save)="onSave($event, item.id)"/>
+      <app-vegetable-form
+        [vegetable]="item"
+        (save)="onSave($event, item.id)"
+      />
     </app-card>
     }
     <app-add-vegetable-btn

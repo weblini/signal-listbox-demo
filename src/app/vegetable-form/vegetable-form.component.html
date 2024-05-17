@@ -1,4 +1,4 @@
-<form [formGroup]="vegetableForm" (ngSubmit)="handleForm()">
+<form [formGroup]="vegetableForm()" (ngSubmit)="handleForm()">
   <label for="name">
     Name:
     <input type="text" id="name" formControlName="name" />
@@ -7,5 +7,5 @@
     Description:
     <input type="text" id="description" formControlName="description" />
   </label>
-  <button class="btn" type="submit" [disabled]="!vegetableForm.valid">Save</button>
+  <button class="btn" type="submit" [disabled]="!vegetableForm().valid">Save</button>
 </form>
