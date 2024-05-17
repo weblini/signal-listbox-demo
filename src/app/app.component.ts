@@ -170,7 +170,7 @@ export class AppComponent {
   onDelete(v: Vegetable) {
     if (v.id) {
       const id = v.id;
-      let oldIndex: number = this.availableVegetables()?.indexOf(v) || -1;
+      let oldIndex: number = this.availableVegetables()?.indexOf(v) ?? -1;
       this.deleting.add(id);
       this.removeFromAvailableByIndex(oldIndex);
       this.removeFromSelected(v);
