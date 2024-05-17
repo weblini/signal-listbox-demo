@@ -13,9 +13,10 @@ import { CardComponent } from './card/card.component';
 import { JsonPipe } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { finalize } from 'rxjs';
+import { debounceTime, finalize } from 'rxjs';
 import { VegetableFormComponent } from './vegetable-form/vegetable-form.component';
 import { AddVegetableBtnComponent } from './add-vegetable-btn/add-vegetable-btn.component';
+import { VegetableEditorComponent } from './vegetable-editor/vegetable-editor.component';
 
 // TODO: add signalstore to hold app state and talk to the data service
 
@@ -30,6 +31,7 @@ import { AddVegetableBtnComponent } from './add-vegetable-btn/add-vegetable-btn.
     JsonPipe,
     VegetableFormComponent,
     AddVegetableBtnComponent,
+    VegetableEditorComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -60,19 +62,16 @@ export class AppComponent {
   private readonly vegetableService: VegetablesService =
     inject(VegetablesService);
 
-  readonly listBox = viewChild<Listbox<Vegetable>>("listbox");
+  readonly listBox = viewChild<Listbox<Vegetable>>('listbox');
 
   protected readonly availableVegetables: WritableSignal<Vegetable[]> = signal(
     []
   );
   protected readonly selectedToppings: WritableSignal<Vegetable[]> = signal([]);
 
-  protected readonly currentlyEditedId = signal(0);
-
   protected orientation = signal<Orientation>(Orientation.Horizontal);
 
   protected readonly loading = signal(true);
-  protected readonly deleting = new Set<number>();
 
   constructor() {
     this.selectToppingsFromUrlAfterDataLoaded();
@@ -130,89 +129,17 @@ export class AppComponent {
       });
   }
 
-  private removeFromSelected(v: Vegetable): void {
-    this.selectedToppings.update((data) => {
-      const index = data.indexOf(v);
-      if (index > -1) {
-        data.splice(index, 1);
-      }
-      return [...data];
-    });
-  }
-  private removeFromAvailableByIndex(index: number): void {
-    if (index > -1) {
-      this.availableVegetables.update((data) => {
-        data?.splice(index, 1);
-        return [...data];
+  protected reloadData() {
+    console.log(
+      'Load new data after successful server mutation in editor. Drop old requests and debounce?'
+    );
+    this.vegetableService
+      .getVegetables()
+      .pipe(
+        debounceTime(500)
+      )
+      .subscribe({
+        next: (data) => this.availableVegetables.set(data),
       });
-    }
-  }
-  private addToPreviousIndex(index: number, v: Vegetable): void {
-    if (index > -1) {
-      this.availableVegetables.update((data) => {
-        data?.splice(index, 0, v);
-        return [...data];
-      });
-    }
-  }
-
-  private updateOrAddVegetable(index: number, v: Vegetable): void {
-    if (index > -1) {
-      this.availableVegetables.update((data) => {
-        data?.splice(index, 1, v);
-        return [...data];
-      });
-    } else {
-      this.availableVegetables.update((items) => [...items, v]);
-    }
-  }
-
-  onDelete(v: Vegetable) {
-    if (v.id) {
-      const id = v.id;
-      let oldIndex: number = this.availableVegetables()?.indexOf(v) ?? -1;
-      this.deleting.add(id);
-      this.removeFromAvailableByIndex(oldIndex);
-      this.removeFromSelected(v);
-      this.vegetableService
-        .deleteVegetable(id)
-        .pipe(finalize(() => this.deleting.delete(id)))
-        .subscribe({
-          error: (err) => {
-            console.error(`Error while deleting vegetable "${v.name}" : `, err);
-            this.addToPreviousIndex(oldIndex, v);
-          },
-        });
-    }
-  }
-
-  onToggleEdit(id: number) {
-    this.currentlyEditedId.update((currentId) => (currentId === id ? 0 : id));
-  }
-
-  onSave(v: Vegetable, id?: number) {
-    this.currentlyEditedId.set(0);
-    const vegetable = { ...v, id };
-    const oldIndex =
-      this.availableVegetables()?.findIndex((item) => vegetable.id && item.id === vegetable.id) || -1;
-    this.updateOrAddVegetable(oldIndex, vegetable);
-    this.vegetableService.saveVegetable(vegetable).subscribe({
-      next: (res) => {
-        if (!id && res.body?.id) {
-          this.availableVegetables.update((data) => {
-            const index = data.findIndex(
-              (item) => item.name === vegetable.name
-            );
-            const newData = [...data];
-            newData[index].id = res.body?.id;
-            return newData;
-          });
-        }
-      },
-      error: (err) => {
-        console.log(`Failed to save vegetable ${vegetable}: `, err);
-        // TODO: Revert optimistic update
-      },
-    });
   }
 }

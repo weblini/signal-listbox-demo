@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 
 export interface Vegetable {
-  id?: number;
+  id: number;
   name: string;
   description: string;
 }

@@ -1,0 +1,36 @@
+@if (deletingIds.size) {
+<h4>Deleting: {{ deletingIds.size }}</h4>
+}
+
+@for (vegetable of vegetables(); track vegetable.id) {
+<article class="row" [class.deleting]="deletingIds.has(vegetable.id)">
+  <section class="details">
+    <h3>{{ vegetable.name }}</h3>
+    <p>{{ vegetable.description }}</p>
+  </section>
+  <section class="editBar">
+    <button
+      type="button"
+      class="btn"
+      (click)="onActivate(modal, vegetable)"
+      [disabled]="deletingIds.has(vegetable.id)"
+    >
+      Edit
+    </button>
+    <button
+      type="button"
+      class="btn"
+      (click)="onDelete(vegetable)"
+      [disabled]="deletingIds.has(vegetable.id)"
+    >
+      Remove
+    </button>
+  </section>
+</article>
+}
+<button class="btn" type="button" (click)="onActivate(modal)">Add vegetable</button>
+
+<dialog #modal>
+    <button class="btn" type="button" (click)="modal.close()">Cancel</button>
+    <app-vegetable-form [vegetable]="activeVegetable()" (save)="onSave($event, modal)"/>
+</dialog>

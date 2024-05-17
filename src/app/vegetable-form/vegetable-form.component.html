@@ -7,7 +7,7 @@
         <small>Max length: {{maxNameLength}} and {{maxlength['actualLength']}} is used</small>
       }
       @if(errors['required']) {
-        <small>Please provide name</small>
+        <small>Please provide a name</small>
       }
     }
   </label>
@@ -19,9 +19,10 @@
         <small>Max length: {{maxDescriptionLength}} and {{maxlength['actualLength']}} is used</small>
       }
       @if(errors['required']) {
-        <small>Please provide description</small>
+        <small>Please provide a description</small>
       }
     }
   </label>
-  <button class="btn" type="submit" [disabled]="!vegetableForm().valid">Save</button>
+  <button class="btn" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine">Save</button>
+  <small>Change any of the fields to save</small>
 </form>

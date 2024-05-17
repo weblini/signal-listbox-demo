@@ -13,6 +13,9 @@ form {
 .ng-invalid {
   border-color: red;
 }
+
 small {
   display: block;
+  color: #a60b0b;
+  font-weight: 600;
 }

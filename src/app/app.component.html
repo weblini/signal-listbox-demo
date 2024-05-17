@@ -1,64 +1,56 @@
 <main>
-  <p>Select vegetables to inspect and edit them:</p>
+  <h2>Edit vegetables:</h2>
+  <app-vegetable-editor
+    [vegetables]="availableVegetables()"
+    (dataChange)="reloadData()"
+  />
+
+  <p>Select vegetables to inspect them:</p>
 
   @if(loading()) {
-    <div class="info wide">
-      <span class="loader"></span>
-      <p>Loading available vegetables</p>
-    </div>
+  <div class="info">
+    <span class="loader"></span>
+    <p>Loading available vegetables</p>
+  </div>
   } @else {
-    <jm-listbox
-      #listbox
-      [(value)]="selectedToppings"
-      [orientation]="orientation()"
-      (orientationChange)="logOrientationChange($event)"
-      (valueChange)="updateQueryParams($event)"
-    >
-      @for (vegetable of availableVegetables(); track vegetable.id) {
-        <jm-option [value]="vegetable" [disabled]="!vegetable.id">{{
-            vegetable.name
-          }}</jm-option>
-      } @empty {
-        <div class="info wide">
-          <p><em>Oh no!</em></p>
-          <p>It seems there are no available vegetables.</p>
-        </div>
-      }
-    </jm-listbox>
-  }
-
+  <jm-listbox
+    #listbox
+    [(value)]="selectedToppings"
+    [orientation]="orientation()"
+    (orientationChange)="logOrientationChange($event)"
+    (valueChange)="updateQueryParams($event)"
+  >
+    @for (vegetable of availableVegetables(); track vegetable.id) {
+    <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
+    } @empty {
+    <div class="info wide">
+      <p><em>Oh no!</em></p>
+      <p>It seems there are no available vegetables.</p>
+    </div>
+    }
+  </jm-listbox>
+  @if (availableVegetables().length) {
   <button type="button" (click)="toggleOrientation()" class="btn">
     Change listbox orientation
   </button>
+  }
 
   <h2>Your picks ({{ selectedToppings().length }} items):</h2>
-  @if (deleting.size) {
-  <h4>Deleting: {{ deleting.size }}</h4>
-  }
   <div class="cards">
     @for (item of selectedToppings(); track item.id) {
     <app-card
       [title]="item.name"
       [description]="item.description"
-      [isEditMode]="currentlyEditedId() === item.id"
       @myInsertRemoveTrigger
-      (delete)="onDelete(item)"
-      (edit)="onToggleEdit(item.id ?? 0)"
-    >
-      <app-vegetable-form
-        [vegetable]="item"
-        (save)="onSave($event, item.id)"
-      />
-    </app-card>
-    }
-    <app-add-vegetable-btn
-      (activate)="currentlyEditedId.set($event ? -1 : 0)"
-      [isActive]="currentlyEditedId() === -1"
     />
+    }
   </div>
+  }
 </main>
+
 @if(listBox()) {
-  <pre class="codesnippet"><code>{{ listBox()?.value() | json }}</code></pre>
+<p>Items selected in the Listbox Component:</p>
+<pre class="codesnippet"><code>{{ listBox()?.value() | json }}</code></pre>
 }
 
 <router-outlet />

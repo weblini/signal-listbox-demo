@@ -1,11 +1,11 @@
-import {Component, computed, input, InputSignal, output} from '@angular/core';
+import { Component, computed, input, InputSignal, output } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import {Vegetable} from '../vegetables.service';
+import { Vegetable } from '../vegetables.service';
 
 @Component({
   selector: 'app-vegetable-form',
@@ -24,19 +24,26 @@ export class VegetableFormComponent {
   protected readonly vegetableForm = computed(() => {
     const v = this.vegetable();
     return this.createNewForm(v);
-  })
+  });
 
-  protected readonly vegetableName = computed(() => this.vegetableForm().get('name') as FormControl<string | null>);
-  protected readonly vegetableDescription = computed(() => this.vegetableForm().get('description') as FormControl<string | null>);
+  protected readonly vegetableName = computed(
+    () => this.vegetableForm().get('name') as FormControl<string | null>
+  );
+  protected readonly vegetableDescription = computed(
+    () => this.vegetableForm().get('description') as FormControl<string | null>
+  );
 
   protected createNewForm(v?: Vegetable): FormGroup<{
-    id: FormControl<number | null>,
-    name: FormControl<string | null>,
-    description: FormControl<string | null>,
+    id: FormControl<number | null>;
+    name: FormControl<string | null>;
+    description: FormControl<string | null>;
   }> {
     return new FormGroup({
       id: new FormControl(v?.id || null),
-      name: new FormControl(v?.name || null, [Validators.required, Validators.maxLength(this.maxNameLength)]),
+      name: new FormControl(v?.name || null, [
+        Validators.required,
+        Validators.maxLength(this.maxNameLength),
+      ]),
       description: new FormControl(v?.description || null, [
         Validators.required,
         Validators.maxLength(this.maxDescriptionLength),
