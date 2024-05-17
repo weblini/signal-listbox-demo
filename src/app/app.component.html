@@ -54,6 +54,8 @@
     />
   </div>
 </main>
-<pre class="codesnippet"><code>{{ listbox.value() | json }}</code></pre>
+@if(listBox()) {
+  <pre class="codesnippet"><code>{{ listBox()?.value() | json }}</code></pre>
+}
 
 <router-outlet />
