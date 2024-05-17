@@ -6,12 +6,11 @@ import {
   Validators,
 } from '@angular/forms';
 import {Vegetable} from '../vegetables.service';
-import {JsonPipe} from '@angular/common';
 
 @Component({
   selector: 'app-vegetable-form',
   standalone: true,
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule],
   templateUrl: './vegetable-form.component.html',
   styleUrl: './vegetable-form.component.css',
 })

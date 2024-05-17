@@ -3,8 +3,8 @@
     Name:
     <input type="text" id="name" formControlName="name" />
     @if(vegetableName().errors; as errors) {
-      @if(errors['maxlength']) {
-        <small>Max length: {{maxNameLength}}</small>
+      @if(errors['maxlength']; as maxlength) {
+        <small>Max length: {{maxNameLength}} and {{maxlength['actualLength']}} is used</small>
       }
       @if(errors['required']) {
         <small>Please provide name</small>
@@ -15,8 +15,8 @@
     Description:
     <input type="text" id="description" formControlName="description" />
     @if(vegetableDescription().errors; as errors) {
-      @if(errors['maxlength']) {
-        <small>Max length: {{maxDescriptionLength}}</small>
+      @if(errors['maxlength']; as maxlength) {
+        <small>Max length: {{maxDescriptionLength}} and {{maxlength['actualLength']}} is used</small>
       }
       @if(errors['required']) {
         <small>Please provide description</small>
