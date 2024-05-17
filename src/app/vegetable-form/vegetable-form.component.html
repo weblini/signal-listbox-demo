@@ -2,10 +2,26 @@
   <label for="name">
     Name:
     <input type="text" id="name" formControlName="name" />
+    @if(vegetableName().errors; as errors) {
+      @if(errors['maxlength']) {
+        <small>Max length: {{maxNameLength}}</small>
+      }
+      @if(errors['required']) {
+        <small>Please provide name</small>
+      }
+    }
   </label>
   <label for="description">
     Description:
     <input type="text" id="description" formControlName="description" />
+    @if(vegetableDescription().errors; as errors) {
+      @if(errors['maxlength']) {
+        <small>Max length: {{maxDescriptionLength}}</small>
+      }
+      @if(errors['required']) {
+        <small>Please provide description</small>
+      }
+    }
   </label>
   <button class="btn" type="submit" [disabled]="!vegetableForm().valid">Save</button>
 </form>
