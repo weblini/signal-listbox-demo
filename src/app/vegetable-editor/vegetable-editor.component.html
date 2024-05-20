@@ -1,6 +1,6 @@
 @if (deletingIds.size) {
 <h4>Deleting: {{ deletingIds.size }}</h4>
-} @for (vegetable of vegetables(); track vegetable.id) {
+} @for (vegetable of vegetableStore.vegetables(); track vegetable.id) {
 <article class="row" [class.deleting]="deletingIds.has(vegetable.id)">
   <section class="details">
     <h3>{{ vegetable.name }}</h3>

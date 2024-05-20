@@ -2,6 +2,7 @@ import { Component, inject, input, output, signal } from '@angular/core';
 import { Vegetable, VegetablesService } from '../vegetables.service';
 import { finalize } from 'rxjs';
 import { VegetableFormComponent } from '../vegetable-form/vegetable-form.component';
+import { VegetableStore } from '../vegetables.store';
 
 @Component({
   selector: 'app-vegetable-editor',
@@ -11,9 +12,9 @@ import { VegetableFormComponent } from '../vegetable-form/vegetable-form.compone
   styleUrl: './vegetable-editor.component.css',
 })
 export class VegetableEditorComponent {
+  protected readonly vegetableStore = inject(VegetableStore);
   private readonly vegetableService = inject(VegetablesService);
-  readonly vegetables = input<Vegetable[]>();
-
+  
   dataChange = output();
 
   protected readonly activeVegetable = signal<Vegetable | undefined>(undefined);

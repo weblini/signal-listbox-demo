@@ -14,12 +14,10 @@ import { CardComponent } from './card/card.component';
 import { JsonPipe } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { debounceTime, finalize, Subscription } from 'rxjs';
+import { finalize, Subscription } from 'rxjs';
 import { VegetableFormComponent } from './vegetable-form/vegetable-form.component';
-import { AddVegetableBtnComponent } from './add-vegetable-btn/add-vegetable-btn.component';
 import { VegetableEditorComponent } from './vegetable-editor/vegetable-editor.component';
-
-// TODO: add signalstore to hold app state and talk to the data service
+import { VegetableStore } from './vegetables.store';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +29,6 @@ import { VegetableEditorComponent } from './vegetable-editor/vegetable-editor.co
     CardComponent,
     JsonPipe,
     VegetableFormComponent,
-    AddVegetableBtnComponent,
     VegetableEditorComponent,
   ],
   templateUrl: './app.component.html',
@@ -60,25 +57,20 @@ import { VegetableEditorComponent } from './vegetable-editor/vegetable-editor.co
 export class AppComponent implements OnDestroy {
   private readonly URL_IDS_PARAM = 'ids';
   private readonly router: Router = inject(Router);
-  private readonly vegetableService: VegetablesService =
-    inject(VegetablesService);
+
+  protected readonly vegetableStore = inject(VegetableStore);
 
   readonly listBox = viewChild<Listbox<Vegetable>>('listbox');
 
-  protected readonly availableVegetables: WritableSignal<Vegetable[]> = signal(
-    []
-  );
   protected readonly selectedToppings: WritableSignal<Vegetable[]> = signal([]);
 
   protected orientation = signal<Orientation>(Orientation.Horizontal);
-
-  protected readonly loading = signal(true);
 
   private reloadSub: Subscription | undefined;
 
   constructor() {
     this.selectToppingsFromUrlAfterDataLoaded();
-    this.loadInitialData();
+    this.vegetableStore.loadAll();
   }
   ngOnDestroy(): void {
     this.reloadSub?.unsubscribe();
@@ -87,7 +79,7 @@ export class AppComponent implements OnDestroy {
   private selectToppingsFromUrlAfterDataLoaded() {
     effect(
       () => {
-        const availableVegetables = this.availableVegetables();
+        const availableVegetables = this.vegetableStore.vegetables();
         if (availableVegetables?.length) {
           const searchParams = new URLSearchParams(window.location.search);
           const currentIds =
@@ -121,29 +113,5 @@ export class AppComponent implements OnDestroy {
         ? Orientation.Vertical
         : Orientation.Horizontal
     );
-  }
-
-  private loadInitialData() {
-    this.vegetableService
-      .getVegetables()
-      .pipe(
-        takeUntilDestroyed(),
-        finalize(() => this.loading.set(false))
-      )
-      .subscribe({
-        next: (data) => this.availableVegetables.set(data),
-      });
-  }
-
-  protected reloadData() {
-    this.reloadSub?.unsubscribe();
-    console.log(
-      'Load new data after successful server mutation in editor. Drop old requests and debounce?'
-    );
-    this.reloadSub = this.vegetableService
-      .getVegetables()
-      .subscribe({
-        next: (data) => this.availableVegetables.set(data),
-      });
   }
 }

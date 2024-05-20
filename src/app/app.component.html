@@ -1,13 +1,12 @@
 <main>
   <h2>Edit vegetables:</h2>
   <app-vegetable-editor
-    [vegetables]="availableVegetables()"
-    (dataChange)="reloadData()"
+    (dataChange)="vegetableStore.loadAll()"
   />
 
   <p>Select vegetables to inspect them:</p>
 
-  @if(loading()) {
+  @if(vegetableStore.status() === 'loading') {
   <div class="info">
     <span class="loader"></span>
     <p>Loading available vegetables</p>
@@ -20,7 +19,7 @@
     (orientationChange)="logOrientationChange($event)"
     (valueChange)="updateQueryParams($event)"
   >
-    @for (vegetable of availableVegetables(); track vegetable.id) {
+    @for (vegetable of vegetableStore.vegetables(); track vegetable.id) {
     <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
     } @empty {
     <div class="info wide">
@@ -29,7 +28,7 @@
     </div>
     }
   </jm-listbox>
-  @if (availableVegetables().length) {
+  @if (vegetableStore.vegetables().length) {
   <button type="button" (click)="toggleOrientation()" class="btn">
     Change listbox orientation
   </button>
