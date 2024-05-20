@@ -2,6 +2,7 @@ import {
   Component,
   effect,
   inject,
+  OnDestroy,
   signal,
   viewChild,
   WritableSignal,
@@ -13,7 +14,7 @@ import { CardComponent } from './card/card.component';
 import { JsonPipe } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { debounceTime, finalize } from 'rxjs';
+import { debounceTime, finalize, Subscription } from 'rxjs';
 import { VegetableFormComponent } from './vegetable-form/vegetable-form.component';
 import { AddVegetableBtnComponent } from './add-vegetable-btn/add-vegetable-btn.component';
 import { VegetableEditorComponent } from './vegetable-editor/vegetable-editor.component';
@@ -56,7 +57,7 @@ import { VegetableEditorComponent } from './vegetable-editor/vegetable-editor.co
     ]),
   ],
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   private readonly URL_IDS_PARAM = 'ids';
   private readonly router: Router = inject(Router);
   private readonly vegetableService: VegetablesService =
@@ -73,9 +74,14 @@ export class AppComponent {
 
   protected readonly loading = signal(true);
 
+  private reloadSub: Subscription | undefined;
+
   constructor() {
     this.selectToppingsFromUrlAfterDataLoaded();
     this.loadInitialData();
+  }
+  ngOnDestroy(): void {
+    this.reloadSub?.unsubscribe();
   }
 
   private selectToppingsFromUrlAfterDataLoaded() {
@@ -130,14 +136,12 @@ export class AppComponent {
   }
 
   protected reloadData() {
+    this.reloadSub?.unsubscribe();
     console.log(
       'Load new data after successful server mutation in editor. Drop old requests and debounce?'
     );
-    this.vegetableService
+    this.reloadSub = this.vegetableService
       .getVegetables()
-      .pipe(
-        debounceTime(500)
-      )
       .subscribe({
         next: (data) => this.availableVegetables.set(data),
       });

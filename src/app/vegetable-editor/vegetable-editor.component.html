@@ -73,8 +73,10 @@
     </svg>
   </button>
   <h2>{{activeVegetable() ? "Edit vegetable" : "Create new vegetable"}}</h2>
-  <app-vegetable-form
+  @if (modal.open) {
+    <app-vegetable-form
     [vegetable]="activeVegetable()"
     (success)="onSuccess(modal)"
   />
+  }
 </dialog>
