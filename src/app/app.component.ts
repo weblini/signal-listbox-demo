@@ -9,12 +9,11 @@ import {
 } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Listbox, Option, Orientation } from './listbox';
-import { Vegetable, VegetablesService } from './vegetables.service';
+import { Vegetable } from './vegetables.service';
 import { CardComponent } from './card/card.component';
 import { JsonPipe } from '@angular/common';
 import { trigger, style, animate, transition } from '@angular/animations';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { finalize, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { VegetableFormComponent } from './vegetable-form/vegetable-form.component';
 import { VegetableEditorComponent } from './vegetable-editor/vegetable-editor.component';
 import { VegetableStore } from './vegetables.store';

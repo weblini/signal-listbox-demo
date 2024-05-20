@@ -6,7 +6,7 @@
 
   <p>Select vegetables to inspect them:</p>
 
-  @if(vegetableStore.status() === 'loading') {
+  @if(vegetableStore.isLoading()) {
   <div class="info">
     <span class="loader"></span>
     <p>Loading available vegetables</p>
