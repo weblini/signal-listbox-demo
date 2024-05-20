@@ -47,24 +47,8 @@ export class VegetableEditorComponent {
       });
   }
 
-  onSave(v: Vegetable, modal: HTMLDialogElement) {
-    this.vegetableService
-      .saveVegetable(v)
-      .pipe(
-        finalize(() => {
-          console.log(
-            'What do I do when onSave errors/responds/unsubscribes ?'
-          );
-          modal.close();
-        })
-      )
-      .subscribe({
-        next: (res) => {
-          this.dataChange.emit();
-        },
-        error: (err) => {
-          console.log(`Failed to save vegetable ${v.name}: `, err);
-        },
-      });
+  onSuccess(modal: HTMLDialogElement) {
+    this.dataChange.emit();
+    modal.close();
   }
 }

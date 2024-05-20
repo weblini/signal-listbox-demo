@@ -1,11 +1,20 @@
-import { Component, computed, input, InputSignal, output } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  InputSignal,
+  output,
+  signal,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Vegetable } from '../vegetables.service';
+import { Vegetable, VegetablesService } from '../vegetables.service';
+import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-vegetable-form',
@@ -15,11 +24,14 @@ import { Vegetable } from '../vegetables.service';
   styleUrl: './vegetable-form.component.css',
 })
 export class VegetableFormComponent {
+  private readonly vegetableService = inject(VegetablesService);
   readonly vegetable: InputSignal<Vegetable | undefined> = input<Vegetable>();
-  readonly save = output<Vegetable>();
+  readonly success = output();
 
   protected readonly maxNameLength = 14;
   protected readonly maxDescriptionLength = 88;
+
+  protected readonly formStatus = signal<'idle' | 'saving' | 'error'>('idle');
 
   protected readonly vegetableForm = computed(() => {
     const v = this.vegetable();
@@ -51,7 +63,28 @@ export class VegetableFormComponent {
     });
   }
 
-  handleForm() {
-    this.save.emit(this.vegetableForm().value as Vegetable);
+  resetForm() {
+    this.vegetableForm().reset();
+    this.formStatus.set('idle');
+  }
+
+  onSave() {
+    const v = this.vegetableForm().value as Vegetable;
+    this.formStatus.set('saving');
+    this.vegetableService
+      .saveVegetable(v)
+      .pipe(
+        retry(1)
+      )
+      .subscribe({
+        next: (res) => {
+          this.success.emit();
+          this.resetForm();
+        },
+        error: (err) => {
+          console.log(`Failed to save vegetable ${v.name}: `, err);
+          this.formStatus.set('error');
+        },
+      });
   }
 }

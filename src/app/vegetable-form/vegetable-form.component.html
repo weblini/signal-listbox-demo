@@ -1,4 +1,4 @@
-<form [formGroup]="vegetableForm()" (ngSubmit)="handleForm()">
+<form [formGroup]="vegetableForm()" (ngSubmit)="onSave()">
   <label for="name">
     Name:
     <input type="text" id="name" formControlName="name" autofocus />
@@ -23,8 +23,25 @@
       }
     }
   </label>
-  <button class="btn" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine">Save</button>
-  @if (vegetableForm().pristine && vegetable()) {
-    <small>Change any of the fields to save</small>
+
+  @switch (formStatus()) {
+    @case ('error') {
+      <p class="error"><strong>Oh no!</strong> Something went wrong. Please reload the page or try again later.</p>
+    }
+    @case ('saving') {
+      <button class="btn" type="submit" disabled>
+        <span class="loader"></span>
+        Saving
+      </button>
+    }
+    @default {
+      <button class="btn" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine">
+        Save
+      </button>
+  
+      @if (vegetableForm().pristine && vegetable()) {
+        <small>Change any of the fields to save</small>
+      }
+    }
   }
 </form>
