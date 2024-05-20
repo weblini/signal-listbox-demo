@@ -1,9 +1,24 @@
 :host {
+  --box-radius: 1rem;
+
   display: grid;
+  padding-bottom: 3rem;
+
+  article:first-child {
+    border-top-left-radius: var(--box-radius);
+    border-top-right-radius: var(--box-radius);
+  }
+
+  article:last-of-type {
+    border-bottom-left-radius: var(--box-radius);
+    border-bottom-right-radius: var(--box-radius);
+  }
 
   .row {
     display: flex;
-    gap: 2rem;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
 
     p,
     h3 {
@@ -11,7 +26,11 @@
     }
 
     &:nth-child(odd) {
-      background-color: #fef7f0;
+      background-color: #fff9f3;
+    }
+
+    &:nth-child(even) {
+      background-color: #fceddd;
     }
 
     &.deleting {
@@ -22,7 +41,27 @@
   .editBar {
     margin-left: auto;
     display: grid;
-    gap: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  > .btn {
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+
+  dialog {
+    border-radius: var(--box-radius);
+    border: none;
+    width: 500px;
+    max-width: 100vw;
+    position: relative;
+
+    .btn:first-of-type {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
   }
 }
 

@@ -1,0 +1,64 @@
+{
+  "vegetables": [
+    {
+      "id": 1,
+      "name": "Carrot",
+      "description": "A root vegetable, typically orange in color, that is crisp and sweet.",
+      "icon": "🥕"
+    },
+    {
+      "id": 2,
+      "name": "Broccoli",
+      "description": "A green vegetable with a tree-like structure, known for its high nutritional value.",
+      "icon": "🥦"
+    },
+    {
+      "id": 3,
+      "name": "Corn",
+      "description": "A yellow grain that grows on a cob, sweet and often eaten as a vegetable.",
+      "icon": "🌽"
+    },
+    {
+      "id": 4,
+      "name": "Tomato",
+      "description": "A red or yellow fruit that is commonly used as a vegetable in cooking, rich in vitamins.",
+      "icon": "🍅"
+    },
+    {
+      "id": 5,
+      "name": "Cucumber",
+      "description": "A long, green vegetable with a refreshing taste, often used in salads.",
+      "icon": "🥒"
+    },
+    {
+      "id": 6,
+      "name": "Pepper",
+      "description": "A colorful vegetable that comes in green, red, yellow, and orange varieties, known for its sweet flavor.",
+      "icon": "🌶️"
+    },
+    {
+      "id": 7,
+      "name": "Mushroom",
+      "description": "A type of fungi that is often used in cooking, known for its earthy flavor.",
+      "icon": "🍄"
+    },
+    {
+      "id": 8,
+      "name": "Leafy Green",
+      "description": "A general term for green leafy vegetables, such as lettuce, spinach, and kale.",
+      "icon": "🥬"
+    },
+    {
+      "id": 9,
+      "name": "Potato",
+      "description": "A starchy tuber that is a staple food in many cultures, versatile in cooking.",
+      "icon": "🥔"
+    },
+    {
+      "id": 10,
+      "name": "Garlic",
+      "description": "A bulbous plant with a strong flavor and aroma, used as a seasoning in many dishes.",
+      "icon": "🧄"
+    }
+  ]
+}

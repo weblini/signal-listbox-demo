@@ -1,11 +1,4 @@
-import {
-  Component,
-  inject,
-  input,
-  output,
-  signal,
-  viewChild,
-} from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { Vegetable, VegetablesService } from '../vegetables.service';
 import { finalize } from 'rxjs';
 import { VegetableFormComponent } from '../vegetable-form/vegetable-form.component';
@@ -26,7 +19,7 @@ export class VegetableEditorComponent {
   protected readonly activeVegetable = signal<Vegetable | undefined>(undefined);
   protected readonly deletingIds = new Set<number>();
 
-  onActivate(modal: HTMLDialogElement,v?: Vegetable) {
+  onActivate(modal: HTMLDialogElement, v?: Vegetable) {
     this.activeVegetable.set(v);
     modal.showModal();
   }
@@ -38,13 +31,14 @@ export class VegetableEditorComponent {
       .deleteVegetable(id)
       .pipe(
         finalize(() => {
-          console.log('What do I do when onDelete errors/responds/unsubscribes ?');
+          console.log(
+            'What do I do when onDelete errors/responds/unsubscribes ?'
+          );
           this.deletingIds.delete(id);
         })
       )
       .subscribe({
         next: (res) => {
-          // if success emit dataChange
           this.dataChange.emit();
         },
         error: (err) => {
@@ -58,13 +52,14 @@ export class VegetableEditorComponent {
       .saveVegetable(v)
       .pipe(
         finalize(() => {
-          console.log('What do I do when onSave errors/responds/unsubscribes ?');
+          console.log(
+            'What do I do when onSave errors/responds/unsubscribes ?'
+          );
           modal.close();
         })
       )
       .subscribe({
         next: (res) => {
-          // if success emit dataChange
           this.dataChange.emit();
         },
         error: (err) => {
