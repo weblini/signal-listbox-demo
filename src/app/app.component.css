@@ -31,33 +31,4 @@
     padding: 1rem;
     white-space: pre-wrap;
   }
-
-  .info {
-    display: flex;
-    padding: 1rem 2rem;
-    background-color: #fff7f0;
-    border-radius: 1rem;
-    border: solid 4px #feb53f;
-    text-align: center;
-    color: #e77f00;
-    font-weight: bold;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    p {
-      margin: 0;
-    }
-
-    &.wide {
-      width: 100%;
-    }
-
-    .loader {
-      --accent-color: #feb53f;
-      width: 50px;
-      height: 50px;
-      margin-bottom: 1rem;
-    }
-  }
 }

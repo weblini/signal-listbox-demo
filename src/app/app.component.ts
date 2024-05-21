@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 import { VegetableFormComponent } from './vegetable-form/vegetable-form.component';
 import { VegetableEditorComponent } from './vegetable-editor/vegetable-editor.component';
 import { VegetableStore } from './vegetables.store';
+import { ToasterComponent } from './toaster/toaster.component';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,7 @@ import { VegetableStore } from './vegetables.store';
     JsonPipe,
     VegetableFormComponent,
     VegetableEditorComponent,
+    ToasterComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

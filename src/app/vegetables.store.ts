@@ -48,7 +48,7 @@ export const VegetableStore = signalStore(
     isLoading: computed(
       () => status() === Status.Loading || saveStatus() === Status.Loading
     ),
-    isSubmitted: computed(() => saveStatus() !== Status.Idle),
+    isSubmitted: computed(() => saveStatus() === Status.Loading || saveStatus() === Status.Success),
   })),
   withMethods((store, vegetableService = inject(VegetablesService)) => ({
     loadAll: rxMethod<void>(
@@ -57,7 +57,7 @@ export const VegetableStore = signalStore(
         tap(() => patchState(store, { status: Status.Loading })),
         switchMap(() =>
           vegetableService.getVegetables().pipe(
-            retry(2),
+            retry(1),
             tapResponse({
               next: (vegetables) => {
                 patchState(store, { vegetables, status: Status.Idle });

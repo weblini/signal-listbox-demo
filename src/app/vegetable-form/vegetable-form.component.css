@@ -33,7 +33,7 @@ form {
   }
 }
 
-small {
+small, .error {
   display: block;
   color: #a60b32;
   font-weight: 600;

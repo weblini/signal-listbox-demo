@@ -45,6 +45,11 @@ body {
     opacity: 0.75;
   }
 
+  &.success {
+    background-color: rgb(176, 215, 21);
+    color: black;
+  }
+
   &.icon-btn {
     background-color: rgba(255, 186, 112, 0);
     width: 2rem;
@@ -78,5 +83,34 @@ body {
 @keyframes l13 {
   100% {
     transform: rotate(1turn);
+  }
+}
+
+.info {
+  display: flex;
+  padding: 1rem 2rem;
+  background-color: #fff7f0;
+  border-radius: 1rem;
+  border: solid 4px #feb53f;
+  text-align: center;
+  color: #e77f00;
+  font-weight: bold;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
+
+  &.wide {
+    width: 100%;
+  }
+
+  .loader {
+    --accent-color: #feb53f;
+    width: 50px;
+    height: 50px;
+    margin-bottom: 1rem;
   }
 }

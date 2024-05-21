@@ -1,0 +1,7 @@
+@if (vegetableStore.deletingIds().size; as count) {
+    <p class="toast">Currently deleting {{count}} vegetables</p>
+}
+
+@if (vegetableStore.status() === Status.Error) {
+    <p class="toast">An error occured while fetching vegetables {{":("}}</p>
+}
