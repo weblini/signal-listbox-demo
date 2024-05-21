@@ -5,7 +5,6 @@ import {
   input,
   InputSignal,
   output,
-  signal,
 } from '@angular/core';
 import {
   FormControl,
@@ -13,8 +12,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Vegetable, VegetablesService } from '../vegetables.service';
-import { retry } from 'rxjs';
+import { Vegetable } from '../vegetables.service';
+import { VegetableStore } from '../vegetables.store';
+import { Status } from '../vegetables.store';
 
 @Component({
   selector: 'app-vegetable-form',
@@ -24,14 +24,13 @@ import { retry } from 'rxjs';
   styleUrl: './vegetable-form.component.css',
 })
 export class VegetableFormComponent {
-  private readonly vegetableService = inject(VegetablesService);
+  protected readonly vegetableStore = inject(VegetableStore);
   readonly vegetable: InputSignal<Vegetable | undefined> = input<Vegetable>();
-  readonly success = output();
 
   protected readonly maxNameLength = 14;
   protected readonly maxDescriptionLength = 88;
 
-  protected readonly formStatus = signal<'idle' | 'saving' | 'error'>('idle');
+  Status = Status;
 
   protected readonly vegetableForm = computed(() => {
     const v = this.vegetable();
@@ -44,6 +43,10 @@ export class VegetableFormComponent {
   protected readonly vegetableDescription = computed(
     () => this.vegetableForm().get('description') as FormControl<string | null>
   );
+
+  constructor() {
+    this.vegetableStore.resetSave();
+  }
 
   protected createNewForm(v?: Vegetable): FormGroup<{
     id: FormControl<number | null>;
@@ -63,28 +66,8 @@ export class VegetableFormComponent {
     });
   }
 
-  resetForm() {
-    this.vegetableForm().reset();
-    this.formStatus.set('idle');
-  }
-
   onSave() {
-    const v = this.vegetableForm().value as Vegetable;
-    this.formStatus.set('saving');
-    this.vegetableService
-      .saveVegetable(v)
-      .pipe(
-        retry(1)
-      )
-      .subscribe({
-        next: (res) => {
-          this.success.emit();
-          this.resetForm();
-        },
-        error: (err) => {
-          console.log(`Failed to save vegetable ${v.name}: `, err);
-          this.formStatus.set('error');
-        },
-      });
+    const editedVegetable = this.vegetableForm().value as Vegetable;
+    this.vegetableStore.save(editedVegetable);
   }
 }

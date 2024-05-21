@@ -1,7 +1,7 @@
-@if (deletingIds.size) {
-<h4>Deleting: {{ deletingIds.size }}</h4>
+@if (vegetableStore.deletingIds().size) {
+<h4>Deleting: {{ vegetableStore.deletingIds().size }}</h4>
 } @for (vegetable of vegetableStore.vegetables(); track vegetable.id) {
-<article class="row" [class.deleting]="deletingIds.has(vegetable.id)">
+<article class="row" [class.deleting]="getIsDeleting(vegetable.id)">
   <section class="details">
     <h3>{{ vegetable.name }}</h3>
     <p>{{ vegetable.description }}</p>
@@ -11,7 +11,7 @@
       type="button"
       class="btn icon-btn"
       (click)="onActivate(modal, vegetable)"
-      [disabled]="deletingIds.has(vegetable.id)"
+      [disabled]="getIsDeleting(vegetable.id)"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -28,8 +28,8 @@
     <button
       type="button"
       class="btn icon-btn"
-      (click)="onDelete(vegetable)"
-      [disabled]="deletingIds.has(vegetable.id)"
+      (click)="vegetableStore.delete(vegetable.id)"
+      [disabled]="getIsDeleting(vegetable.id)"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -76,7 +76,6 @@
   @if (modal.open) {
     <app-vegetable-form
     [vegetable]="activeVegetable()"
-    (success)="onSuccess(modal)"
   />
   }
 </dialog>

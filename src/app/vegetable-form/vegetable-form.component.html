@@ -1,7 +1,7 @@
 <form [formGroup]="vegetableForm()" (ngSubmit)="onSave()">
   <label for="name">
     Name:
-    <input type="text" id="name" formControlName="name" autofocus />
+    <input type="text" id="name" formControlName="name" autofocus (disabled)="vegetableStore.isSaving()"/>
     @if(vegetableName().errors; as errors) {
       @if(errors['maxlength']; as maxlength) {
         <small>Max length: {{maxNameLength}} and {{maxlength['actualLength']}} is used</small>
@@ -13,7 +13,7 @@
   </label>
   <label for="description">
     Description:
-    <textarea type="text" id="description" formControlName="description" rows="3"></textarea>
+    <textarea type="text" id="description" formControlName="description" rows="3" (disabled)="vegetableStore.isSaving()"></textarea>
     @if(vegetableDescription().errors; as errors) {
       @if(errors['maxlength']; as maxlength) {
         <small>Max length: {{maxDescriptionLength}} and {{maxlength['actualLength']}} is used</small>
@@ -24,15 +24,21 @@
     }
   </label>
 
-  @switch (formStatus()) {
-    @case ('error') {
-      <p class="error"><strong>Oh no!</strong> Something went wrong. Please reload the page or try again later.</p>
+  @switch (vegetableStore.saveStatus()) {
+    @case (Status.Error) {
+      <p class="error"><strong>Oh no!</strong> Something went wrong.</p>
+      <button class="btn" type="submit" [disabled]="!vegetableForm().valid">
+        Try again
+      </button>
     }
-    @case ('saving') {
+    @case (Status.Loading) {
       <button class="btn" type="submit" disabled>
         <span class="loader"></span>
         Saving
       </button>
+    }
+    @case (Status.Success) {
+      <p>Vegetable saved!</p>
     }
     @default {
       <button class="btn" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine">
