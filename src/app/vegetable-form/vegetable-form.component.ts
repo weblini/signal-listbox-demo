@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  effect,
   inject,
   input,
   InputSignal,
@@ -46,6 +47,15 @@ export class VegetableFormComponent {
 
   constructor() {
     this.vegetableStore.resetSave();
+
+    effect(() => {
+      if (this.vegetableStore.isSubmitted()) {
+        this.vegetableForm().disable();
+      } else {
+        this.vegetableForm().enable();
+      }
+    });
+
   }
 
   protected createNewForm(v?: Vegetable): FormGroup<{

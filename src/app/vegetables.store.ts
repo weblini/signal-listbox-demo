@@ -48,7 +48,7 @@ export const VegetableStore = signalStore(
     isLoading: computed(
       () => status() === Status.Loading || saveStatus() === Status.Loading
     ),
-    isSaving: computed(() => saveStatus() !== Status.Idle),
+    isSubmitted: computed(() => saveStatus() !== Status.Idle),
   })),
   withMethods((store, vegetableService = inject(VegetablesService)) => ({
     loadAll: rxMethod<void>(
