@@ -4,7 +4,7 @@
   display: grid;
   padding-bottom: 3rem;
 
-  article:first-child {
+  article:first-of-type {
     border-top-left-radius: var(--box-radius);
     border-top-right-radius: var(--box-radius);
   }

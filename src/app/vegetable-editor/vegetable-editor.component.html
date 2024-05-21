@@ -1,7 +1,8 @@
-@if (vegetableStore.deletingIds().size) {
-<h4>Deleting: {{ vegetableStore.deletingIds().size }}</h4>
-} @for (vegetable of vegetableStore.vegetables(); track vegetable.id) {
-<article class="row" [class.deleting]="getIsDeleting(vegetable.id)">
+@for (vegetable of vegetableStore.vegetables(); track vegetable.id) {
+<article
+  class="row"
+  [class.deleting]="vegetableStore.deletingIds().has(vegetable.id)"
+>
   <section class="details">
     <h3>{{ vegetable.name }}</h3>
     <p>{{ vegetable.description }}</p>
@@ -11,7 +12,7 @@
       type="button"
       class="btn icon-btn"
       (click)="onActivate(modal, vegetable)"
-      [disabled]="getIsDeleting(vegetable.id)"
+      [disabled]="vegetableStore.deletingIds().has(vegetable.id)"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -29,7 +30,7 @@
       type="button"
       class="btn icon-btn"
       (click)="vegetableStore.delete(vegetable.id)"
-      [disabled]="getIsDeleting(vegetable.id)"
+      [disabled]="vegetableStore.deletingIds().has(vegetable.id)"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -72,10 +73,8 @@
       />
     </svg>
   </button>
-  <h2>{{activeVegetable() ? "Edit vegetable" : "Create new vegetable"}}</h2>
+  <h2>{{ activeVegetable() ? "Edit vegetable" : "Create new vegetable" }}</h2>
   @if (modal.open) {
-    <app-vegetable-form
-    [vegetable]="activeVegetable()"
-  />
+  <app-vegetable-form [vegetable]="activeVegetable()" />
   }
 </dialog>

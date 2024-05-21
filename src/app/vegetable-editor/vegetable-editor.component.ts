@@ -19,8 +19,4 @@ export class VegetableEditorComponent {
     this.activeVegetable.set(v);
     modal.showModal();
   }
-
-  getIsDeleting(id: number) {
-    this.vegetableStore.deletingIds().has(id);
-  }
 }

@@ -122,11 +122,14 @@ export const VegetableStore = signalStore(
                     const index = state.vegetables.findIndex(
                       (item) => item.id === v.id
                     );
-                    vegetables.splice(index, index >= 0 ? 1 : 0, newVegetable);
-                    vegetables = [...vegetables];
+                    if (index >= 0) {
+                      vegetables.splice(index, 1, newVegetable);
+                    } else {
+                      vegetables.push(newVegetable);
+                    }
                   }
                   return {
-                    vegetables,
+                    vegetables: [...vegetables],
                     saveStatus: Status.Success,
                   };
                 });
