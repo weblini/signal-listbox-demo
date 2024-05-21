@@ -1,18 +1,40 @@
 form {
-    display: grid;
-    gap: .5rem;
+  display: grid;
+  gap: 1rem;
 
-    label {
-        display: block;
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+  
+  input, textarea {
+    font: inherit;
+    padding: 1rem;
+    display: block;
+    border-radius: 0.5rem;
+    border: solid 2px rgb(132, 132, 132);
+    margin: .5rem 0;
+
+    &:focus {
+      outline: var(--outline);
     }
 
-    input {
-        padding: .3rem .6rem;
+    &.ng-invalid {
+      border-color: rgb(255, 0, 64);
     }
+  }
+
+  .btn[type="submit"] {
+    margin-top: 1rem;
+  }
 }
-.ng-invalid {
-  border-color: red;
-}
+
 small {
   display: block;
+  color: #a60b32;
+  font-weight: 600;
 }

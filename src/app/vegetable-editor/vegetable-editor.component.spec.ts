@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddVegetableBtnComponent } from './add-vegetable-btn.component';
+import { VegetableEditorComponent } from './vegetable-editor.component';
 
-describe('AddVegetableBtnComponent', () => {
-  let component: AddVegetableBtnComponent;
-  let fixture: ComponentFixture<AddVegetableBtnComponent>;
+describe('VegetableEditorComponent', () => {
+  let component: VegetableEditorComponent;
+  let fixture: ComponentFixture<VegetableEditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddVegetableBtnComponent]
+      imports: [VegetableEditorComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AddVegetableBtnComponent);
+    fixture = TestBed.createComponent(VegetableEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

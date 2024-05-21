@@ -1,27 +1,53 @@
-<form [formGroup]="vegetableForm()" (ngSubmit)="handleForm()">
+<form [formGroup]="vegetableForm()" (ngSubmit)="onSave()">
   <label for="name">
     Name:
-    <input type="text" id="name" formControlName="name" />
+    <input type="text" id="name" formControlName="name" autofocus/>
     @if(vegetableName().errors; as errors) {
       @if(errors['maxlength']; as maxlength) {
         <small>Max length: {{maxNameLength}} and {{maxlength['actualLength']}} is used</small>
       }
       @if(errors['required']) {
-        <small>Please provide name</small>
+        <small>Please provide a name</small>
       }
     }
   </label>
   <label for="description">
     Description:
-    <input type="text" id="description" formControlName="description" />
+    <textarea type="text" id="description" formControlName="description" rows="3"></textarea>
     @if(vegetableDescription().errors; as errors) {
       @if(errors['maxlength']; as maxlength) {
         <small>Max length: {{maxDescriptionLength}} and {{maxlength['actualLength']}} is used</small>
       }
       @if(errors['required']) {
-        <small>Please provide description</small>
+        <small>Please provide a description</small>
       }
     }
   </label>
-  <button class="btn" type="submit" [disabled]="!vegetableForm().valid">Save</button>
+
+  @switch (vegetableStore.saveStatus()) {
+    @case (Status.Error) {
+      <p class="error"><strong>Oh no!</strong> Something went wrong.</p>
+      <button class="btn" type="submit" [disabled]="!vegetableForm().valid">
+        Try again
+      </button>
+    }
+    @case (Status.Loading) {
+      <button class="btn" type="submit" disabled>
+        <span class="loader"></span>
+        Saving
+      </button>
+    }
+    @case (Status.Success) {
+      <p>Vegetable saved!</p>
+    }
+    @default {
+      <button class="btn" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine">
+        Save
+      </button>
+  
+      @if (vegetableForm().pristine && vegetable()) {
+        <small>Change any of the fields to save</small>
+      }
+    }
+  }
 </form>

@@ -1,8 +1,0 @@
-@if (isActive()) {
-<app-vegetable-form />
-<button class="btn" type="button" (click)="activate.emit(false)">Cancel</button>
-} @else {
-<button class="btn" type="button" (click)="activate.emit(true)">
-  Add vegetable
-</button>
-}
