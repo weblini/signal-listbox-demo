@@ -9,7 +9,7 @@
   </section>
   <section class="editBar">
     <a
-      [routerLink]="vegetableStore.deletingIds().has(vegetable.id) ? undefined : '/edit/' + vegetable.id"
+      [routerLink]="vegetableStore.deletingIds().has(vegetable.id) ? undefined : ['edit', vegetable.id]"
       class="btn icon-btn"
     >
       <svg
