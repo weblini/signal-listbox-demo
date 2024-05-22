@@ -5,7 +5,6 @@ import {
   inject,
   input,
   InputSignal,
-  output,
 } from '@angular/core';
 import {
   FormControl,
@@ -16,6 +15,7 @@ import {
 import { Vegetable } from '../vegetables.service';
 import { VegetableStore } from '../vegetables.store';
 import { Status } from '../vegetables.store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vegetable-form',
@@ -26,6 +26,8 @@ import { Status } from '../vegetables.store';
 })
 export class VegetableFormComponent {
   protected readonly vegetableStore = inject(VegetableStore);
+  private readonly router: Router = inject(Router);
+
   readonly vegetable: InputSignal<Vegetable | undefined> = input<Vegetable>();
 
   protected readonly maxNameLength = 14;
@@ -33,6 +35,8 @@ export class VegetableFormComponent {
 
   Status = Status;
 
+
+  // TODO: fix how the form is created (currently it is recreated on each successfull form submittion)
   protected readonly vegetableForm = computed(() => {
     const v = this.vegetable();
     return this.createNewForm(v);
@@ -48,14 +52,37 @@ export class VegetableFormComponent {
   constructor() {
     this.vegetableStore.resetSave();
 
+    this.#disableFormWhenProcessing();
+    this.#markUntouchedWhenDone();
+    this.#returnToEditorOnSuccess();
+  }
+
+  #markUntouchedWhenDone() {
     effect(() => {
-      if (this.vegetableStore.isSubmitted()) {
+      const status = this.vegetableStore.saveStatus();
+      if (status === Status.Idle) {
+        this.vegetableForm().markAsUntouched();
+      }
+    });
+  }
+
+  #disableFormWhenProcessing() {
+    effect(() => {
+      if (this.vegetableStore.saveStatus() !== Status.Idle) {
         this.vegetableForm().disable();
       } else {
         this.vegetableForm().enable();
       }
     });
+  }
 
+  #returnToEditorOnSuccess() {
+    effect(() => {
+      const status = this.vegetableStore.saveStatus();
+      if (status === Status.Success && !this.vegetable()) {
+        this.router.navigate(['/edit']);
+      }
+    });
   }
 
   protected createNewForm(v?: Vegetable): FormGroup<{

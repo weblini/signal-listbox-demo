@@ -30,11 +30,8 @@
     </div>
   }
   
-  <button class="btn" [class.success]="vegetableStore.saveStatus() === Status.Success" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine || vegetableStore.isSubmitted()">
+  <button class="btn" [class.success]="vegetableStore.saveStatus() === Status.Success" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine || vegetableStore.saveStatus() !== Status.Idle">
     @switch (vegetableStore.saveStatus()) {
-      @case (Status.Error) {
-        Try again
-      }
       @case (Status.Loading) {
           <span class="loader"></span>
           Saving

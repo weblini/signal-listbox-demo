@@ -1,21 +1,18 @@
 <main>
-  <a routerLink="/" class="btn icon-btn">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      height="24px"
-      viewBox="0 -960 960 960"
-      width="24px"
-    >
-      cancel
-      <path
-        d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
-      />
-    </svg>
-  </a>
+  <button
+    [routerLink]="['/edit']"
+    class="btn back"
+    [disabled]="vegetableStore.saveStatus() === Status.Loading"
+  >
+    Back to list
+  </button>
   <h1>{{ activeVegetable() ? "Edit vegetable" : "Create new vegetable" }}</h1>
+  @if (vegetableStore.status() === Status.Loading) {
+  <div class="info">
+    <span class="loader"></span>
+    <p>Loading vegetable data</p>
+  </div>
+  } @else {
   <app-vegetable-form [vegetable]="activeVegetable()" />
-
-  @if (vegetableStore.saveStatus() === Status.Success) {
-  <a routerLink="/" class="btn back"> Back to overview </a>
   }
 </main>

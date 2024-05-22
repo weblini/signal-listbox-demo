@@ -48,9 +48,6 @@ export const VegetableStore = signalStore(
     isLoading: computed(
       () => status() === Status.Loading || saveStatus() === Status.Loading
     ),
-    isSubmitted: computed(
-      () => saveStatus() === Status.Loading || saveStatus() === Status.Success
-    ),
   })),
   withMethods((store, vegetableService = inject(VegetablesService)) => ({
     loadAll: rxMethod<void>(
@@ -80,7 +77,6 @@ export const VegetableStore = signalStore(
             state.deletingIds.add(id);
             console.log(state.deletingIds);
             return {
-              status: Status.Loading,
               deletingIds: new Set(state.deletingIds),
             };
           })
@@ -91,7 +87,6 @@ export const VegetableStore = signalStore(
               next: () => {
                 patchState(store, (state) => ({
                   vegetables: [...state.vegetables.filter((v) => v.id !== id)],
-                  status: Status.Idle,
                 }));
               },
               error: (err) => {
@@ -140,6 +135,12 @@ export const VegetableStore = signalStore(
               error: (err) => {
                 patchState(store, { saveStatus: Status.Error });
                 console.log(err);
+              },
+              finalize: () => {
+                setTimeout(
+                  () => patchState(store, { saveStatus: Status.Idle }),
+                  3000
+                );
               },
             })
           )

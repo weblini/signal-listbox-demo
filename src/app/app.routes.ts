@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { OverviewComponent } from './overview/overview.component';
 import { EditComponent } from './edit/edit.component';
+import { VegetableEditorComponent } from './vegetable-editor/vegetable-editor.component';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,11 @@ export const routes: Routes = [
     path: 'edit/:id',
     title: 'Edit Vegetable',
     component: EditComponent,
+  },
+  {
+    path: 'edit',
+    title: 'Edit Vegetables',
+    component: VegetableEditorComponent,
   },
   {
     path: '',
