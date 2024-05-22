@@ -24,30 +24,32 @@
     }
   </label>
 
-  @switch (vegetableStore.saveStatus()) {
-    @case (Status.Error) {
-      <p class="error"><strong>Oh no!</strong> Something went wrong.</p>
-      <button class="btn" type="submit" [disabled]="!vegetableForm().valid">
-        Try again
-      </button>
-    }
-    @case (Status.Loading) {
-      <button class="btn" type="submit" disabled>
-        <span class="loader"></span>
-        Saving
-      </button>
-    }
-    @case (Status.Success) {
-      <p>Vegetable saved!</p>
-    }
-    @default {
-      <button class="btn" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine">
-        Save
-      </button>
+  @if (vegetableStore.saveStatus() === Status.Error) {
+    <div class="info">
+      <p>Oh no! Something went wrong.</p>
+    </div>
+  }
   
-      @if (vegetableForm().pristine && vegetable()) {
-        <small>Change any of the fields to save</small>
+  <button class="btn" [class.success]="vegetableStore.saveStatus() === Status.Success" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine || vegetableStore.isSubmitted()">
+    @switch (vegetableStore.saveStatus()) {
+      @case (Status.Error) {
+        Try again
+      }
+      @case (Status.Loading) {
+          <span class="loader"></span>
+          Saving
+      }
+      @case (Status.Success) {
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
+          Vegetable saved
+      }
+      @default {
+          Save
       }
     }
+  </button>
+
+  @if (vegetableForm().pristine && vegetable()) {
+    <small>Change any of the fields to save</small>
   }
 </form>

@@ -35,14 +35,12 @@ export class VegetablesService {
   #addVegetable(newVegetable: Vegetable) {
     return this.http.post<Vegetable>(this.#VEGETABLE_URL, newVegetable, {
       headers: this.#JSON_HEADERS,
-      observe: 'response',
     });
   }
 
   #updateVegetable(vegetable: Vegetable) {
     return this.http.put<Vegetable>(`${this.#VEGETABLE_URL}/${vegetable.id}`, vegetable, {
       headers: this.#JSON_HEADERS,
-      observe: 'response',
     });
   }
 }
