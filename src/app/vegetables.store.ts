@@ -48,12 +48,13 @@ export const VegetableStore = signalStore(
     isLoading: computed(
       () => status() === Status.Loading || saveStatus() === Status.Loading
     ),
-    isSubmitted: computed(() => saveStatus() === Status.Loading || saveStatus() === Status.Success),
+    isSubmitted: computed(
+      () => saveStatus() === Status.Loading || saveStatus() === Status.Success
+    ),
   })),
   withMethods((store, vegetableService = inject(VegetablesService)) => ({
     loadAll: rxMethod<void>(
       pipe(
-        debounceTime(300),
         tap(() => patchState(store, { status: Status.Loading })),
         switchMap(() =>
           vegetableService.getVegetables().pipe(
@@ -114,19 +115,21 @@ export const VegetableStore = signalStore(
         concatMap((v) =>
           vegetableService.saveVegetable(v).pipe(
             tapResponse({
-              next: (res) => {
+              next: (newVegetable) => {
                 patchState(store, (state) => {
                   let vegetables = state.vegetables;
-                  const newVegetable = res.body;
-                  if (newVegetable) {
-                    const index = state.vegetables.findIndex(
-                      (item) => item.id === v.id
+                  if (!newVegetable) {
+                    throw Error(
+                      'Unexpected response from API after saveVegetable'
                     );
-                    if (index >= 0) {
-                      vegetables.splice(index, 1, newVegetable);
-                    } else {
-                      vegetables.push(newVegetable);
-                    }
+                  }
+                  const index = state.vegetables.findIndex(
+                    (item) => item.id === v.id
+                  );
+                  if (index >= 0) {
+                    vegetables.splice(index, 1, newVegetable);
+                  } else {
+                    vegetables.push(newVegetable);
                   }
                   return {
                     vegetables: [...vegetables],
