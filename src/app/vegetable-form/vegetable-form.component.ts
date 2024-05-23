@@ -48,6 +48,10 @@ export class VegetableFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.#setInitialValues();
+  }
+
+  #setInitialValues() {
     const v = this.vegetable();
     if (v) {
       this.form.setValue({
@@ -81,7 +85,7 @@ export class VegetableFormComponent implements OnInit {
     effect(() => {
       const status = this.vegetableStore.saveStatus();
       const router = this.router;
-      if (status === Status.Success) {
+      if (status === Status.Success && !this.vegetable()) {
         setTimeout(() => router.navigate(['/edit']), 1500);
       }
     });

@@ -2,7 +2,7 @@
   display: flex;
   width: 100%;
   min-height: 100vh;
-  background-color: rgb(var(--orange-rgb));
+  background-color: var(--orange);
   align-items: flex-start;
   justify-content: center;
 }

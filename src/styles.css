@@ -2,7 +2,10 @@
 :root {
   --outline: 3px dashed rgb(255, 125, 218);
   --box-radius: 1rem;
-  --orange-rgb: 255, 186, 112;
+  --orange: rgb(255, 186, 112);
+  --error: rgb(255, 0, 64);
+  --error-dark: rgb(166, 11, 50);
+  --success: rgb(176, 215, 21);
 }
 
 body {
@@ -21,7 +24,7 @@ body {
   justify-content: center;
   align-items: center;
   border: none;
-  background-color: rgb(var(--orange-rgb));
+  background-color: var(--orange);
   font-weight: bold;
   text-transform: uppercase;
   transition: all 200ms ease-in;
@@ -56,7 +59,7 @@ body {
   }
 
   &.success {
-    background-color: rgb(176, 215, 21);
+    background-color: var(--success);
     color: black;
   }
 
@@ -111,9 +114,9 @@ body {
   padding: 1rem 2rem;
   background-color: #fff7f0;
   border-radius: 1rem;
-  border: solid 4px #feb53f;
+  border: solid 4px rgb(254, 181, 63);
   text-align: center;
-  color: #e77f00;
+  color: rgb(231, 127, 0);
   font-weight: bold;
   flex-direction: column;
   justify-content: center;
@@ -128,7 +131,7 @@ body {
   }
 
   .loader {
-    --accent-color: #feb53f;
+    --accent-color: rgb(255, 182, 64);
     --size: 50px;
     --stroke: 8px;
     margin-bottom: 1rem;
