@@ -1,8 +1,8 @@
-<form [formGroup]="vegetableForm()" (ngSubmit)="onSave()">
+<form [formGroup]="form" (ngSubmit)="onSave()">
   <label for="name">
     Name:
     <input type="text" id="name" formControlName="name" autofocus/>
-    @if(vegetableName().errors; as errors) {
+    @if(name.errors; as errors) {
       @if(errors['maxlength']; as maxlength) {
         <small>Max length: {{MAX_NAME_LENGTH}} and {{maxlength['actualLength']}} is used</small>
       }
@@ -14,7 +14,7 @@
   <label for="description">
     Description:
     <textarea type="text" id="description" formControlName="description" rows="3"></textarea>
-    @if(vegetableDescription().errors; as errors) {
+    @if(description.errors; as errors) {
       @if(errors['maxlength']; as maxlength) {
         <small>Max length: {{MAX_DESCRIPTION_LENGTH}} and {{maxlength['actualLength']}} is used</small>
       }
@@ -30,7 +30,7 @@
     </div>
   }
   
-  <button class="btn" [class.success]="vegetableStore.saveStatus() === Status.Success" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine || vegetableStore.saveStatus() !== Status.Idle">
+  <button class="btn" [class.success]="vegetableStore.saveStatus() === Status.Success" type="submit" [disabled]="!form.valid || form.pristine || vegetableStore.saveStatus() !== Status.Idle">
     @switch (vegetableStore.saveStatus()) {
       @case (Status.Loading) {
           <span class="loader"></span>
@@ -46,7 +46,7 @@
     }
   </button>
 
-  @if (vegetableForm().pristine && vegetable()) {
+  @if (form.pristine && vegetable()) {
     <small>Change any of the fields to save</small>
   }
 </form>

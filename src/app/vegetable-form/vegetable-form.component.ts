@@ -1,10 +1,10 @@
 import {
   Component,
-  computed,
   effect,
   inject,
   input,
   InputSignal,
+  OnInit,
 } from '@angular/core';
 import {
   FormControl,
@@ -24,7 +24,7 @@ import { Router } from '@angular/router';
   templateUrl: './vegetable-form.component.html',
   styleUrl: './vegetable-form.component.css',
 })
-export class VegetableFormComponent {
+export class VegetableFormComponent implements OnInit {
   protected readonly vegetableStore = inject(VegetableStore);
   private readonly router: Router = inject(Router);
 
@@ -35,33 +35,39 @@ export class VegetableFormComponent {
 
   Status = Status;
 
-
-  // TODO: fix how the form is created (currently it is recreated on each successfull form submittion)
-  protected readonly vegetableForm = computed(() => {
-    const v = this.vegetable();
-    return this.createNewForm(v);
-  });
-
-  protected readonly vegetableName = computed(
-    () => this.vegetableForm().get('name') as FormControl<string | null>
-  );
-  protected readonly vegetableDescription = computed(
-    () => this.vegetableForm().get('description') as FormControl<string | null>
-  );
+  form = this.createNewForm();
+  name = this.form.get('name') as FormControl<string | null>;
+  description = this.form.get('description') as FormControl<string | null>;
 
   constructor() {
     this.vegetableStore.resetSave();
+
+    const vName = this.vegetable()?.name;
+    console.log('vegetable name', vName);
 
     this.#disableFormWhenProcessing();
     this.#markUntouchedWhenDone();
     this.#returnToEditorOnSuccess();
   }
 
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    const v = this.vegetable();
+    if (v) {
+      this.form.setValue({
+        name: v.name,
+        description: v.description,
+        id: v.id,
+      });
+    }
+  }
+
   #markUntouchedWhenDone() {
     effect(() => {
       const status = this.vegetableStore.saveStatus();
       if (status === Status.Idle) {
-        this.vegetableForm().markAsUntouched();
+        this.form.markAsUntouched();
       }
     });
   }
@@ -69,9 +75,9 @@ export class VegetableFormComponent {
   #disableFormWhenProcessing() {
     effect(() => {
       if (this.vegetableStore.saveStatus() !== Status.Idle) {
-        this.vegetableForm().disable();
+        this.form.disable();
       } else {
-        this.vegetableForm().enable();
+        this.form.enable();
       }
     });
   }
@@ -104,7 +110,7 @@ export class VegetableFormComponent {
   }
 
   onSave() {
-    const editedVegetable = this.vegetableForm().value as Vegetable;
+    const editedVegetable = this.form.value as Vegetable;
     this.vegetableStore.save(editedVegetable);
   }
 }
