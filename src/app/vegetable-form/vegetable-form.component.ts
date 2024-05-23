@@ -30,8 +30,8 @@ export class VegetableFormComponent {
 
   readonly vegetable: InputSignal<Vegetable | undefined> = input<Vegetable>();
 
-  protected readonly maxNameLength = 14;
-  protected readonly maxDescriptionLength = 88;
+  protected readonly MAX_NAME_LENGTH = 14;
+  protected readonly MAX_DESCRIPTION_LENGTH = 88;
 
   Status = Status;
 
@@ -94,11 +94,11 @@ export class VegetableFormComponent {
       id: new FormControl(v?.id || null),
       name: new FormControl(v?.name || null, [
         Validators.required,
-        Validators.maxLength(this.maxNameLength),
+        Validators.maxLength(this.MAX_NAME_LENGTH),
       ]),
       description: new FormControl(v?.description || null, [
         Validators.required,
-        Validators.maxLength(this.maxDescriptionLength),
+        Validators.maxLength(this.MAX_DESCRIPTION_LENGTH),
       ]),
     });
   }
