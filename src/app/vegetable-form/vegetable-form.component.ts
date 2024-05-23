@@ -35,15 +35,12 @@ export class VegetableFormComponent implements OnInit {
 
   Status = Status;
 
-  form = this.createNewForm();
+  form = this.#createNewForm();
   name = this.form.get('name') as FormControl<string | null>;
   description = this.form.get('description') as FormControl<string | null>;
 
   constructor() {
     this.vegetableStore.resetSave();
-
-    const vName = this.vegetable()?.name;
-    console.log('vegetable name', vName);
 
     this.#disableFormWhenProcessing();
     this.#markUntouchedWhenDone();
@@ -51,8 +48,6 @@ export class VegetableFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
     const v = this.vegetable();
     if (v) {
       this.form.setValue({
@@ -85,13 +80,14 @@ export class VegetableFormComponent implements OnInit {
   #returnToEditorOnSuccess() {
     effect(() => {
       const status = this.vegetableStore.saveStatus();
-      if (status === Status.Success && !this.vegetable()) {
-        this.router.navigate(['/edit']);
+      const router = this.router;
+      if (status === Status.Success) {
+        setTimeout(() => router.navigate(['/edit']), 1500);
       }
     });
   }
 
-  protected createNewForm(v?: Vegetable): FormGroup<{
+  #createNewForm(v?: Vegetable): FormGroup<{
     id: FormControl<number | null>;
     name: FormControl<string | null>;
     description: FormControl<string | null>;
