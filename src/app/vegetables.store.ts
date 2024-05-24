@@ -55,7 +55,6 @@ export const VegetableStore = signalStore(
         tap(() => patchState(store, { status: Status.Loading })),
         switchMap(() =>
           vegetableService.getVegetables().pipe(
-            retry(1),
             tapResponse({
               next: (vegetables) => {
                 patchState(store, { vegetables, status: Status.Idle });
