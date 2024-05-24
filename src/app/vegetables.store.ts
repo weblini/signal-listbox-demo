@@ -75,7 +75,6 @@ export const VegetableStore = signalStore(
         tap((id) =>
           patchState(store, (state) => {
             state.deletingIds.add(id);
-            console.log(state.deletingIds);
             return {
               deletingIds: new Set(state.deletingIds),
             };
