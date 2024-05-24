@@ -1,43 +1,4 @@
 <main>
-  <h1>Select vegetables to inspect them:</h1>
-
-  @if(vegetableStore.isLoading()) {
-  <div class="info">
-    <span class="loader"></span>
-    <p>Loading available vegetables</p>
-  </div>
-  } @else { @if (vegetableStore.vegetables().length) {
-  <button type="button" (click)="toggleOrientation()" class="btn">
-    Change listbox orientation
-  </button>
-  }
-  <jm-listbox
-    #listbox
-    [(value)]="selectedToppings"
-    [orientation]="orientation()"
-    (orientationChange)="logOrientationChange($event)"
-    (valueChange)="updateQueryParams($event)"
-  >
-    @for (vegetable of vegetableStore.vegetables(); track vegetable.id) {
-    <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
-    } @empty {
-    <div class="info wide">
-      <p><em>Oh no!</em></p>
-      <p>It seems there are no available vegetables.</p>
-    </div>
-    }
-  </jm-listbox>
-
-  <h2>Your picks ({{ selectedToppings().length }} items):</h2>
-  <div class="cards">
-    @for (item of selectedToppings(); track item.id) {
-    <app-card
-      [title]="item.name"
-      [description]="item.description"
-      @myInsertRemoveTrigger
-    />
-    }
-  </div>
   <a routerLink="edit" type="button" class="btn">
     Edit vegetables
     <svg
@@ -51,6 +12,47 @@
       />
     </svg>
   </a>
+
+  <h1>Select vegetables to inspect them:</h1>
+
+  @if (vegetableStore.isLoading()) {
+    <div class="info">
+      <span class="loader"></span>
+      <p>Loading available vegetables</p>
+    </div>
+  } @else {
+    @if (vegetableStore.vegetables().length) {
+      <button type="button" (click)="toggleOrientation()" class="btn">
+        Change listbox orientation
+      </button>
+    }
+    <jm-listbox
+      #listbox
+      [(value)]="selectedToppings"
+      [orientation]="orientation()"
+      (orientationChange)="logOrientationChange($event)"
+      (valueChange)="updateQueryParams($event)"
+    >
+      @for (vegetable of vegetableStore.vegetables(); track vegetable.id) {
+        <jm-option [value]="vegetable">{{ vegetable.name }}</jm-option>
+      } @empty {
+        <div class="info wide">
+          <p><em>Oh no!</em></p>
+          <p>It seems there are no available vegetables.</p>
+        </div>
+      }
+    </jm-listbox>
+
+    <h2>Your picks ({{ selectedToppings().length }} items):</h2>
+    <div class="cards">
+      @for (item of selectedToppings(); track item.id) {
+        <app-card
+          [title]="item.name"
+          [description]="item.description"
+          @myInsertRemoveTrigger
+        />
+      }
+    </div>
   }
 </main>
 

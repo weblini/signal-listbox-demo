@@ -6,6 +6,7 @@
   --error: rgb(255, 0, 64);
   --error-dark: rgb(166, 11, 50);
   --success: rgb(176, 215, 21);
+  --main-padding: 2rem;
 }
 
 body {
@@ -74,6 +75,11 @@ body {
       background-color: rgba(255, 186, 112, 0.5);
       fill: rgba(47, 42, 37, 1);
     }
+  }
+
+  &:not(.icon-btn) svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
