@@ -2,7 +2,7 @@
   <label for="name">
     Name:
     <input type="text" id="name" formControlName="name" autofocus />
-    @if (name.errors; as errors) {
+    @if (name.touched && name.errors; as errors) {
       @if (errors["maxlength"]; as maxlength) {
         <small
           >Max length: {{ MAX_NAME_LENGTH }} and
@@ -22,7 +22,7 @@
       formControlName="description"
       rows="3"
     ></textarea>
-    @if (description.errors; as errors) {
+    @if (name.touched && description.errors; as errors) {
       @if (errors["maxlength"]; as maxlength) {
         <small
           >Max length: {{ MAX_DESCRIPTION_LENGTH }} and
