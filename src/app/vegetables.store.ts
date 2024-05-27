@@ -9,11 +9,9 @@ import { Vegetable, VegetablesService } from './vegetables.service';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import {
   concatMap,
-  debounceTime,
   filter,
   mergeMap,
   pipe,
-  retry,
   switchMap,
   tap,
 } from 'rxjs';
