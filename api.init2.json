@@ -60,5 +60,10 @@
       "description": "A bulbous plant with a strong flavor and aroma, used as a seasoning in many dishes.",
       "icon": "🧄"
     }
+  ],
+  "users": [
+    { "id": 1, "name": "Marti", "permissions": ["edit", "create"] },
+    { "id": 2, "name": "Melman", "permissions": ["edit"] },
+    { "id": 3, "name": "Alex", "permissions": [] }
   ]
 }
