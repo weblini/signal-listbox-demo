@@ -1,7 +1,7 @@
 :host {
   display: flex;
   width: 100%;
-  min-height: 100vh;
+  min-height: var(--min-h);
   background-color: var(--orange);
   align-items: flex-start;
   justify-content: center;
@@ -14,5 +14,5 @@ main {
   max-width: 100vw;
   padding: 2rem;
   background-color: white;
-  box-shadow: 0 0 5px 3px rgba(37, 37, 37, 0.1);
+  box-shadow: var(--shadow)
 }

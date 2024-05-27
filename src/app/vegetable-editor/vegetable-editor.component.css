@@ -1,7 +1,7 @@
 :host {
   display: flex;
   width: 100%;
-  min-height: 100vh;
+  min-height: var(--min-h);
   align-items: flex-start;
   justify-content: center;
 }

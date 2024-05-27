@@ -18,8 +18,6 @@ export class VegetablesService {
 
   private readonly http = inject(HttpClient);
 
-  // TODO: handle errors
-
   getVegetables() {
     return this.http.get<Vegetable[]>(this.#VEGETABLE_URL);
   }

@@ -1,3 +1,11 @@
+<nav>
+  <div class="content">
+    <button type="button" class="btn" (click)="authService.toggleUser()">
+      {{ !authService.isLoggedIn ? "Log in" : "Log out" }}
+    </button>
+  </div>
+</nav>
+
 <router-outlet />
 
 <app-toaster />
