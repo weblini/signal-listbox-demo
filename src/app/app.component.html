@@ -1,7 +1,14 @@
 <nav>
   <div class="content">
-    <button type="button" class="btn" (click)="authService.toggleUser()">
-      {{ !authService.isLoggedIn() ? "Log in" : "Log out" }}
+    @if (authService.currentUser(); as user) {
+      <p>Hi {{ user.name }}</p>
+    }
+    <button
+      type="button"
+      class="btn"
+      (click)="authService.swapUser()"
+    >
+      {{ authService.isLoggedIn() ? "Log out" : "Log in" }}
     </button>
   </div>
 </nav>

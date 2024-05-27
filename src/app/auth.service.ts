@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
-interface User {
+export interface User {
   id: number;
   name: string;
   permissions: UserAction[];
 }
 
-type UserAction = 'edit' | 'create';
+export type UserAction = 'edit' | 'create';
 
 @Injectable({
   providedIn: 'root',
@@ -19,28 +19,44 @@ export class AuthService {
   readonly #http = inject(HttpClient);
   readonly #router = inject(Router);
 
-  #isLoggedIn = signal(true);
+  #sub: Subscription | undefined;
+  #requestedUserId = 1;
 
-  get isLoggedIn() {
-    return computed(() => this.#isLoggedIn())
+  currentUser = signal<User | null>(null);
+
+  isLoggedIn = computed(() => !!this.currentUser());
+  canEdit = computed(() => this.currentUser()?.permissions.includes('edit'));
+  canCreate = computed(() =>
+    this.currentUser()?.permissions.includes('create'),
+  );
+
+  swapUser() {
+    if (this.currentUser()) {
+      this.#logout();
+      return;
+    }
+
+    this.#loadNextUser();
   }
 
-  constructor() {}
-
-  getAllUsers() {
-    return this.#http.get(this.#USERS_URL);
-  }
-
-  toggleUser() {
-    this.#isLoggedIn() ? this.logout() : this.login();
-  }
-
-  logout() {
-    this.#isLoggedIn.set(false);
+  #logout() {
+    this.currentUser.set(null);
     this.#router.navigate(['']);
   }
 
-  login() {
-    this.#isLoggedIn.set(true);
+  #loadNextUser() {
+    if (this.#sub) {
+      this.#sub.unsubscribe();
+    }
+
+    this.#sub = this.#http
+      .get<User>(this.#USERS_URL + '/' + this.#requestedUserId)
+      .subscribe({
+        next: (user) => {
+          this.currentUser.set(user);
+          this.#requestedUserId++;
+        },
+        error: (err) => (this.#requestedUserId = 1),
+      });
   }
 }

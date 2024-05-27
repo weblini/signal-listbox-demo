@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { VegetableStore } from './vegetables.store';
 import { ToasterComponent } from './toaster/toaster.component';
-import { AuthService } from './auth.service';
+import { AuthService, User } from './auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',

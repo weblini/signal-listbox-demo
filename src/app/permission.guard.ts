@@ -3,5 +3,7 @@ import { CanMatchFn } from '@angular/router';
 import { AuthService } from './auth.service';
 
 export const permissionGuard: CanMatchFn = (route, segments) => {
-  return inject(AuthService).isLoggedIn();
+  const authService = inject(AuthService);
+  
+  return authService.isLoggedIn();
 };

@@ -23,7 +23,10 @@
             <button
               [routerLink]="['/edit', vegetable.id]"
               class="btn icon-btn"
-              [disabled]="vegetableStore.deletingIds().has(vegetable.id)"
+              [disabled]="
+                vegetableStore.deletingIds().has(vegetable.id) ||
+                !authService.canEdit()
+              "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +45,10 @@
               type="button"
               class="btn icon-btn"
               (click)="vegetableStore.delete(vegetable.id)"
-              [disabled]="vegetableStore.deletingIds().has(vegetable.id)"
+              [disabled]="
+                vegetableStore.deletingIds().has(vegetable.id) ||
+                !authService.canEdit()
+              "
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +65,11 @@
           </section>
         </article>
       }
-      <a routerLink="/create" class="btn">
+      <button
+        routerLink="/create"
+        class="btn"
+        [disabled]="!authService.canCreate()"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           height="24px"
@@ -69,7 +79,7 @@
           <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
         </svg>
         Add vegetable
-      </a>
+      </button>
     </div>
   }
 </main>
