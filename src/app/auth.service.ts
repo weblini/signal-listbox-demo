@@ -64,17 +64,18 @@ export class AuthService {
         catchError((err, caught) => {
           return this.#getUser(this.#requestedUserId);
         }),
+        tap({
+          next: (user) => {
+            this.currentUser.set(user);
+            this.#requestedUserId++;
+            this.status.set(Status.Idle);
+          },
+          error: (err) => {
+            this.status.set(Status.Idle);
+          },
+        })
       )
-      .subscribe({
-        next: (user) => {
-          this.currentUser.set(user);
-          this.#requestedUserId++;
-          this.status.set(Status.Idle);
-        },
-        error: (err) => {
-          this.status.set(Status.Idle);
-        },
-      });
+      .subscribe();
   }
 
   #getUser(id: number) {

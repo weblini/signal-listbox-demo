@@ -6,6 +6,7 @@
     <button
       type="button"
       class="btn"
+      [class.secondary]="authService.isLoggedIn()"
       (click)="authService.swapUser()"
       [disabled]="authService.status() !== Status.Idle"
     >
