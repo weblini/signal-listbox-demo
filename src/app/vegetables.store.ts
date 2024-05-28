@@ -17,6 +17,7 @@ import {
 } from 'rxjs';
 import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
+import { EventNotificationService } from './event-notification.service';
 
 export enum Status {
   Idle,
@@ -47,7 +48,7 @@ export const VegetableStore = signalStore(
       () => status() === Status.Loading || saveStatus() === Status.Loading
     ),
   })),
-  withMethods((store, vegetableService = inject(VegetablesService)) => ({
+  withMethods((store, vegetableService = inject(VegetablesService), eventNotificationService = inject(EventNotificationService)) => ({
     loadAll: rxMethod<void>(
       pipe(
         tap(() => patchState(store, { status: Status.Loading })),
@@ -130,6 +131,10 @@ export const VegetableStore = signalStore(
               },
               error: (err) => {
                 patchState(store, { saveStatus: Status.Error });
+                eventNotificationService.toastEvent({
+                  message: "Failed to save vegetable",
+                  type: "error"
+                })
                 console.log(err);
               },
               finalize: () => {

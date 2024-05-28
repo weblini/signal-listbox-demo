@@ -31,7 +31,7 @@ export class VegetableFormComponent implements OnInit {
   readonly vegetable: InputSignal<Vegetable | undefined> = input<Vegetable>();
 
   protected readonly MAX_NAME_LENGTH = 14;
-  protected readonly MAX_DESCRIPTION_LENGTH = 88;
+  protected readonly MAX_DESCRIPTION_LENGTH = 108;
 
   Status = Status;
 

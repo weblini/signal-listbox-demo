@@ -3,6 +3,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, catchError, retry, take, tap } from 'rxjs';
 import { Status } from './vegetables.store';
+import { EventNotificationService } from './event-notification.service';
 
 export interface User {
   id: number;
@@ -19,6 +20,7 @@ export class AuthService {
   readonly #USERS_URL = 'http://localhost:3000/users';
   readonly #http = inject(HttpClient);
   readonly #router = inject(Router);
+  readonly #eventNotificationService = inject(EventNotificationService);
 
   #sub: Subscription | undefined;
   #requestedUserId = 1;
@@ -56,7 +58,7 @@ export class AuthService {
       .pipe(
         tap({
           error: (err) => {
-            if(err.status === 404) {
+            if (err.status === 404) {
               this.#requestedUserId = 1;
             }
           },
@@ -71,9 +73,13 @@ export class AuthService {
             this.status.set(Status.Idle);
           },
           error: (err) => {
+            this.#eventNotificationService.toastEvent({
+              message: 'Failed to log in',
+              type: 'error',
+            });
             this.status.set(Status.Idle);
           },
-        })
+        }),
       )
       .subscribe();
   }
