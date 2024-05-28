@@ -53,8 +53,10 @@ export class AuthService {
 
     this.status.set(Status.Loading);
 
-    this.#sub = this.#http
-      .get<User>(this.#USERS_URL + '/' + this.#requestedUserId)
+    this.#sub = this.#getUser(this.#requestedUserId)
+      .pipe(
+        catchError((err, caught) => this.#getUser(1))
+      )
       .subscribe({
         next: (user) => {
           this.currentUser.set(user);
@@ -62,9 +64,12 @@ export class AuthService {
           this.status.set(Status.Idle);
         },
         error: (err) => {
-          this.#requestedUserId = 1;
           this.status.set(Status.Idle);
         },
       });
+  }
+
+  #getUser(id: number) {
+    return this.#http.get<User>(this.#USERS_URL + '/' + id)
   }
 }
