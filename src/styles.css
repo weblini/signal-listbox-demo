@@ -90,9 +90,10 @@ body {
 }
 
 .loader {
-  --stroke: 6px;
+  --stroke: 5px;
   --accent-color: rgb(79, 58, 35);
-  --size: 1.5rem;
+  --size: 1.25rem;
+  margin: 0;
   display: block;
   width: var(--size);
   height: var(--size);

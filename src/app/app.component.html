@@ -1,14 +1,20 @@
 <nav>
   <div class="content">
     @if (authService.currentUser(); as user) {
-      <p>Hi {{ user.name }}</p>
+      <p @jumpIn>Hi {{ user.name }}!</p>
     }
     <button
       type="button"
       class="btn"
       (click)="authService.swapUser()"
+      [disabled]="authService.status() !== Status.Idle"
     >
-      {{ authService.isLoggedIn() ? "Log out" : "Log in" }}
+      @if (authService.status() === Status.Loading) {
+        <span class="loader"></span>
+        Logging in
+      } @else {
+        {{ authService.isLoggedIn() ? "Log out" : "Log in" }}
+      }
     </button>
   </div>
 </nav>

@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError, retry, take, tap } from 'rxjs';
+import { Status } from './vegetables.store';
 
 export interface User {
   id: number;
@@ -23,6 +24,7 @@ export class AuthService {
   #requestedUserId = 1;
 
   currentUser = signal<User | null>(null);
+  status = signal<Status>(Status.Idle);
 
   isLoggedIn = computed(() => !!this.currentUser());
   canEdit = computed(() => this.currentUser()?.permissions.includes('edit'));
@@ -31,12 +33,12 @@ export class AuthService {
   );
 
   swapUser() {
+    console.log(this.currentUser());
     if (this.currentUser()) {
       this.#logout();
-      return;
+    } else {
+      this.#loadNextUser();
     }
-
-    this.#loadNextUser();
   }
 
   #logout() {
@@ -49,14 +51,20 @@ export class AuthService {
       this.#sub.unsubscribe();
     }
 
+    this.status.set(Status.Loading);
+
     this.#sub = this.#http
       .get<User>(this.#USERS_URL + '/' + this.#requestedUserId)
       .subscribe({
         next: (user) => {
           this.currentUser.set(user);
           this.#requestedUserId++;
+          this.status.set(Status.Idle);
         },
-        error: (err) => (this.#requestedUserId = 1),
+        error: (err) => {
+          this.#requestedUserId = 1;
+          this.status.set(Status.Idle);
+        },
       });
   }
 }
