@@ -33,8 +33,7 @@ export class AuthService {
   );
 
   swapUser() {
-    console.log(this.currentUser());
-    if (this.currentUser()) {
+    if (this.isLoggedIn()) {
       this.#logout();
     } else {
       this.#loadNextUser();
@@ -55,7 +54,16 @@ export class AuthService {
 
     this.#sub = this.#getUser(this.#requestedUserId)
       .pipe(
-        catchError((err, caught) => this.#getUser(1))
+        tap({
+          error: (err) => {
+            if(err.status === 404) {
+              this.#requestedUserId = 1;
+            }
+          },
+        }),
+        catchError((err, caught) => {
+          return this.#getUser(this.#requestedUserId);
+        }),
       )
       .subscribe({
         next: (user) => {
@@ -70,6 +78,6 @@ export class AuthService {
   }
 
   #getUser(id: number) {
-    return this.#http.get<User>(this.#USERS_URL + '/' + id)
+    return this.#http.get<User>(this.#USERS_URL + '/' + id);
   }
 }
