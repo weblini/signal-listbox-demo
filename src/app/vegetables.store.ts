@@ -123,6 +123,12 @@ export const VegetableStore = signalStore(
                   } else {
                     vegetables.push(newVegetable);
                   }
+
+                  eventNotificationService.toastEvent({
+                    message: "Vegetable saved",
+                    type: "success"
+                  })
+
                   return {
                     vegetables: [...vegetables],
                     saveStatus: Status.Success,
