@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { Status, VegetableStore } from './vegetables.store';
-import { ToasterComponent } from './toaster/toaster.component';
-import { AuthService } from './auth.service';
+import { Router, RouterOutlet } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { AuthStore } from '@core/store/auth.store';
+import { ToasterComponent } from '@ui/modules/toaster';
+import { VegetableStore } from '@core/store/vegetables.store';
+import { Status } from '@core/models';
 
 @Component({
   selector: 'app-root',
@@ -17,26 +18,34 @@ import { animate, style, transition, trigger } from '@angular/animations';
         style({ opacity: 0, transform: 'translateX(-100%)' }),
         animate(
           '100ms cubic-bezier(0.0, 0.0, 0.2, 1)',
-          style({ opacity: 1, transform: 'translateX(0)' })
+          style({ opacity: 1, transform: 'translateX(0)' }),
         ),
       ]),
       transition(':leave', [
         animate(
           '100ms cubic-bezier(0.4, 0.0, 1, 1)',
-          style({ opacity: 0, transform: 'translateX(-100%)' })
+          style({ opacity: 0, transform: 'translateX(-100%)' }),
         ),
       ]),
-    ])
-  ]
+    ]),
+  ],
 })
 export class AppComponent {
   protected readonly vegetableStore = inject(VegetableStore);
-
-  protected readonly authService = inject(AuthService);
+  protected readonly authStore = inject(AuthStore);
+  readonly #router = inject(Router);
 
   Status = Status;
 
   constructor() {
     this.vegetableStore.loadAll();
+  }
+
+  swapUser() {
+    if (this.authStore.isLoggedIn()) {
+      this.authStore.logout();
+    } else {
+      this.authStore.login();
+    }
   }
 }

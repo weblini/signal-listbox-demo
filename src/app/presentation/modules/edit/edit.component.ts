@@ -1,7 +1,8 @@
 import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Status, VegetableStore } from '../vegetables.store';
 import { VegetableFormComponent } from '../vegetable-form/vegetable-form.component';
+import { Status } from '@core/models';
+import { VegetableStore } from '@core/store/vegetables.store';
 
 @Component({
   selector: 'app-edit',
