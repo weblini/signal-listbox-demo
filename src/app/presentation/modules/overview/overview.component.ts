@@ -12,9 +12,9 @@ import { RouterOutlet, Router, RouterLink } from '@angular/router';
 import { CardComponent } from '../card/card.component';
 import { Listbox, Option, Orientation } from '../listbox';
 import { VegetableFormComponent } from '../vegetable-form/vegetable-form.component';
-import { Vegetable } from '../vegetables.service';
-import { VegetableStore } from '../vegetables.store';
-import { AuthService } from '../auth.service';
+import { AuthStore } from '@core/store/auth.store';
+import { VegetableStore } from '@core/store/vegetables.store';
+import { Vegetable } from '@data/models';
 
 @Component({
   selector: 'app-overview',
@@ -47,7 +47,7 @@ export class OverviewComponent {
   private readonly router: Router = inject(Router);
 
   protected readonly vegetableStore = inject(VegetableStore);
-  protected readonly authService = inject(AuthService);
+  protected readonly authStore = inject(AuthStore);
 
   readonly listBox = viewChild<Listbox<Vegetable>>('listbox');
 

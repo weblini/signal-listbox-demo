@@ -25,7 +25,7 @@
               class="btn icon-btn"
               [disabled]="
                 vegetableStore.deletingIds().has(vegetable.id) ||
-                !authService.canEdit()
+                !authStore.canEdit()
               "
             >
               <svg
@@ -47,7 +47,7 @@
               (click)="vegetableStore.delete(vegetable.id)"
               [disabled]="
                 vegetableStore.deletingIds().has(vegetable.id) ||
-                !authService.canEdit()
+                !authStore.canEdit()
               "
             >
               <svg
@@ -68,7 +68,7 @@
       <button
         routerLink="/create"
         class="btn"
-        [disabled]="!authService.canCreate()"
+        [disabled]="!authStore.canCreate()"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
