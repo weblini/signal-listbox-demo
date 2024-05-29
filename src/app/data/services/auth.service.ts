@@ -2,16 +2,10 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription, catchError, retry, take, tap } from 'rxjs';
-import { Status } from './vegetables.store';
+
 import { EventNotificationService } from './event-notification.service';
+import { User } from '@data/models';
 
-export interface User {
-  id: number;
-  name: string;
-  permissions: UserAction[];
-}
-
-export type UserAction = 'edit' | 'create';
 
 @Injectable({
   providedIn: 'root',

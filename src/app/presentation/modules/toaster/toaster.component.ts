@@ -1,9 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
-import { Status, VegetableStore } from '../vegetables.store';
-import { animate, style, transition, trigger } from '@angular/animations';
-import { EventNotificationService, Toast } from '../event-notification.service';
-import { tap, delay } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { animate, style, transition, trigger } from '@angular/animations';
+import { tap, delay } from 'rxjs';
+
+import { VegetableStore } from '@core/store/vegetables.store';
+import { Status } from '@core/models';
+
+import { EventNotificationService } from '@ui/services/event-notification.service';
+import { Toast } from '@ui/models';
 
 @Component({
   selector: 'app-toaster',

@@ -1,14 +1,8 @@
-import { Injectable, signal } from '@angular/core';
-import { Subject, delay, tap } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { FreeToast, Toast } from '@ui/models';
 
-export interface Toast {
-  id: number;
-  message: string;
-  type?: 'error' | 'success';
-  retryAction?: () => void;
-}
 
-export type FreeToast = Omit<Toast, 'id'>;
 
 @Injectable({
   providedIn: 'root',

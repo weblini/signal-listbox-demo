@@ -1,9 +1,10 @@
 import { Routes } from '@angular/router';
-import { OverviewComponent } from './overview/overview.component';
-import { EditComponent } from './edit/edit.component';
-import { VegetableEditorComponent } from './vegetable-editor/vegetable-editor.component';
-import { permissionGuard } from './permission.guard';
 import { inject } from '@angular/core';
+
+import { OverviewComponent } from '@ui/modules/overview';
+import { EditComponent } from '@ui/modules/edit/edit.component';
+import { VegetableEditorComponent } from '@ui/modules/vegetable-editor';
+import { permissionGuard } from '@core/utils/permission.guard';
 import { AuthService } from './auth.service';
 
 export const routes: Routes = [

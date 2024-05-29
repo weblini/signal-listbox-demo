@@ -5,7 +5,8 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { Vegetable, VegetablesService } from './vegetables.service';
+import { VegetablesService } from '@data/services';
+import { Vegetable } from '@data/models';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import {
   concatMap,
@@ -19,12 +20,8 @@ import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
 import { EventNotificationService } from './event-notification.service';
 
-export enum Status {
-  Idle,
-  Loading,
-  Error,
-  Success,
-}
+
+import { Status } from '@core/models';
 
 type VegetablesState = {
   vegetables: Vegetable[];

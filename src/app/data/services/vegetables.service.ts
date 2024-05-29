@@ -1,11 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 
-export interface Vegetable {
-  id: number;
-  name: string;
-  description: string;
-}
+import { Vegetable } from '@data/models';
+
 
 @Injectable({
   providedIn: 'root',
