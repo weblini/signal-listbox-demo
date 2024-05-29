@@ -6,16 +6,17 @@ import {
   InputSignal,
   OnInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Vegetable } from '../vegetables.service';
-import { VegetableStore } from '../vegetables.store';
-import { Status } from '../vegetables.store';
-import { Router } from '@angular/router';
+
+import { VegetableStore } from '@core/store/vegetables.store';
+import { Status } from '@core/models';
+import { Vegetable } from '@data/models';
 
 @Component({
   selector: 'app-vegetable-form',
