@@ -1,24 +1,35 @@
-<form [formGroup]="vegetableForm()" (ngSubmit)="onSave()">
+<form [formGroup]="form" (ngSubmit)="onSave()">
   <label for="name">
     Name:
-    <input type="text" id="name" formControlName="name" autofocus/>
-    @if(vegetableName().errors; as errors) {
-      @if(errors['maxlength']; as maxlength) {
-        <small>Max length: {{maxNameLength}} and {{maxlength['actualLength']}} is used</small>
+    <input type="text" id="name" formControlName="name" autofocus />
+    @if (name.touched && name.errors; as errors) {
+      @if (errors["maxlength"]; as maxlength) {
+        <small
+          >Max length: {{ MAX_NAME_LENGTH }} and
+          {{ maxlength["actualLength"] }} is used</small
+        >
       }
-      @if(errors['required']) {
+      @if (errors["required"]) {
         <small>Please provide a name</small>
       }
     }
   </label>
   <label for="description">
     Description:
-    <textarea type="text" id="description" formControlName="description" rows="3"></textarea>
-    @if(vegetableDescription().errors; as errors) {
-      @if(errors['maxlength']; as maxlength) {
-        <small>Max length: {{maxDescriptionLength}} and {{maxlength['actualLength']}} is used</small>
+    <textarea
+      type="text"
+      id="description"
+      formControlName="description"
+      rows="3"
+    ></textarea>
+    @if (name.touched && description.errors; as errors) {
+      @if (errors["maxlength"]; as maxlength) {
+        <small
+          >Max length: {{ MAX_DESCRIPTION_LENGTH }} and
+          {{ maxlength["actualLength"] }} is used</small
+        >
       }
-      @if(errors['required']) {
+      @if (errors["required"]) {
         <small>Please provide a description</small>
       }
     }
@@ -29,27 +40,40 @@
       <p>Oh no! Something went wrong.</p>
     </div>
   }
-  
-  <button class="btn" [class.success]="vegetableStore.saveStatus() === Status.Success" type="submit" [disabled]="!vegetableForm().valid || vegetableForm().pristine || vegetableStore.isSubmitted()">
+
+  <button
+    class="btn"
+    [class.success]="vegetableStore.saveStatus() === Status.Success"
+    type="submit"
+    [disabled]="
+      !form.valid ||
+      form.pristine ||
+      vegetableStore.saveStatus() !== Status.Idle
+    "
+  >
     @switch (vegetableStore.saveStatus()) {
-      @case (Status.Error) {
-        Try again
-      }
       @case (Status.Loading) {
-          <span class="loader"></span>
-          Saving
+        <span class="loader"></span>
+        Saving
       }
       @case (Status.Success) {
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg>
-          Vegetable saved
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+        >
+          <path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" />
+        </svg>
+        Vegetable saved
       }
       @default {
-          Save
+        Save
       }
     }
   </button>
 
-  @if (vegetableForm().pristine && vegetable()) {
+  @if (form.pristine && vegetable()) {
     <small>Change any of the fields to save</small>
   }
 </form>

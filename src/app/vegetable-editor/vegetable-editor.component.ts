@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { VegetableFormComponent } from '../vegetable-form/vegetable-form.component';
-import { VegetableStore } from '../vegetables.store';
+import { Status, VegetableStore } from '../vegetables.store';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-vegetable-editor',
@@ -12,4 +13,7 @@ import { RouterLink } from '@angular/router';
 })
 export class VegetableEditorComponent {
   protected readonly vegetableStore = inject(VegetableStore);
+  protected readonly authService = inject(AuthService);
+
+  Status = Status;
 }

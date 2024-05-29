@@ -9,16 +9,15 @@ import { Vegetable, VegetablesService } from './vegetables.service';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import {
   concatMap,
-  debounceTime,
   filter,
   mergeMap,
   pipe,
-  retry,
   switchMap,
   tap,
 } from 'rxjs';
 import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
+import { EventNotificationService } from './event-notification.service';
 
 export enum Status {
   Idle,
@@ -48,17 +47,13 @@ export const VegetableStore = signalStore(
     isLoading: computed(
       () => status() === Status.Loading || saveStatus() === Status.Loading
     ),
-    isSubmitted: computed(
-      () => saveStatus() === Status.Loading || saveStatus() === Status.Success
-    ),
   })),
-  withMethods((store, vegetableService = inject(VegetablesService)) => ({
+  withMethods((store, vegetableService = inject(VegetablesService), eventNotificationService = inject(EventNotificationService)) => ({
     loadAll: rxMethod<void>(
       pipe(
         tap(() => patchState(store, { status: Status.Loading })),
         switchMap(() =>
           vegetableService.getVegetables().pipe(
-            retry(1),
             tapResponse({
               next: (vegetables) => {
                 patchState(store, { vegetables, status: Status.Idle });
@@ -78,9 +73,7 @@ export const VegetableStore = signalStore(
         tap((id) =>
           patchState(store, (state) => {
             state.deletingIds.add(id);
-            console.log(state.deletingIds);
             return {
-              status: Status.Loading,
               deletingIds: new Set(state.deletingIds),
             };
           })
@@ -91,7 +84,6 @@ export const VegetableStore = signalStore(
               next: () => {
                 patchState(store, (state) => ({
                   vegetables: [...state.vegetables.filter((v) => v.id !== id)],
-                  status: Status.Idle,
                 }));
               },
               error: (err) => {
@@ -131,6 +123,12 @@ export const VegetableStore = signalStore(
                   } else {
                     vegetables.push(newVegetable);
                   }
+
+                  eventNotificationService.toastEvent({
+                    message: "Vegetable saved",
+                    type: "success"
+                  })
+
                   return {
                     vegetables: [...vegetables],
                     saveStatus: Status.Success,
@@ -139,7 +137,17 @@ export const VegetableStore = signalStore(
               },
               error: (err) => {
                 patchState(store, { saveStatus: Status.Error });
+                eventNotificationService.toastEvent({
+                  message: "Failed to save vegetable",
+                  type: "error"
+                })
                 console.log(err);
+              },
+              finalize: () => {
+                setTimeout(
+                  () => patchState(store, { saveStatus: Status.Idle }),
+                  3000
+                );
               },
             })
           )

@@ -8,15 +8,13 @@ import {
   signal,
   viewChild,
 } from '@angular/core';
-import { RouterOutlet, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { RouterOutlet, Router, RouterLink } from '@angular/router';
 import { CardComponent } from '../card/card.component';
 import { Listbox, Option, Orientation } from '../listbox';
-import { ToasterComponent } from '../toaster/toaster.component';
-import { VegetableEditorComponent } from '../vegetable-editor/vegetable-editor.component';
 import { VegetableFormComponent } from '../vegetable-form/vegetable-form.component';
 import { Vegetable } from '../vegetables.service';
 import { VegetableStore } from '../vegetables.store';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-overview',
@@ -28,8 +26,7 @@ import { VegetableStore } from '../vegetables.store';
     CardComponent,
     JsonPipe,
     VegetableFormComponent,
-    VegetableEditorComponent,
-    ToasterComponent,
+    RouterLink
   ],
   templateUrl: './overview.component.html',
   styleUrl: './overview.component.css',
@@ -43,15 +40,6 @@ import { VegetableStore } from '../vegetables.store';
         animate('200ms cubic-bezier(0.4, 0.0, 1, 1)', style({ opacity: 0 })),
       ]),
     ]),
-    trigger('offsetEnter', [
-      transition(':enter', [
-        style({ opacity: 0 }),
-        animate(
-          '250ms 250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
-          style({ opacity: 1 })
-        ),
-      ]),
-    ]),
   ],
 })
 export class OverviewComponent {
@@ -59,6 +47,7 @@ export class OverviewComponent {
   private readonly router: Router = inject(Router);
 
   protected readonly vegetableStore = inject(VegetableStore);
+  protected readonly authService = inject(AuthService);
 
   readonly listBox = viewChild<Listbox<Vegetable>>('listbox');
 

@@ -1,0 +1,489 @@
+{
+  "users": [
+    { "id": 1, "name": "Marti", "permissions": ["edit", "create"] },
+    { "id": 2, "name": "Melman", "permissions": ["edit"] },
+    { "id": 3, "name": "Alex", "permissions": [] }
+  ],
+  "vegetables": [
+    {
+      "id": 1,
+      "name": "Carrot",
+      "description": "A root vegetable, typically orange in color, that is crisp and sweet."
+    },
+    {
+      "id": 2,
+      "name": "Broccoli",
+      "description": "A green vegetable with a tree-like structure, known for its high nutritional value."
+    },
+    {
+      "id": 3,
+      "name": "Spinach",
+      "description": "A leafy green vegetable that is rich in iron and vitamins, often used in salads and cooking."
+    },
+    {
+      "id": 4,
+      "name": "Potato",
+      "description": "A starchy tuber that is a staple food in many cultures, versatile in cooking."
+    },
+    {
+      "id": 5,
+      "name": "Tomato",
+      "description": "A red or yellow fruit that is commonly used as a vegetable in cooking, rich in vitamins."
+    },
+    {
+      "id": 6,
+      "name": "Cucumber",
+      "description": "A long, green vegetable with a refreshing taste, often used in salads."
+    },
+    {
+      "id": 7,
+      "name": "Bell Pepper",
+      "description": "A colorful vegetable that comes in green, red, yellow, and orange varieties, known for its sweet flavor."
+    },
+    {
+      "id": 8,
+      "name": "Lettuce",
+      "description": "A leafy green vegetable that is a staple in salads, available in many varieties."
+    },
+    {
+      "id": 9,
+      "name": "Onion",
+      "description": "A bulb vegetable with a strong flavor and aroma, used in a wide variety of dishes."
+    },
+    {
+      "id": 10,
+      "name": "Zucchini",
+      "description": "A green summer squash with a mild flavor, often used in cooking and baking."
+    },
+    {
+      "id": 11,
+      "name": "Eggplant",
+      "description": "A purple or white vegetable with a spongy texture, used in various culinary dishes."
+    },
+    {
+      "id": 12,
+      "name": "Radish",
+      "description": "A root vegetable with a peppery flavor, often used in salads."
+    },
+    {
+      "id": 13,
+      "name": "Beetroot",
+      "description": "A root vegetable that is deep red or purple, sweet in taste and often used in salads or as a natural dye."
+    },
+    {
+      "id": 14,
+      "name": "Celery",
+      "description": "A green, crunchy vegetable often used in salads, soups, and as a snack."
+    },
+    {
+      "id": 15,
+      "name": "Kale",
+      "description": "A dark green, leafy vegetable that is highly nutritious, often used in salads, smoothies, and soups."
+    },
+    {
+      "id": 16,
+      "name": "Sweet Potato",
+      "description": "A tuber with a sweet flavor, often used in cooking and baking."
+    },
+    {
+      "id": 17,
+      "name": "Pumpkin",
+      "description": "A large, orange squash often used in pies, soups, and as a Halloween decoration."
+    },
+    {
+      "id": 18,
+      "name": "Turnip",
+      "description": "A root vegetable with a slightly sweet, earthy flavor, often used in stews and soups."
+    },
+    {
+      "id": 19,
+      "name": "Cabbage",
+      "description": "A leafy green or purple vegetable used in salads, coleslaw, and various cooked dishes."
+    },
+    {
+      "id": 20,
+      "name": "Peas",
+      "description": "Small, round green vegetables that grow in pods, often used in soups and as a side dish."
+    },
+    {
+      "id": 21,
+      "name": "Asparagus",
+      "description": "A green, spear-shaped vegetable known for its unique flavor, often grilled or steamed."
+    },
+    {
+      "id": 22,
+      "name": "Cauliflower",
+      "description": "A white, flowering vegetable that is versatile in cooking, often used as a low-carb substitute."
+    },
+    {
+      "id": 23,
+      "name": "Brussels Sprouts",
+      "description": "Small, green, cabbage-like vegetables that are often roasted or steamed."
+    },
+    {
+      "id": 24,
+      "name": "Artichoke",
+      "description": "A green, thistle-like vegetable with a tender heart and flavorful leaves."
+    },
+    {
+      "id": 25,
+      "name": "Leek",
+      "description": "A long, green and white vegetable with a mild onion flavor, often used in soups and stews."
+    },
+    {
+      "id": 26,
+      "name": "Garlic",
+      "description": "A bulbous plant with a strong flavor and aroma, used as a seasoning in many dishes."
+    },
+    {
+      "id": 27,
+      "name": "Chard",
+      "description": "A leafy green vegetable with colorful stems, known for its slightly bitter flavor."
+    },
+    {
+      "id": 28,
+      "name": "Bok Choy",
+      "description": "A type of Chinese cabbage with white stems and green leaves, often used in Asian cuisine."
+    },
+    {
+      "id": 29,
+      "name": "Butternut Squash",
+      "description": "A sweet, nutty-flavored winter squash with orange flesh, often used in soups and baking."
+    },
+    {
+      "id": 30,
+      "name": "Green Beans",
+      "description": "Long, slender green vegetables that are crisp and often used in salads and as a side dish."
+    },
+    {
+      "id": 31,
+      "name": "Okra",
+      "description": "A green, pod-like vegetable often used in soups and stews, known for its slimy texture when cooked."
+    },
+    {
+      "id": 32,
+      "name": "Parsnip",
+      "description": "A root vegetable similar to a carrot, but paler and sweeter in flavor."
+    },
+    {
+      "id": 33,
+      "name": "Fennel",
+      "description": "A vegetable with a bulbous base, feathery leaves, and a licorice-like flavor."
+    },
+    {
+      "id": 34,
+      "name": "Collard Greens",
+      "description": "A leafy green vegetable with a slightly bitter taste, often used in Southern cooking."
+    },
+    {
+      "id": 35,
+      "name": "Shallot",
+      "description": "A type of onion with a milder flavor, often used in gourmet cooking."
+    },
+    {
+      "id": 36,
+      "name": "Endive",
+      "description": "A leafy vegetable with a slightly bitter taste, often used in salads."
+    },
+    {
+      "id": 37,
+      "name": "Rutabaga",
+      "description": "A root vegetable with a slightly sweet and earthy flavor, often used in soups and stews."
+    },
+    {
+      "id": 38,
+      "name": "Watercress",
+      "description": "A leafy green vegetable with a peppery flavor, often used in salads and as a garnish."
+    },
+    {
+      "id": 39,
+      "name": "Radicchio",
+      "description": "A leafy vegetable with a slightly bitter taste, often used in salads and Italian dishes."
+    },
+    {
+      "id": 40,
+      "name": "Acorn Squash",
+      "description": "A small, green winter squash with sweet, orange flesh, often roasted or baked."
+    },
+    {
+      "id": 41,
+      "name": "Scallion",
+      "description": "A green onion with a mild flavor, often used as a garnish or in salads."
+    },
+    {
+      "id": 42,
+      "name": "Snow Peas",
+      "description": "Flat, green peas that are eaten whole, often used in stir-fries and salads."
+    },
+    {
+      "id": 43,
+      "name": "Jicama",
+      "description": "A root vegetable with a crisp texture and sweet, nutty flavor, often eaten raw."
+    },
+    {
+      "id": 44,
+      "name": "Bean Sprouts",
+      "description": "Young shoots of beans, often used in Asian cuisine for their crunchy texture."
+    },
+    {
+      "id": 45,
+      "name": "Bamboo Shoots",
+      "description": "Young shoots of bamboo plants, often used in Asian cuisine for their crunchy texture."
+    },
+    {
+      "id": 46,
+      "name": "Horseradish",
+      "description": "A root vegetable with a pungent flavor, often grated and used as a condiment."
+    },
+    {
+      "id": 47,
+      "name": "Kohlrabi",
+      "description": "A bulbous vegetable with a mild, slightly sweet flavor, often used in salads and cooking."
+    },
+    {
+      "id": 48,
+      "name": "Pattypan Squash",
+      "description": "A small, round summer squash with a scalloped edge, often used in cooking and baking."
+    },
+    {
+      "id": 49,
+      "name": "Tomatillo",
+      "description": "A small, green fruit with a papery husk, often used in Mexican cuisine for its tangy flavor."
+    },
+    {
+      "id": 50,
+      "name": "Yam",
+      "description": "A starchy tuber with a sweet flavor, often used in cooking and baking."
+    },
+    {
+      "id": 51,
+      "name": "Celeriac",
+      "description": "A root vegetable with a mild celery flavor, often used in soups and stews."
+    },
+    {
+      "id": 52,
+      "name": "Rhubarb",
+      "description": "A vegetable with tart, red stalks, often used in desserts and pies."
+    },
+    {
+      "id": 53,
+      "name": "Mustard Greens",
+      "description": "A leafy green vegetable with a peppery flavor, often used in salads and Southern cooking."
+    },
+    {
+      "id": 54,
+      "name": "Dandelion Greens",
+      "description": "A leafy green vegetable with a slightly bitter taste, often used in salads."
+    },
+    {
+      "id": 55,
+      "name": "Burdock Root",
+      "description": "A root vegetable with a slightly sweet, earthy flavor, often used in Asian cuisine."
+    },
+    {
+      "id": 56,
+      "name": "Lotus Root",
+      "description": "The root of the lotus plant, often used in Asian cuisine for its crunchy texture and slightly sweet flavor."
+    },
+    {
+      "id": 57,
+      "name": "Taro",
+      "description": "A starchy root vegetable with a slightly sweet flavor, often used in Asian cuisine."
+    },
+    {
+      "id": 58,
+      "name": "Cassava",
+      "description": "A starchy root vegetable, also known as yuca, often used in African, Caribbean, and Latin American cuisines."
+    },
+    {
+      "id": 59,
+      "name": "Chayote",
+      "description": "A green, pear-shaped vegetable with a mild flavor, often used in Latin American cuisine."
+    },
+    {
+      "id": 60,
+      "name": "Jerusalem Artichoke",
+      "description": "A tuber with a sweet, nutty flavor, often used in soups and salads."
+    },
+    {
+      "id": 61,
+      "name": "Seaweed",
+      "description": "A marine vegetable, often used in Asian cuisine, known for its salty flavor and nutritional benefits."
+    },
+    {
+      "id": 62,
+      "name": "Parsley",
+      "description": "A leafy herb often used as a garnish or in cooking for its fresh flavor."
+    },
+    {
+      "id": 63,
+      "name": "Basil",
+      "description": "A fragrant herb often used in Italian cuisine for its sweet and peppery flavor."
+    },
+    {
+      "id": 64,
+      "name": "Mint",
+      "description": "A fragrant herb often used in cooking and beverages for its refreshing flavor."
+    },
+    {
+      "id": 65,
+      "name": "Rosemary",
+      "description": "A fragrant herb often used in cooking for its pine-like flavor."
+    },
+    {
+      "id": 66,
+      "name": "Thyme",
+      "description": "A fragrant herb often used in cooking for its earthy, minty flavor."
+    },
+    {
+      "id": 67,
+      "name": "Oregano",
+      "description": "A fragrant herb often used in Italian and Greek cuisine for its strong, savory flavor."
+    },
+    {
+      "id": 68,
+      "name": "Cilantro",
+      "description": "A leafy herb often used in Mexican and Asian cuisine for its fresh, citrusy flavor."
+    },
+    {
+      "id": 69,
+      "name": "Dill",
+      "description": "A leafy herb often used in pickling and cooking for its fresh, tangy flavor."
+    },
+    {
+      "id": 70,
+      "name": "Sage",
+      "description": "A fragrant herb often used in cooking for its earthy, slightly peppery flavor."
+    },
+    {
+      "id": 71,
+      "name": "Chives",
+      "description": "A leafy herb with a mild onion flavor, often used as a garnish or in salads."
+    },
+    {
+      "id": 72,
+      "name": "Tarragon",
+      "description": "A fragrant herb often used in French cuisine for its sweet, anise-like flavor."
+    },
+    {
+      "id": 73,
+      "name": "Marjoram",
+      "description": "A fragrant herb often used in cooking for its sweet, pine-like flavor."
+    },
+    {
+      "id": 74,
+      "name": "Lovage",
+      "description": "A leafy herb with a flavor similar to celery, often used in soups and stews."
+    },
+    {
+      "id": 75,
+      "name": "Sorrel",
+      "description": "A leafy green with a tangy, lemony flavor, often used in soups and salads."
+    },
+    {
+      "id": 76,
+      "name": "Borage",
+      "description": "A leafy herb with a cucumber-like flavor, often used in salads and beverages."
+    },
+    {
+      "id": 77,
+      "name": "Purslane",
+      "description": "A leafy green with a slightly sour, salty flavor, often used in salads."
+    },
+    {
+      "id": 78,
+      "name": "Nasturtium",
+      "description": "A flowering plant with edible leaves and flowers, known for its peppery flavor."
+    },
+    {
+      "id": 79,
+      "name": "Arugula",
+      "description": "A leafy green with a peppery flavor, often used in salads."
+    },
+    {
+      "id": 80,
+      "name": "Mizuna",
+      "description": "A Japanese leafy green with a mild, peppery flavor, often used in salads."
+    },
+    {
+      "id": 81,
+      "name": "Mustard",
+      "description": "A leafy green with a sharp, peppery flavor, often used in salads and cooking."
+    },
+    {
+      "id": 82,
+      "name": "Amaranth",
+      "description": "A leafy green with a slightly sweet, nutty flavor, often used in salads and cooking."
+    },
+    {
+      "id": 83,
+      "name": "Perilla",
+      "description": "A leafy herb with a slightly minty, basil-like flavor, often used in Asian cuisine."
+    },
+    {
+      "id": 84,
+      "name": "Orach",
+      "description": "A leafy green with a slightly salty flavor, often used in salads and cooking."
+    },
+    {
+      "id": 85,
+      "name": "Radish Greens",
+      "description": "The leafy tops of radishes, with a slightly peppery flavor, often used in salads."
+    },
+    {
+      "id": 86,
+      "name": "Beet Greens",
+      "description": "The leafy tops of beets, with a slightly sweet, earthy flavor, often used in salads and cooking."
+    },
+    {
+      "id": 87,
+      "name": "Broccoli Rabe",
+      "description": "A leafy green vegetable with small broccoli-like florets, known for its slightly bitter flavor."
+    },
+    {
+      "id": 88,
+      "name": "Malabar Spinach",
+      "description": "A leafy green with a slightly mucilaginous texture, often used in Asian cuisine."
+    },
+    {
+      "id": 89,
+      "name": "Napa Cabbage",
+      "description": "A type of Chinese cabbage with pale green leaves, often used in Asian cuisine."
+    },
+    {
+      "id": 90,
+      "name": "Tat Soi",
+      "description": "A leafy green vegetable with a mild, slightly sweet flavor, often used in Asian cuisine."
+    },
+    {
+      "id": 91,
+      "name": "Mâche",
+      "description": "A small, leafy green with a mild, nutty flavor, often used in salads."
+    },
+    {
+      "id": 92,
+      "name": "Frisée",
+      "description": "A leafy green with curly, slightly bitter leaves, often used in salads."
+    },
+    {
+      "id": 93,
+      "name": "Escarole",
+      "description": "A leafy green with a slightly bitter flavor, often used in salads and soups."
+    },
+    {
+      "id": 94,
+      "name": "Puntarelle",
+      "description": "A type of chicory with a slightly bitter flavor, often used in Italian cuisine."
+    },
+    {
+      "id": 95,
+      "name": "Rapini",
+      "description": "A leafy green with small broccoli-like florets, known for its slightly bitter flavor."
+    },
+    {
+      "id": 96,
+      "name": "Salsify",
+      "description": "A root vegetable with a slightly sweet, oyster-like flavor, often used in soups and stews."
+    }
+  ]
+}

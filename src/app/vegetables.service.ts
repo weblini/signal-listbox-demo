@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 
 export interface Vegetable {
@@ -12,13 +12,8 @@ export interface Vegetable {
 })
 export class VegetablesService {
   readonly #VEGETABLE_URL = 'http://localhost:3000/vegetables';
-  readonly #JSON_HEADERS = new HttpHeaders({
-    'Content-Type': 'application/json',
-  });
 
   private readonly http = inject(HttpClient);
-
-  // TODO: handle errors
 
   getVegetables() {
     return this.http.get<Vegetable[]>(this.#VEGETABLE_URL);
@@ -33,14 +28,10 @@ export class VegetablesService {
   }
 
   #addVegetable(newVegetable: Vegetable) {
-    return this.http.post<Vegetable>(this.#VEGETABLE_URL, newVegetable, {
-      headers: this.#JSON_HEADERS,
-    });
+    return this.http.post<Vegetable>(this.#VEGETABLE_URL, newVegetable);
   }
 
   #updateVegetable(vegetable: Vegetable) {
-    return this.http.put<Vegetable>(`${this.#VEGETABLE_URL}/${vegetable.id}`, vegetable, {
-      headers: this.#JSON_HEADERS,
-    });
+    return this.http.put<Vegetable>(`${this.#VEGETABLE_URL}/${vegetable.id}`, vegetable);
   }
 }

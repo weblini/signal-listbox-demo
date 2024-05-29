@@ -2,14 +2,33 @@
 :root {
   --outline: 3px dashed rgb(255, 125, 218);
   --box-radius: 1rem;
-  --orange-rgb: 255, 186, 112;
+  --orange: rgb(255, 186, 112);
+  --error: rgb(255, 0, 64);
+  --error-dark: rgb(166, 11, 50);
+  --success: rgb(176, 215, 21);
+  --main-padding: 2rem;
+  --shadow: 0 0 5px 3px rgba(37, 37, 37, 0.1);
+  --min-h: calc(100vh - 70px);
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif,
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
     "Segoe UI Symbol";
 }
 
@@ -21,7 +40,7 @@ body {
   justify-content: center;
   align-items: center;
   border: none;
-  background-color: rgb(var(--orange-rgb));
+  background-color: var(--orange);
   font-weight: bold;
   text-transform: uppercase;
   transition: all 200ms ease-in;
@@ -30,18 +49,19 @@ body {
   gap: 0.5rem;
   font-family: inherit;
   font-size: 1rem;
+  outline: 3px dashed transparent;
 
   &:hover,
   &:active {
     transition: all 150ms;
   }
 
-  &:hover {
-    background-color: rgb(255, 165, 68);
+  &:focus {
+    outline-color: rgb(255, 125, 218);
   }
 
-  &:focus {
-    outline: 3px dashed rgb(255, 125, 218);
+  &:hover {
+    background-color: rgb(255, 165, 68);
   }
 
   &:active {
@@ -56,34 +76,52 @@ body {
   }
 
   &.success {
-    background-color: rgb(176, 215, 21);
+    background-color: var(--success);
     color: black;
   }
 
   &.icon-btn {
-    background-color: rgba(255, 186, 112, 0);
     width: 2rem;
     height: 2rem;
     padding: 0;
     fill: rgba(47, 42, 37, 0.5);
 
     &:hover {
-      background-color: rgba(255, 186, 112, 0.5);
       fill: rgba(47, 42, 37, 1);
     }
+  }
+
+  &.secondary,
+  &.icon-btn {
+    background-color: rgba(255, 186, 112, 0);
+
+    &:hover {
+      background-color: rgba(255, 186, 112, 0.5);
+    }
+
+    &:active {
+      background-color: rgba(227, 151, 71, 0.5);
+    }
+  }
+
+  &:not(.icon-btn) svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
 .loader {
-  --stroke: 6px;
+  --stroke: 5px;
   --accent-color: rgb(79, 58, 35);
-  --size: 1.5rem;
+  --size: 1.25rem;
+  margin: 0;
   display: block;
   width: var(--size);
   height: var(--size);
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(farthest-side, var(--accent-color) 94%, #0000)
+  background:
+    radial-gradient(farthest-side, var(--accent-color) 94%, #0000)
       top/var(--stroke) var(--stroke) no-repeat,
     conic-gradient(#0000 30%, var(--accent-color));
   -webkit-mask: radial-gradient(
@@ -111,9 +149,9 @@ body {
   padding: 1rem 2rem;
   background-color: #fff7f0;
   border-radius: 1rem;
-  border: solid 4px #feb53f;
+  border: solid 4px rgb(254, 181, 63);
   text-align: center;
-  color: #e77f00;
+  color: rgb(231, 127, 0);
   font-weight: bold;
   flex-direction: column;
   justify-content: center;
@@ -128,7 +166,7 @@ body {
   }
 
   .loader {
-    --accent-color: #feb53f;
+    --accent-color: rgb(255, 182, 64);
     --size: 50px;
     --stroke: 8px;
     margin-bottom: 1rem;

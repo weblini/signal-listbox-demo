@@ -1,11 +1,10 @@
 import {
   Component,
-  computed,
   effect,
   inject,
   input,
   InputSignal,
-  output,
+  OnInit,
 } from '@angular/core';
 import {
   FormControl,
@@ -16,6 +15,7 @@ import {
 import { Vegetable } from '../vegetables.service';
 import { VegetableStore } from '../vegetables.store';
 import { Status } from '../vegetables.store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vegetable-form',
@@ -24,41 +24,74 @@ import { Status } from '../vegetables.store';
   templateUrl: './vegetable-form.component.html',
   styleUrl: './vegetable-form.component.css',
 })
-export class VegetableFormComponent {
+export class VegetableFormComponent implements OnInit {
   protected readonly vegetableStore = inject(VegetableStore);
+  private readonly router: Router = inject(Router);
+
   readonly vegetable: InputSignal<Vegetable | undefined> = input<Vegetable>();
 
-  protected readonly maxNameLength = 14;
-  protected readonly maxDescriptionLength = 88;
+  protected readonly MAX_NAME_LENGTH = 14;
+  protected readonly MAX_DESCRIPTION_LENGTH = 108;
 
   Status = Status;
 
-  protected readonly vegetableForm = computed(() => {
-    const v = this.vegetable();
-    return this.createNewForm(v);
-  });
-
-  protected readonly vegetableName = computed(
-    () => this.vegetableForm().get('name') as FormControl<string | null>
-  );
-  protected readonly vegetableDescription = computed(
-    () => this.vegetableForm().get('description') as FormControl<string | null>
-  );
+  form = this.#createNewForm();
+  name = this.form.get('name') as FormControl<string | null>;
+  description = this.form.get('description') as FormControl<string | null>;
 
   constructor() {
     this.vegetableStore.resetSave();
 
-    effect(() => {
-      if (this.vegetableStore.isSubmitted()) {
-        this.vegetableForm().disable();
-      } else {
-        this.vegetableForm().enable();
-      }
-    });
-
+    this.#disableFormWhenProcessing();
+    this.#markUntouchedWhenDone();
+    this.#returnToEditorOnSuccess();
   }
 
-  protected createNewForm(v?: Vegetable): FormGroup<{
+  ngOnInit(): void {
+    this.#setInitialValues();
+  }
+
+  #setInitialValues() {
+    const v = this.vegetable();
+    if (v) {
+      this.form.setValue({
+        name: v.name,
+        description: v.description,
+        id: v.id,
+      });
+    }
+  }
+
+  #markUntouchedWhenDone() {
+    effect(() => {
+      const status = this.vegetableStore.saveStatus();
+      if (status === Status.Idle) {
+        this.form.markAsUntouched();
+      }
+    });
+  }
+
+  #disableFormWhenProcessing() {
+    effect(() => {
+      if (this.vegetableStore.saveStatus() !== Status.Idle) {
+        this.form.disable();
+      } else {
+        this.form.enable();
+      }
+    });
+  }
+
+  #returnToEditorOnSuccess() {
+    effect(() => {
+      const status = this.vegetableStore.saveStatus();
+      const router = this.router;
+      if (status === Status.Success && !this.vegetable()) {
+        setTimeout(() => router.navigate(['/edit']), 1500);
+      }
+    });
+  }
+
+  #createNewForm(v?: Vegetable): FormGroup<{
     id: FormControl<number | null>;
     name: FormControl<string | null>;
     description: FormControl<string | null>;
@@ -67,17 +100,17 @@ export class VegetableFormComponent {
       id: new FormControl(v?.id || null),
       name: new FormControl(v?.name || null, [
         Validators.required,
-        Validators.maxLength(this.maxNameLength),
+        Validators.maxLength(this.MAX_NAME_LENGTH),
       ]),
       description: new FormControl(v?.description || null, [
         Validators.required,
-        Validators.maxLength(this.maxDescriptionLength),
+        Validators.maxLength(this.MAX_DESCRIPTION_LENGTH),
       ]),
     });
   }
 
   onSave() {
-    const editedVegetable = this.vegetableForm().value as Vegetable;
+    const editedVegetable = this.form.value as Vegetable;
     this.vegetableStore.save(editedVegetable);
   }
 }
