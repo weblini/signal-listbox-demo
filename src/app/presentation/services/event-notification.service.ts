@@ -35,10 +35,7 @@ export class EventNotificationService {
     ),
   );
 
-  #idCount = 1;
-
   readonly eventStream$ = merge(this.authEvents$, this.vegetableEvents$).pipe(
-    map((toast): Toast => ({ ...toast, id: this.#idCount })),
-    tap(() => this.#idCount++),
+    map((toast, i): Toast => ({ ...toast, id: i + 1 })),
   );
 }
