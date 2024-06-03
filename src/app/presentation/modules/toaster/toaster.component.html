@@ -32,16 +32,7 @@
       }
     }
     <p>{{ toast.message }}</p>
-    @if (toast.retryAction) {
-      <button class="btn" (click)="toast.retryAction()">Reload</button>
-    }
   </div>
-}
-
-@if (vegetableStore.deletingIds().size; as count) {
-  <p @animation class="toast">
-    Currently <strong>deleting {{ count }}</strong> vegetables
-  </p>
 }
 
 @if (vegetableStore.status() === Status.Error) {

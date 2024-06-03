@@ -86,7 +86,7 @@ body {
     padding: 0;
     fill: rgba(47, 42, 37, 0.5);
 
-    &:hover {
+    &:hover:not(:disabled) {
       fill: rgba(47, 42, 37, 1);
     }
   }
@@ -95,7 +95,7 @@ body {
   &.icon-btn {
     background-color: rgba(255, 186, 112, 0);
 
-    &:hover {
+    &:hover:not(:disabled) {
       background-color: rgba(255, 186, 112, 0.5);
     }
 
