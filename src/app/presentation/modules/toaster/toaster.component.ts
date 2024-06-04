@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { tap, delay } from 'rxjs';
+import { mergeMap, timer, map, take, scan, pipe } from 'rxjs';
 
 import { VegetableStore } from '@core/store/vegetables.store';
 import { Status } from '@core/models';
@@ -19,10 +19,16 @@ import { Toast } from '@ui/models';
     trigger('animation', [
       transition(':enter', [
         style({ opacity: 0, transform: 'translateX(100%)' }),
-        animate('250ms cubic-bezier(0.0, 0.0, 0.2, 1)', style({ opacity: 1, transform: 'translateX(0)' })),
+        animate(
+          '250ms cubic-bezier(0.0, 0.0, 0.2, 1)',
+          style({ opacity: 1, transform: 'translateX(0)' }),
+        ),
       ]),
       transition(':leave', [
-        animate('200ms cubic-bezier(0.4, 0.0, 1, 1)', style({ opacity: 0, transform: 'translateX(100%)' })),
+        animate(
+          '200ms cubic-bezier(0.4, 0.0, 1, 1)',
+          style({ opacity: 0, transform: 'translateX(100%)' }),
+        ),
       ]),
     ]),
   ],
@@ -33,25 +39,34 @@ export class ToasterComponent {
 
   Status = Status;
 
-  readonly toasts = signal<Toast[]>([]);
+  protected readonly toastsRx = toSignal(
+    this.#errorNotificationService.eventStream$.pipe(this.#pullIntoArrayFor(3000)),
+  );
 
-  constructor() {
-    this.#errorNotificationService.eventStream$
-      .pipe(
-        takeUntilDestroyed(),
-        tap((toast) => this.toasts.update((prev) => [toast, ...prev])),
-        delay(3000),
-        tap((toast) =>
-          this.toasts.update((prev) => {
-            const index = prev.indexOf(toast);
-            if (index > -1) {
-              prev.splice(index, 1);
-              return [...prev];
-            }
-            return prev;
-          }),
+  #pullIntoArrayFor(displayFor: number) {
+    return pipe(
+      mergeMap((toast: Toast) =>
+        timer(0, displayFor).pipe(
+          take(2),
+          map((isDeferred) => ({ remove: !!isDeferred, toast })),
         ),
-      )
-      .subscribe();
+      ),
+      scan(
+        (toasts, newToast) =>
+          newToast.remove
+            ? this.#getArrayWithoutItem(toasts, newToast.toast)
+            : [newToast.toast, ...toasts],
+        <Toast[]>[],
+      ),
+    );
+  }
+
+  #getArrayWithoutItem<A>(array: A[], item: A) {
+    const index = array.indexOf(item);
+    if (index > -1) {
+      array.splice(index, 1);
+      return [...array];
+    }
+    return array;
   }
 }

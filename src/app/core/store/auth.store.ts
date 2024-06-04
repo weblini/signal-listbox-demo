@@ -17,11 +17,13 @@ import { pipe, switchMap, tap } from 'rxjs';
 type AuthState = {
   user: User | undefined;
   status: Status;
+  message: string;
 };
 
 const initialState: AuthState = {
   user: undefined,
   status: Status.Idle,
+  message: '',
 };
 
 export const AuthStore = signalStore(
@@ -34,27 +36,34 @@ export const AuthStore = signalStore(
   })),
   withMethods(
     (store, authService = inject(AuthService), router = inject(Router)) => ({
-      logout: rxMethod<void>(
-        pipe(
-          tap(() => {
-            patchState(store, { user: undefined });
-            router.navigate(['/']);
-          }),
-        ),
-      ),
+      logout(): void {
+        patchState(store, {
+          user: undefined,
+          status: Status.Success,
+          message: 'Logged out',
+        });
+        router.navigate(['/']);
+        setTimeout(() => patchState(store, { status: Status.Idle }));
+      },
       login: rxMethod<void>(
         pipe(
+          tap(() => patchState(store, { status: Status.Loading })),
           switchMap(() =>
             authService.getUser().pipe(
               tapResponse({
                 next: (user) =>
-                  patchState(store, { user, status: Status.Success }),
-                error: (err) => patchState(store, { status: Status.Error }),
+                  patchState(store, {
+                    user,
+                    status: Status.Success,
+                    message: 'Logged in',
+                  }),
+                error: (err) =>
+                  patchState(store, {
+                    status: Status.Error,
+                    message: 'Failed to login',
+                  }),
                 finalize: () => {
-                  setTimeout(
-                    () => patchState(store, { status: Status.Idle }),
-                    3000,
-                  );
+                  setTimeout(() => patchState(store, { status: Status.Idle }));
                 },
               }),
             ),
