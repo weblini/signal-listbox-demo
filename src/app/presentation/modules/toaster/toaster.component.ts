@@ -40,10 +40,10 @@ export class ToasterComponent {
   Status = Status;
 
   protected readonly toastsRx = toSignal(
-    this.#errorNotificationService.eventStream$.pipe(this.#pullIntoArray(3000)),
+    this.#errorNotificationService.eventStream$.pipe(this.#pullIntoArrayFor(3000)),
   );
 
-  #pullIntoArray(displayFor: number) {
+  #pullIntoArrayFor(displayFor: number) {
     return pipe(
       mergeMap((toast: Toast) =>
         timer(0, displayFor).pipe(
