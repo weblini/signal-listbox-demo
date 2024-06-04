@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { tap, delay, mergeMap, timer, map, take, scan } from 'rxjs';
+import { mergeMap, timer, map, take, scan, pipe } from 'rxjs';
 
 import { VegetableStore } from '@core/store/vegetables.store';
 import { Status } from '@core/models';
@@ -39,27 +39,23 @@ export class ToasterComponent {
 
   Status = Status;
 
-  // readonly toasts = signal<Toast[]>([]);
-
-  // constructor() {
-  //   this.#errorNotificationService.eventStream$
-  //     .pipe(
-  //       takeUntilDestroyed(),
-  //       tap((toast) => this.toasts.update((prev) => [toast, ...prev])),
-  //       delay(3000),
-  //       tap((toast) =>
-  //         this.toasts.update((prev) => {
-  //           return this.#getArrayWithoutItem(prev, toast);
-  //         }),
-  //       ),
-  //     )
-  //     .subscribe();
-  // }
-
   protected readonly toastsRx = toSignal(
-    this.#errorNotificationService.eventStream$.pipe(
-      mergeMap((toast) =>
-        timer(0, 3000).pipe(
+    this.#errorNotificationService.eventStream$.pipe(this.#pullIntoArray(3000)),
+  );
+
+  #getArrayWithoutItem<A>(array: A[], item: A) {
+    const index = array.indexOf(item);
+    if (index > -1) {
+      array.splice(index, 1);
+      return [...array];
+    }
+    return array;
+  }
+
+  #pullIntoArray(displayFor: number) {
+    return pipe(
+      mergeMap((toast: Toast) =>
+        timer(0, displayFor).pipe(
           take(2),
           map((isDeferred) => ({ remove: !!isDeferred, toast })),
         ),
@@ -71,15 +67,6 @@ export class ToasterComponent {
             : [newToast.toast, ...toasts],
         <Toast[]>[],
       ),
-    ),
-  );
-
-  #getArrayWithoutItem<A>(array: A[], item: A) {
-    const index = array.indexOf(item);
-    if (index > -1) {
-      array.splice(index, 1);
-      return [...array];
-    }
-    return array;
+    );
   }
 }

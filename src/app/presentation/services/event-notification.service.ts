@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { filter, map, merge, tap } from 'rxjs';
+import { Injectable, Signal, inject } from '@angular/core';
+import { filter, map, merge, pipe } from 'rxjs';
 import { FreeToast, Toast } from '@ui/models';
 import { AuthStore } from '@core/store/auth.store';
 import { toObservable } from '@angular/core/rxjs-interop';
@@ -13,29 +13,33 @@ export class EventNotificationService {
   readonly #authStore = inject(AuthStore);
   readonly #vegetableStore = inject(VegetableStore);
 
-  protected readonly authEvents$ = toObservable(this.#authStore.status).pipe(
-    filter((status) => status === Status.Error || status === Status.Success),
-    map(
-      (status): FreeToast => ({
-        message: this.#authStore.message(),
-        type: status === Status.Error ? 'error' : 'success',
-      }),
-    ),
+  readonly #authEvents$ = toObservable(this.#authStore.status).pipe(
+    this.#extractErrorSuccessToFreeToast(this.#authStore.message),
   );
 
-  protected readonly vegetableEvents$ = toObservable(
+  readonly #vegetableEvents$ = toObservable(
     this.#vegetableStore.saveStatus,
-  ).pipe(
-    filter((status) => status === Status.Error || status === Status.Success),
-    map(
-      (status): FreeToast => ({
-        message: this.#vegetableStore.message(),
-        type: status === Status.Error ? 'error' : 'success',
-      }),
-    ),
+  ).pipe(this.#extractErrorSuccessToFreeToast(this.#vegetableStore.message));
+
+  readonly eventStream$ = merge(this.#authEvents$, this.#vegetableEvents$).pipe(
+    this.#addIdToToast(),
   );
 
-  readonly eventStream$ = merge(this.authEvents$, this.vegetableEvents$).pipe(
-    map((toast, i): Toast => ({ ...toast, id: i + 1 })),
-  );
+  #extractErrorSuccessToFreeToast(message: Signal<string>) {
+    return pipe(
+      filter((status: Status) =>
+        [Status.Error, Status.Success].includes(status),
+      ),
+      map(
+        (status: Status): FreeToast => ({
+          message: message(),
+          type: status === Status.Error ? 'error' : 'success',
+        }),
+      ),
+    );
+  }
+
+  #addIdToToast() {
+    return map((toast: FreeToast, i): Toast => ({ ...toast, id: i + 1 }));
+  }
 }
