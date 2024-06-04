@@ -43,15 +43,6 @@ export class ToasterComponent {
     this.#errorNotificationService.eventStream$.pipe(this.#pullIntoArray(3000)),
   );
 
-  #getArrayWithoutItem<A>(array: A[], item: A) {
-    const index = array.indexOf(item);
-    if (index > -1) {
-      array.splice(index, 1);
-      return [...array];
-    }
-    return array;
-  }
-
   #pullIntoArray(displayFor: number) {
     return pipe(
       mergeMap((toast: Toast) =>
@@ -68,5 +59,14 @@ export class ToasterComponent {
         <Toast[]>[],
       ),
     );
+  }
+
+  #getArrayWithoutItem<A>(array: A[], item: A) {
+    const index = array.indexOf(item);
+    if (index > -1) {
+      array.splice(index, 1);
+      return [...array];
+    }
+    return array;
   }
 }
