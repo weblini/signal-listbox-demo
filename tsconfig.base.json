@@ -18,7 +18,8 @@
       "@shared/models": ["libs/shared/models/src/index.ts"],
       "@state": ["libs/state/src/index.ts"],
       "@ui/toaster": ["libs/ui/toaster/src/index.ts"],
-      "@ui/*": ["src/app/presentation/*"],
+      "@ui/listbox": ["libs/ui/listbox/src/index.ts"],
+      "@ui/*": ["src/app/presentation/*"]
     }
   }
 }

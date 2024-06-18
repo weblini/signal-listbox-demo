@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { RouterOutlet, Router, RouterLink } from '@angular/router';
 import { CardComponent } from '../card/card.component';
-import { Listbox, Option, Orientation } from '../listbox';
+import { Listbox, Option, Orientation } from '@ui/listbox';
 import { VegetableFormComponent } from '../vegetable-form/vegetable-form.component';
 import { AuthStore } from '@state';
 import { VegetableStore } from '@state';

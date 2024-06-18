@@ -9,10 +9,12 @@
       "@data-layer": ["libs/data-layer/src/index.ts"],
       "@shared/models": ["libs/shared/models/src/lib/models/index.ts"],
       "@state": ["libs/state/src/index.ts"],
-      "@ui/toaster": ["libs/ui/toaster/src/index.ts"],
       "@core/*": ["src/app/core/*"],
       "@data/*": ["src/app/data/*"],
+      "@ui/toaster": ["libs/ui/toaster/src/index.ts"],
+      "@ui/listbox": ["libs/ui/listbox/src/index.ts"],
       "@ui/*": ["src/app/presentation/*"]
+
     }
   },
   "files": [

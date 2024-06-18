@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
-import { VegetableFormComponent } from '@ui/modules/vegetable-form';
 import { VegetableStore } from '@state';
 import { Status } from '@shared/models';
 import { AuthStore } from '@state';
@@ -9,7 +8,7 @@ import { AuthStore } from '@state';
 @Component({
   selector: 'app-vegetable-editor',
   standalone: true,
-  imports: [VegetableFormComponent, RouterLink],
+  imports: [RouterLink],
   templateUrl: './vegetable-editor.component.html',
   styleUrl: './vegetable-editor.component.css',
 })
