@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 
-import { Vegetable } from '@data/models';
+import { Vegetable } from '@shared/models';
 
 
 @Injectable({

@@ -2,13 +2,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "outDir": "./out-tsc/app",
     "types": [],
     "paths": {
-      "@core/*": ["app/core/*"],
-      "@data/*": ["app/data/*"],
-      "@ui/*": ["app/presentation/*"],
+      "@core/*": ["src/app/core/*"],
+      "@data/*": ["src/app/data/*"],
+      "@ui/*": ["src/app/presentation/*"],
+      "@data-layer": ["libs/data-layer/src/index.ts"],
+      "@shared/models": ["libs/shared/models/src/lib/models/index.ts"],
+      "@state": ["libs/state/src/index.ts"],
     }
   },
   "files": [

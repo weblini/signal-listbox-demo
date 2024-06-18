@@ -3,8 +3,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { mergeMap, timer, map, take, scan, pipe } from 'rxjs';
 
-import { VegetableStore } from '@core/store/vegetables.store';
-import { Status } from '@core/models';
+import { VegetableStore } from '@state';
+import { Status } from '@shared/models';
 
 import { EventNotificationService } from '@ui/services/event-notification.service';
 import { Toast } from '@ui/models';

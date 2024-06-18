@@ -5,14 +5,12 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { VegetablesService } from '@data/services';
-import { Vegetable } from '@data/models';
+import { VegetablesService } from '@data-layer';
+import { Vegetable, Status } from '@shared/models';
 import { rxMethod } from '@ngrx/signals/rxjs-interop';
 import { concatMap, filter, mergeMap, pipe, switchMap, tap } from 'rxjs';
 import { computed, inject } from '@angular/core';
 import { tapResponse } from '@ngrx/operators';
-
-import { Status } from '@core/models';
 
 type VegetablesState = {
   vegetables: Vegetable[];

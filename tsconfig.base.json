@@ -1,0 +1,23 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "bundler",
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "skipLibCheck": true,
+    "baseUrl": "./",
+    "paths": {
+      "@core/*": ["src/app/core/*"],
+      "@data/*": ["src/app/data/*"],
+      "@ui/*": ["src/app/presentation/*"],
+      "@data-layer": ["libs/data-layer/src/index.ts"],
+      "@shared/models": ["libs/shared/models/src/index.ts"],
+      "@state": ["libs/state/src/index.ts"],
+    }
+  }
+}

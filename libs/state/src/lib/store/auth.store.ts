@@ -1,8 +1,7 @@
 import { computed, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Status } from '@core/models';
-import { User } from '@data/models';
-import { AuthService } from '@data/services';
+import { Status, User } from '@shared/models';
+import { AuthService } from '@data-layer';
 import { tapResponse } from '@ngrx/operators';
 import {
   patchState,

@@ -4,8 +4,7 @@ import { inject } from '@angular/core';
 import { OverviewComponent } from '@ui/modules/overview';
 import { EditComponent } from '@ui/modules/edit/edit.component';
 import { VegetableEditorComponent } from '@ui/modules/vegetable-editor';
-import { permissionGuard } from '@core/utils/permission.guard';
-import { AuthStore } from '@core/store/auth.store';
+import { permissionGuard, AuthStore } from '@state';
 
 export const routes: Routes = [
   {

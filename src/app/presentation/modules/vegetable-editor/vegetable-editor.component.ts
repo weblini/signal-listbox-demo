@@ -2,9 +2,9 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { VegetableFormComponent } from '@ui/modules/vegetable-form';
-import { VegetableStore } from '@core/store/vegetables.store';
-import { Status } from '@core/models';
-import { AuthStore } from '@core/store/auth.store';
+import { VegetableStore } from '@state';
+import { Status } from '@shared/models';
+import { AuthStore } from '@state';
 
 @Component({
   selector: 'app-vegetable-editor',

@@ -14,9 +14,8 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { VegetableStore } from '@core/store/vegetables.store';
-import { Status } from '@core/models';
-import { Vegetable } from '@data/models';
+import { VegetableStore } from '@state';
+import { Status, Vegetable } from '@shared/models';
 
 @Component({
   selector: 'app-vegetable-form',
