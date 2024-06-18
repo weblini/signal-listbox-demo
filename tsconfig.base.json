@@ -13,11 +13,12 @@
     "baseUrl": "./",
     "paths": {
       "@core/*": ["src/app/core/*"],
-      "@data/*": ["src/app/data/*"],
-      "@ui/*": ["src/app/presentation/*"],
       "@data-layer": ["libs/data-layer/src/index.ts"],
+      "@data/*": ["src/app/data/*"],
       "@shared/models": ["libs/shared/models/src/index.ts"],
       "@state": ["libs/state/src/index.ts"],
+      "@ui/toaster": ["libs/ui/toaster/src/index.ts"],
+      "@ui/*": ["src/app/presentation/*"],
     }
   }
 }

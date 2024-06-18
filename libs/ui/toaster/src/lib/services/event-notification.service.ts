@@ -1,6 +1,6 @@
 import { Injectable, Signal, inject } from '@angular/core';
 import { filter, map, merge, pipe } from 'rxjs';
-import { FreeToast, Toast } from '@ui/models';
+import { FreeToast, Toast } from '../models';
 import { AuthStore } from '@state';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Status } from '@shared/models';

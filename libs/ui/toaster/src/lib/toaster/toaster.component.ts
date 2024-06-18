@@ -6,8 +6,8 @@ import { mergeMap, timer, map, take, scan, pipe } from 'rxjs';
 import { VegetableStore } from '@state';
 import { Status } from '@shared/models';
 
-import { EventNotificationService } from '@ui/services/event-notification.service';
-import { Toast } from '@ui/models';
+import { EventNotificationService } from '../services/event-notification.service';
+import { Toast } from '../models';
 
 @Component({
   selector: 'app-toaster',
