@@ -1,10 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { AuthStore } from '@core/store/auth.store';
-import { ToasterComponent } from '@ui/modules/toaster';
-import { VegetableStore } from '@core/store/vegetables.store';
-import { Status } from '@core/models';
+import { AuthStore, VegetableStore } from '@state';
+import { ToasterComponent } from '@ui/toaster';
+import { Status } from '@shared/models';
 
 @Component({
   selector: 'app-root',
