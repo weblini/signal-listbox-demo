@@ -12,6 +12,7 @@
     "skipLibCheck": true,
     "baseUrl": "./",
     "paths": {
+      "@app/*": ["src/app/*"],
       "@data-layer": ["libs/data-layer/src/index.ts"],
       "@state": ["libs/state/src/index.ts"],
       "@shared/models": ["libs/shared/models/src/index.ts"],
