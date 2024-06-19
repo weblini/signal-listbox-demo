@@ -9,7 +9,7 @@ import {
   viewChild,
 } from '@angular/core';
 import { RouterOutlet, Router, RouterLink } from '@angular/router';
-import { CardComponent } from '../card/card.component';
+import { CardComponent } from '@ui/card';
 import { Listbox, Option, Orientation } from '@ui/listbox';
 import { VegetableFormComponent } from '../vegetable-form/vegetable-form.component';
 import { AuthStore } from '@state';

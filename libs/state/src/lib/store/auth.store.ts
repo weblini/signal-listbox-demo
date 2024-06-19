@@ -30,7 +30,7 @@ export const AuthStore = signalStore(
   withState(initialState),
   withComputed(({ user }) => ({
     isLoggedIn: computed(() => !!user()),
-    canEdit: computed(() => user()?.permissions.includes('vegetable-edit-view')),
+    canEdit: computed(() => user()?.permissions.includes('edit')),
     canCreate: computed(() => user()?.permissions.includes('create')),
   })),
   withMethods(
