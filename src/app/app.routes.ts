@@ -23,13 +23,13 @@ export const routes: Routes = [
         canActivate: [() => inject(AuthStore).canCreate()]
       },
       {
-        path: 'vegetable-edit-view/:id',
+        path: 'edit/:id',
         title: 'Edit Vegetable',
         component: VegetableEditViewComponent,
         canActivate: [() => inject(AuthStore).canEdit()]
       },
       {
-        path: 'vegetable-edit-view',
+        path: 'edit',
         title: 'Edit Vegetables',
         component: VegetableListViewComponent,
       },
