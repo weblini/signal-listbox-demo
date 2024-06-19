@@ -2,9 +2,9 @@ import { Injectable, Signal, inject } from '@angular/core';
 import { filter, map, merge, pipe } from 'rxjs';
 import { FreeToast, Toast } from '../models';
 import { AuthStore } from '@state';
+import { VegetableStore } from '@state';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Status } from '@shared/models';
-import { VegetableStore } from '@state';
 
 @Injectable({
   providedIn: 'root',

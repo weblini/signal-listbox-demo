@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToasterComponent } from '@ui/toaster';
+import { ToasterComponent } from './toaster.component';
 
 describe('ToasterComponent', () => {
   let component: ToasterComponent;

@@ -1,9 +1,8 @@
-import { Component, inject } from '@angular/core';
+import {Component, computed, inject, input, output, OutputEmitterRef} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { mergeMap, timer, map, take, scan, pipe } from 'rxjs';
 
-import { VegetableStore } from '@state';
 import { Status } from '@shared/models';
 
 import { EventNotificationService } from '../services/event-notification.service';
@@ -34,10 +33,11 @@ import { Toast } from '../models';
   ],
 })
 export class ToasterComponent {
-  protected readonly vegetableStore = inject(VegetableStore);
   readonly #errorNotificationService = inject(EventNotificationService);
 
-  Status = Status;
+  reload: OutputEmitterRef<void> = output<void>()
+  readonly dataStatus = input.required<Status>();
+  protected readonly statusError = computed(() => this.dataStatus() === Status.Error);
 
   protected readonly toastsRx = toSignal(
     this.#errorNotificationService.eventStream$.pipe(this.#pullIntoArrayFor(3000)),
@@ -68,5 +68,9 @@ export class ToasterComponent {
       return [...array];
     }
     return array;
+  }
+
+  reloadAll() {
+    this.reload.emit();
   }
 }

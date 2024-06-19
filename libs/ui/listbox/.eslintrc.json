@@ -18,12 +18,10 @@
           }
         ],
         "@angular-eslint/component-selector": [
-          "error",
-          {
-            "type": "element",
-            "prefix": "lib",
-            "style": "kebab-case"
-          }
+          "off"
+        ],
+        "@angular-eslint/component-class-suffix": [
+          "off"
         ]
       }
     },

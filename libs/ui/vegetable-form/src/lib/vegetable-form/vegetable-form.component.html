@@ -35,7 +35,7 @@
     }
   </label>
 
-  @if (vegetableStore.saveStatus() === Status.Error) {
+  @if (saveStatus() === Status.Error) {
     <div class="info">
       <p>Oh no! Something went wrong.</p>
     </div>
@@ -43,15 +43,15 @@
 
   <button
     class="btn"
-    [class.success]="vegetableStore.saveStatus() === Status.Success"
+    [class.success]="saveStatus() === Status.Success"
     type="submit"
     [disabled]="
       !form.valid ||
       form.pristine ||
-      vegetableStore.saveStatus() !== Status.Idle
+      saveStatus() !== Status.Idle
     "
   >
-    @switch (vegetableStore.saveStatus()) {
+    @switch (saveStatus()) {
       @case (Status.Loading) {
         <span class="loader"></span>
         Saving

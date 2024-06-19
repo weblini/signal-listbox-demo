@@ -105,7 +105,7 @@ export const VegetableStore = signalStore(
             tapResponse({
               next: (newVegetable) => {
                 patchState(store, (state) => {
-                  let vegetables = state.vegetables;
+                  const vegetables = state.vegetables;
                   if (!newVegetable) {
                     throw Error(
                       'Unexpected response from API after saveVegetable',
@@ -150,3 +150,4 @@ export const VegetableStore = signalStore(
     },
   })),
 );
+export type VegetableStore = InstanceType<typeof VegetableStore>;

@@ -5,6 +5,7 @@ import {
   input,
   InputSignal,
   OnInit,
+  output, OutputEmitterRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import {
@@ -14,7 +15,6 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { VegetableStore } from '@state';
 import { Status, Vegetable } from '@shared/models';
 
 @Component({
@@ -25,10 +25,11 @@ import { Status, Vegetable } from '@shared/models';
   styleUrl: './vegetable-form.component.css',
 })
 export class VegetableFormComponent implements OnInit {
-  protected readonly vegetableStore = inject(VegetableStore);
   private readonly router: Router = inject(Router);
 
   readonly vegetable: InputSignal<Vegetable | undefined> = input<Vegetable>();
+  readonly saveStatus: InputSignal<Status> = input.required<Status>();
+  readonly save: OutputEmitterRef<Vegetable> = output<Vegetable>()
 
   protected readonly MAX_NAME_LENGTH = 14;
   protected readonly MAX_DESCRIPTION_LENGTH = 108;
@@ -40,7 +41,7 @@ export class VegetableFormComponent implements OnInit {
   description = this.form.get('description') as FormControl<string | null>;
 
   constructor() {
-    this.vegetableStore.resetSave();
+    // this.vegetableStore.resetSave();
 
     this.#disableFormWhenProcessing();
     this.#markUntouchedWhenDone();
@@ -64,7 +65,7 @@ export class VegetableFormComponent implements OnInit {
 
   #markUntouchedWhenDone() {
     effect(() => {
-      const status = this.vegetableStore.saveStatus();
+      const status = this.saveStatus();
       if (status === Status.Idle) {
         this.form.markAsUntouched();
       }
@@ -73,7 +74,7 @@ export class VegetableFormComponent implements OnInit {
 
   #disableFormWhenProcessing() {
     effect(() => {
-      if (this.vegetableStore.saveStatus() !== Status.Idle) {
+      if (this.saveStatus() !== Status.Idle) {
         this.form.disable();
       } else {
         this.form.enable();
@@ -83,7 +84,7 @@ export class VegetableFormComponent implements OnInit {
 
   #returnToEditorOnSuccess() {
     effect(() => {
-      const status = this.vegetableStore.saveStatus();
+      const status = this.saveStatus();
       const router = this.router;
       if (status === Status.Success && !this.vegetable()) {
         setTimeout(() => router.navigate(['/edit']), 1500);
@@ -111,6 +112,6 @@ export class VegetableFormComponent implements OnInit {
 
   onSave() {
     const editedVegetable = this.form.value as Vegetable;
-    this.vegetableStore.save(editedVegetable);
+    this.save.emit(editedVegetable);
   }
 }
