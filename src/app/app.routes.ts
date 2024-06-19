@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
 import { inject } from '@angular/core';
 
-import { OverviewComponent } from '@ui/modules/overview';
-import { VegetableEditViewComponent } from '@ui/modules/vegetable-edit-view';
+import { OverviewComponent } from '@app/views/overview';
+import { VegetableEditViewComponent } from '@app/views/vegetable-edit-view';
 import { VegetableListViewComponent } from 'src/app/views/vegetable-list-view';
 import { permissionGuard, AuthStore } from '@state';
 
