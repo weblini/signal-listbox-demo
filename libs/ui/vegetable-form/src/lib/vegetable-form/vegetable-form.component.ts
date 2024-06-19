@@ -18,7 +18,7 @@ import { VegetableStore } from '@state';
 import { Status, Vegetable } from '@shared/models';
 
 @Component({
-  selector: 'app-vegetable-form',
+  selector: 'lib-vegetable-form',
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './vegetable-form.component.html',

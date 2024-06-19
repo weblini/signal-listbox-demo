@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 
 @Component({
-  selector: 'app-card',
+  selector: 'lib-card',
   standalone: true,
   imports: [],
   templateUrl: './card.component.html',

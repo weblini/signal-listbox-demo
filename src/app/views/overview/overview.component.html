@@ -51,7 +51,7 @@
     <h2>Your picks ({{ selectedToppings().length }} items):</h2>
     <div class="cards">
       @for (item of selectedToppings(); track item.id) {
-        <app-card
+        <lib-card
           [title]="item.name"
           [description]="item.description"
           @myInsertRemoveTrigger

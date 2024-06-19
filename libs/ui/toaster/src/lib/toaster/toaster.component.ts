@@ -10,7 +10,7 @@ import { EventNotificationService } from '../services/event-notification.service
 import { Toast } from '../models';
 
 @Component({
-  selector: 'app-toaster',
+  selector: 'lib-toaster',
   standalone: true,
   imports: [],
   templateUrl: './toaster.component.html',
