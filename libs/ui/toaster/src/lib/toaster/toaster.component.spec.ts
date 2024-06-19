@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ToasterComponent } from './toaster.component';
+import { ToasterComponent } from '@ui/toaster';
 
 describe('ToasterComponent', () => {
   let component: ToasterComponent;
@@ -11,7 +11,7 @@ describe('ToasterComponent', () => {
       imports: [ToasterComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(ToasterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

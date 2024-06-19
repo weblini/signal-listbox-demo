@@ -6,13 +6,13 @@ import { Status } from '@shared/models';
 import { AuthStore } from '@state';
 
 @Component({
-  selector: 'app-vegetable-editor',
+  selector: 'app-vegetable-list-view',
   standalone: true,
   imports: [RouterLink],
-  templateUrl: './vegetable-editor.component.html',
-  styleUrl: './vegetable-editor.component.css',
+  templateUrl: './vegetable-list-view.component.html',
+  styleUrl: './vegetable-list-view.component.css',
 })
-export class VegetableEditorComponent {
+export class VegetableListViewComponent {
   protected readonly vegetableStore = inject(VegetableStore);
   protected readonly authStore = inject(AuthStore);
 

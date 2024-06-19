@@ -2,8 +2,8 @@ import { Routes } from '@angular/router';
 import { inject } from '@angular/core';
 
 import { OverviewComponent } from '@ui/modules/overview';
-import { EditComponent } from '@ui/modules/edit/edit.component';
-import { VegetableEditorComponent } from '@ui/modules/vegetable-editor';
+import { VegetableEditViewComponent } from '@ui/modules/vegetable-edit-view';
+import { VegetableListViewComponent } from 'src/app/presentation/modules/vegetable-list-view';
 import { permissionGuard, AuthStore } from '@state';
 
 export const routes: Routes = [
@@ -19,19 +19,19 @@ export const routes: Routes = [
       {
         path: 'create',
         title: 'Create Vegetable',
-        component: EditComponent,
+        component: VegetableEditViewComponent,
         canActivate: [() => inject(AuthStore).canCreate()]
       },
       {
-        path: 'edit/:id',
+        path: 'vegetable-edit-view/:id',
         title: 'Edit Vegetable',
-        component: EditComponent,
+        component: VegetableEditViewComponent,
         canActivate: [() => inject(AuthStore).canEdit()]
       },
       {
-        path: 'edit',
+        path: 'vegetable-edit-view',
         title: 'Edit Vegetables',
-        component: VegetableEditorComponent,
+        component: VegetableListViewComponent,
       },
     ],
   },

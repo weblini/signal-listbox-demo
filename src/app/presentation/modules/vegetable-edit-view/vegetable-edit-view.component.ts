@@ -1,17 +1,17 @@
 import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { VegetableFormComponent } from '../vegetable-form/vegetable-form.component';
+import { VegetableFormComponent } from '@ui/modules/vegetable-form';
 import { Status } from '@shared/models';
 import { VegetableStore } from '@state';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'app-vegetable-vegetable-edit-view-view',
   standalone: true,
   imports: [RouterLink, VegetableFormComponent],
-  templateUrl: './edit.component.html',
-  styleUrl: './edit.component.css',
+  templateUrl: './vegetable-edit-view.component.html',
+  styleUrl: './vegetable-edit-view.component.css',
 })
-export class EditComponent {
+export class VegetableEditViewComponent {
   protected readonly vegetableStore = inject(VegetableStore);
   private readonly route = inject(ActivatedRoute);
 
