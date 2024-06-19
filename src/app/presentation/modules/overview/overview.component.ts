@@ -11,7 +11,7 @@ import {
 import { RouterOutlet, Router, RouterLink } from '@angular/router';
 import { CardComponent } from '@ui/card';
 import { Listbox, Option, Orientation } from '@ui/listbox';
-import { VegetableFormComponent } from '../vegetable-form/vegetable-form.component';
+import { VegetableFormComponent } from '@ui/vegetable-form';
 import { AuthStore } from '@state';
 import { VegetableStore } from '@state';
 import { Vegetable } from '@shared/models';

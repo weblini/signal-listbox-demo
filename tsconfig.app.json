@@ -7,15 +7,12 @@
     "types": [],
     "paths": {
       "@data-layer": ["libs/data-layer/src/index.ts"],
-      "@shared/models": ["libs/shared/models/src/lib/models/index.ts"],
       "@state": ["libs/state/src/index.ts"],
-      "@core/*": ["src/app/core/*"],
-      "@data/*": ["src/app/data/*"],
+      "@shared/models": ["libs/shared/models/src/lib/models/index.ts"],
       "@ui/toaster": ["libs/ui/toaster/src/index.ts"],
       "@ui/listbox": ["libs/ui/listbox/src/index.ts"],
       "@ui/card": ["libs/ui/card/src/index.ts"],
-      "@ui/*": ["src/app/presentation/*"]
-
+      "@ui/vegetable-form": ["libs/ui/vegetable-form/src/index.ts"]
     }
   },
   "files": [

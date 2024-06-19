@@ -1,6 +1,6 @@
 import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { VegetableFormComponent } from '@ui/modules/vegetable-form';
+import { VegetableFormComponent } from '@ui/vegetable-form';
 import { Status } from '@shared/models';
 import { VegetableStore } from '@state';
 
