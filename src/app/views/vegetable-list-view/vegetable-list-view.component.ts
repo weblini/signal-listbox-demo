@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { VegetableStore } from '@state';
-import { Status } from '@shared/models';
+import { Status } from '../../../../libs/shared/models/src/lib/models';
 import { AuthStore } from '@state';
 
 @Component({

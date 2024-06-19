@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 
 import { OverviewComponent } from '@ui/modules/overview';
 import { VegetableEditViewComponent } from '@ui/modules/vegetable-edit-view';
-import { VegetableListViewComponent } from 'src/app/presentation/modules/vegetable-list-view';
+import { VegetableListViewComponent } from 'src/app/views/vegetable-list-view';
 import { permissionGuard, AuthStore } from '@state';
 
 export const routes: Routes = [
