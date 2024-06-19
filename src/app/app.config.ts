@@ -5,9 +5,12 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { simulatedFailInterceptor } from '@data-layer';
+import { AuthStore, VegetableStore } from '@state';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    AuthStore,
+    VegetableStore,
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
