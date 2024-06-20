@@ -21,7 +21,7 @@
           </section>
           <section class="editBar">
             <button
-              [routerLink]="['/vegetable-edit-view', vegetable.id]"
+              [routerLink]="['/edit', vegetable.id]"
               class="btn icon-btn"
               [disabled]="
                 vegetableStore.deletingIds().has(vegetable.id) ||
