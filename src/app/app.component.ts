@@ -32,12 +32,12 @@ import { Status } from '@shared/models';
 export class AppComponent {
   protected readonly vegetableStore = inject(VegetableStore);
   protected readonly authStore = inject(AuthStore);
-  readonly #router = inject(Router);
 
   Status = Status;
 
   constructor() {
     this.vegetableStore.loadAll();
+    this.authStore.getSavedUser();
   }
 
   swapUser() {
