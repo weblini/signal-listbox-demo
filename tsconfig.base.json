@@ -3,7 +3,7 @@
   "compilerOptions": {
     "sourceMap": true,
     "declaration": false,
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "ES2022",
