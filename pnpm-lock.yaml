@@ -127,7 +127,7 @@ importers:
         specifier: ^8.0.0-alpha.28
         version: 8.0.0-alpha.30(eslint@8.57.0)(typescript@5.4.5)
       cypress:
-        specifier: ^13.8.0
+        specifier: ^13.13.0
         version: 13.13.0
       eslint:
         specifier: ~8.57.0
