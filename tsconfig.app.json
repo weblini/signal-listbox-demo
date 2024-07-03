@@ -1,4 +1,3 @@
-/* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
@@ -16,10 +15,14 @@
       "@ui/vegetable-form": ["libs/ui/vegetable-form/src/index.ts"]
     }
   },
-  "files": [
-    "src/main.ts"
-  ],
-  "include": [
-    "src/**/*.d.ts"
+  "files": ["src/main.ts"],
+  "include": ["src/**/*.d.ts"],
+  "exclude": [
+    "cypress/**/*",
+    "cypress.config.ts",
+    "**/*.cy.ts",
+    "**/*.cy.js",
+    "**/*.cy.tsx",
+    "**/*.cy.jsx"
   ]
 }

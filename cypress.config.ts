@@ -1,3 +1,4 @@
+import { nxComponentTestingPreset } from '@nx/angular/plugins/component-testing';
 import { nxE2EPreset } from '@nx/cypress/plugins/cypress-preset';
 
 import { defineConfig } from 'cypress';
@@ -14,4 +15,5 @@ export default defineConfig({
       },
     }),
   },
+  component: nxComponentTestingPreset(__filename),
 });
