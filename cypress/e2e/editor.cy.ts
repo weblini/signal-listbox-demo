@@ -4,7 +4,7 @@ describe('vegetable editor', () => {
       .then((user) => JSON.stringify(user))
       .then((userJson) => window.localStorage.setItem('user-token', userJson));
 
-    cy.visit('http://localhost:4200/');
+    cy.visit('/');
   });
 
   it('should allow navigating to /edit', () => {

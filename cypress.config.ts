@@ -4,6 +4,7 @@ import { defineConfig } from 'cypress';
 
 export default defineConfig({
   e2e: {
+    baseUrl: 'http://localhost:4200/',
     ...nxE2EPreset(__filename, {
       cypressDir: 'cypress',
       bundler: 'vite',

@@ -1,5 +1,5 @@
 describe('veggie listbox', () => {
-  beforeEach(() => cy.visit('http://localhost:4200/'));
+  beforeEach(() => cy.visit('/'));
 
   it('displays a details card of the selected item', () => {
     cy.get('[data-test=option-name]:first')
@@ -13,7 +13,7 @@ describe('veggie listbox', () => {
       });
   });
 
-  it('indicates when it is selected', () => {
+  it('indicates when an option is selected', () => {
     cy.get('jm-option:first').click().contains('✓');
   });
 });
