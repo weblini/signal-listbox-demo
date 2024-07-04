@@ -1,4 +1,4 @@
-@for (toast of toastsRx(); track toast.id) {
+@for (toast of activeToasts(); track toast.id) {
   <div
     data-test="toast"
     class="toast"
@@ -36,7 +36,7 @@
   </div>
 }
 
-@if (statusError()) {
+@if (hasLoadingError()) {
   <div @animation class="toast error">
     <svg
       xmlns="http://www.w3.org/2000/svg"

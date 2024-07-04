@@ -24,6 +24,7 @@
 <router-outlet />
 
 <lib-toaster
-  [dataStatus]="vegetableStore.status()"
   (reload)="onReload()"
+  [hasLoadingError]="vegetableStore.status() === Status.Error"
+  [newToast]="eventNotificationService.latestEvent()"
 />
