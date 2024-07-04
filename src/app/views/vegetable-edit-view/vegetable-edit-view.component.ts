@@ -12,7 +12,7 @@ import { VegetableStore } from '@state';
   styleUrl: './vegetable-edit-view.component.css',
 })
 export class VegetableEditViewComponent {
-  protected readonly vegetableStore = inject(VegetableStore);
+  protected readonly vegetableStore: VegetableStore  = inject(VegetableStore);
   private readonly route = inject(ActivatedRoute);
 
   Status = Status;

@@ -47,4 +47,8 @@ export class AppComponent {
       this.authStore.login();
     }
   }
+
+  onReload() {
+    this.vegetableStore.loadAll();
+  }
 }

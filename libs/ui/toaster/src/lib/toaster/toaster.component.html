@@ -35,7 +35,7 @@
   </div>
 }
 
-@if (vegetableStore.status() === Status.Error) {
+@if (statusError()) {
   <div @animation class="toast error">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -48,6 +48,6 @@
       />
     </svg>
     <p>Something went wrong</p>
-    <button class="btn" (click)="vegetableStore.loadAll()">Reload</button>
+    <button class="btn" (click)="reloadAll()">Reload</button>
   </div>
 }

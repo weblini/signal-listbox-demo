@@ -56,7 +56,7 @@ export const AuthStore = signalStore(
                     status: Status.Success,
                     message: 'Logged in',
                   }),
-                error: (err) =>
+                error: () =>
                   patchState(store, {
                     status: Status.Error,
                     message: 'Failed to login',
