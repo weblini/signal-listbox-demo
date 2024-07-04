@@ -7,8 +7,7 @@ describe('form', () => {
     cy.intercept('GET', '/vegetables', { fixture: 'veggies.json' }).as(
       'getAll',
     );
-    cy.intercept('PUT', '/vegetables/*', { fixture: 'edited-veggie.json' });
-
+    
     cy.visit('/edit/1');
 
     cy.wait('@getAll');
