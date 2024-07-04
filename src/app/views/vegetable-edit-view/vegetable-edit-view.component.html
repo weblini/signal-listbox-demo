@@ -16,7 +16,9 @@
   } @else {
     <lib-vegetable-form
     [vegetable]="activeVegetable()"
-    [saveStatus]="vegetableStore.saveStatus()"
+    [status]="vegetableStore.saveStatus()"
+    (clearStatus)="vegetableStore.resetSave()"
+    (save)="vegetableStore.save($event)"
   />
   }
 </main>
