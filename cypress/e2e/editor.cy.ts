@@ -70,7 +70,7 @@ describe('vegetable editor', () => {
       .and('include.text', 'Cucumber');
   });
 
-  it.only('should update the edited veggie', () => {
+  it('should update the edited veggie', () => {
     cy.visit('/edit/3');
 
     cy.fixture('edited-veggie.json').then((veggie) => {
