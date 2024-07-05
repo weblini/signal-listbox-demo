@@ -1,18 +1,14 @@
 describe('vegetable editor', () => {
   beforeEach(() => {
-    cy.fixture('user')
-      .then((user) => JSON.stringify(user))
-      .then((userJson) => window.localStorage.setItem('user-token', userJson));
+    cy.setupMockUser();
 
-    cy.intercept('GET', '/vegetables', { fixture: 'veggies.json' }).as(
-      'getAll',
-    );
+    cy.intercept('GET', '/vegetables', {fixture: 'veggies.json'}).as('getAll');
 
-    cy.intercept('POST', '/vegetables/*', { fixture: 'new-veggie.json' });
+    cy.intercept('POST', '/vegetables/*', {fixture: 'new-veggie.json'});
 
-    cy.intercept('PUT', '/vegetables/*', { fixture: 'edited-veggie.json' });
+    cy.intercept('PUT', '/vegetables/*', {fixture: 'edited-veggie.json'});
 
-    cy.intercept('DELETE', '/vegetables/*', { statusCode: 200 });
+    cy.intercept('DELETE', '/vegetables/*', {statusCode: 200});
 
     cy.visit('/edit');
 

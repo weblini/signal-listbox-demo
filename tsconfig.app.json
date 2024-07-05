@@ -15,14 +15,10 @@
       "@ui/vegetable-form": ["libs/ui/vegetable-form/src/index.ts"]
     }
   },
-  "files": ["src/main.ts"],
-  "include": ["src/**/*.d.ts"],
-  "exclude": [
-    "cypress/**/*",
-    "cypress.config.ts",
-    "**/*.cy.ts",
-    "**/*.cy.js",
-    "**/*.cy.tsx",
-    "**/*.cy.jsx"
+  "files": [
+    "src/main.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
   ]
 }

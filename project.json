@@ -76,15 +76,6 @@
         "styles": ["src/styles.css"],
         "scripts": []
       }
-    },
-    "component-test": {
-      "executor": "@nx/cypress:cypress",
-      "options": {
-        "cypressConfig": "cypress.config.ts",
-        "testingType": "component",
-        "skipServe": true,
-        "devServerTarget": "try-signals:build"
-      }
     }
   }
 }

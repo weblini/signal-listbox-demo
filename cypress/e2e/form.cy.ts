@@ -1,13 +1,9 @@
 describe('form', () => {
   beforeEach(() => {
-    cy.fixture('user')
-      .then((user) => JSON.stringify(user))
-      .then((userJson) => window.localStorage.setItem('user-token', userJson));
+    cy.setupMockUser();
 
-    cy.intercept('GET', '/vegetables', { fixture: 'veggies.json' }).as(
-      'getAll',
-    );
-    
+    cy.intercept('GET', '/vegetables', {fixture: 'veggies.json'}).as('getAll');
+
     cy.visit('/edit/1');
 
     cy.wait('@getAll');
