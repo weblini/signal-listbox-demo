@@ -81,6 +81,9 @@ importers:
       '@nx/cypress':
         specifier: 19.3.0
         version: 19.3.0(@babel/traverse@7.24.7)(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11))(@types/node@20.14.5)(@zkochan/js-yaml@0.0.7)(cypress@13.13.0)(eslint@9.5.0)(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))(typescript@5.4.5)
+      '@nx/devkit':
+        specifier: 19.3.0
+        version: 19.3.0(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))
       '@nx/eslint':
         specifier: 19.3.0
         version: 19.3.0(@babel/traverse@7.24.7)(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11))(@types/node@20.14.5)(@zkochan/js-yaml@0.0.7)(eslint@9.5.0)(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))
@@ -93,9 +96,15 @@ importers:
       '@nx/js':
         specifier: 19.3.0
         version: 19.3.0(@babel/traverse@7.24.7)(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11))(@types/node@20.14.5)(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))(typescript@5.4.5)
+      '@nx/playwright':
+        specifier: 19.3.0
+        version: 19.3.0(@babel/traverse@7.24.7)(@playwright/test@1.45.1)(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11))(@types/node@20.14.5)(@zkochan/js-yaml@0.0.7)(eslint@9.5.0)(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))(typescript@5.4.5)
       '@nx/workspace':
         specifier: 19.3.0
         version: 19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11))
+      '@playwright/test':
+        specifier: ^1.36.0
+        version: 1.45.1
       '@schematics/angular':
         specifier: ^18.0.4
         version: 18.0.4(chokidar@3.6.0)
@@ -135,6 +144,9 @@ importers:
       eslint-plugin-cypress:
         specifier: ^2.13.4
         version: 2.15.2(eslint@9.5.0)
+      eslint-plugin-playwright:
+        specifier: ^0.15.3
+        version: 0.15.3(eslint@9.5.0)
       html-webpack-plugin:
         specifier: ^5.5.0
         version: 5.6.0(webpack@5.91.0(@swc/core@1.6.7(@swc/helpers@0.5.11))(esbuild@0.19.12))
@@ -1972,6 +1984,14 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@nx/playwright@19.3.0':
+    resolution: {integrity: sha512-Q9/H848tSk8mudKhYiJOsOIDtdmak8/pSAI1sKw+UZguLCz+yFswohMv8pr0+cuQBywBe5fZY+lfzl0wxyvZdQ==}
+    peerDependencies:
+      '@playwright/test': ^1.36.0
+    peerDependenciesMeta:
+      '@playwright/test':
+        optional: true
+
   '@nx/web@19.3.0':
     resolution: {integrity: sha512-kK+jpUKhWflpKHegkNPBDkH3XYjpdEwCKr6izqJU7nvV0P9EHT/jVWRxfic/imTAoC9IZpHwAW9bYSd0LKpe1A==}
 
@@ -1989,6 +2009,11 @@ packages:
   '@pkgjs/parseargs@0.11.0':
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
+
+  '@playwright/test@1.45.1':
+    resolution: {integrity: sha512-Wo1bWTzQvGA7LyKGIZc8nFSTFf2TkthGIFBR+QVNilvwouGzFd4PYukZe3rvf5PSqjHi1+1NyKSDZKcQWETzaA==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   '@rollup/rollup-android-arm-eabi@4.17.2':
     resolution: {integrity: sha512-NM0jFxY8bB8QLkoKxIQeObCaDlJKewVlIEkuyYKm5An1tdVZ966w2+MPQ2l8LBZLjR+SgyV+nRkTIunzOYBMLQ==}
@@ -3740,6 +3765,15 @@ packages:
     peerDependencies:
       eslint: '>= 3.2.1'
 
+  eslint-plugin-playwright@0.15.3:
+    resolution: {integrity: sha512-LQMW5y0DLK5Fnpya7JR1oAYL2/7Y9wDiYw6VZqlKqcRGSgjbVKNqxraphk7ra1U3Bb5EK444xMgUlQPbMg2M1g==}
+    peerDependencies:
+      eslint: '>=7'
+      eslint-plugin-jest: '>=25'
+    peerDependenciesMeta:
+      eslint-plugin-jest:
+        optional: true
+
   eslint-scope@5.1.1:
     resolution: {integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==}
     engines: {node: '>=8.0.0'}
@@ -4019,6 +4053,11 @@ packages:
 
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
+
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -5570,6 +5609,16 @@ packages:
   pkg-dir@7.0.0:
     resolution: {integrity: sha512-Ie9z/WINcxxLp27BKOCHGde4ITq9UklYKDzVo1nhk5sqGEXU3FpkwP5GM2voTGJkGd9B3Otl+Q4uwSOeSUtOBA==}
     engines: {node: '>=14.16'}
+
+  playwright-core@1.45.1:
+    resolution: {integrity: sha512-LF4CUUtrUu2TCpDw4mcrAIuYrEjVDfT1cHbJMfwnE2+1b8PZcFzPNgvZCvq2JfQ4aTjRCCHw5EJ2tmr2NSzdPg==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright@1.45.1:
+    resolution: {integrity: sha512-Hjrgae4kpSQBr98nhCj3IScxVeVUixqj+5oyif8TdIn2opTCPEzqAqNMeK42i3cWDCVu9MI+ZsGWw+gVR4ISBg==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   portfinder@1.0.32:
     resolution: {integrity: sha512-on2ZJVVDXRADWE6jnQaX0ioEylzgBpQk8r55NE4wjXW1ZxO+BgDlY6DXwj20i0V8eB4SenDQ00WEaxfiIQPcxg==}
@@ -10097,6 +10146,30 @@ snapshots:
   '@nx/nx-win32-x64-msvc@19.3.0':
     optional: true
 
+  '@nx/playwright@19.3.0(@babel/traverse@7.24.7)(@playwright/test@1.45.1)(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11))(@types/node@20.14.5)(@zkochan/js-yaml@0.0.7)(eslint@9.5.0)(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))(typescript@5.4.5)':
+    dependencies:
+      '@nx/devkit': 19.3.0(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))
+      '@nx/eslint': 19.3.0(@babel/traverse@7.24.7)(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11))(@types/node@20.14.5)(@zkochan/js-yaml@0.0.7)(eslint@9.5.0)(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))
+      '@nx/js': 19.3.0(@babel/traverse@7.24.7)(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11))(@types/node@20.14.5)(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))(typescript@5.4.5)
+      '@phenomnomnominal/tsquery': 5.0.1(typescript@5.4.5)
+      minimatch: 9.0.3
+      tslib: 2.6.3
+    optionalDependencies:
+      '@playwright/test': 1.45.1
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - '@zkochan/js-yaml'
+      - debug
+      - eslint
+      - nx
+      - supports-color
+      - typescript
+      - verdaccio
+
   '@nx/web@19.3.0(@babel/traverse@7.24.7)(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11))(@types/node@20.14.5)(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))(typescript@5.4.5)':
     dependencies:
       '@nrwl/web': 19.3.0(@babel/traverse@7.24.7)(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11))(@types/node@20.14.5)(nx@19.3.0(@swc-node/register@1.9.2(@swc/core@1.6.7(@swc/helpers@0.5.11))(@swc/types@0.1.9)(typescript@5.4.5))(@swc/core@1.6.7(@swc/helpers@0.5.11)))(typescript@5.4.5)
@@ -10206,6 +10279,10 @@ snapshots:
 
   '@pkgjs/parseargs@0.11.0':
     optional: true
+
+  '@playwright/test@1.45.1':
+    dependencies:
+      playwright: 1.45.1
 
   '@rollup/rollup-android-arm-eabi@4.17.2':
     optional: true
@@ -12274,6 +12351,10 @@ snapshots:
       eslint: 9.5.0
       globals: 13.24.0
 
+  eslint-plugin-playwright@0.15.3(eslint@9.5.0):
+    dependencies:
+      eslint: 9.5.0
+
   eslint-scope@5.1.1:
     dependencies:
       esrecurse: 4.3.0
@@ -12666,6 +12747,9 @@ snapshots:
   fs-monkey@1.0.6: {}
 
   fs.realpath@1.0.0: {}
+
+  fsevents@2.3.2:
+    optional: true
 
   fsevents@2.3.3:
     optional: true
@@ -14612,6 +14696,14 @@ snapshots:
   pkg-dir@7.0.0:
     dependencies:
       find-up: 6.3.0
+
+  playwright-core@1.45.1: {}
+
+  playwright@1.45.1:
+    dependencies:
+      playwright-core: 1.45.1
+    optionalDependencies:
+      fsevents: 2.3.2
 
   portfinder@1.0.32:
     dependencies:

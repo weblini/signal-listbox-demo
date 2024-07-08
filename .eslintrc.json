@@ -14,19 +14,38 @@
             "depConstraints": [
               {
                 "sourceTag": "type:app",
-                "onlyDependOnLibsWithTags": ["type:feature", "type:routes", "type:ui", "type:state", "type:util"]
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:routes",
+                  "type:ui",
+                  "type:state",
+                  "type:util"
+                ]
               },
               {
                 "sourceTag": "type:routes",
-                "onlyDependOnLibsWithTags": ["type:feature", "type:util", "type:state"]
+                "onlyDependOnLibsWithTags": [
+                  "type:feature",
+                  "type:util",
+                  "type:state"
+                ]
               },
               {
                 "sourceTag": "type:feature",
-                "onlyDependOnLibsWithTags": ["type:ui", "type:state", "type:util", "type:models"]
+                "onlyDependOnLibsWithTags": [
+                  "type:ui",
+                  "type:state",
+                  "type:util",
+                  "type:models"
+                ]
               },
               {
                 "sourceTag": "type:ui",
-                "onlyDependOnLibsWithTags": ["type:util", "type:ui", "type:models"]
+                "onlyDependOnLibsWithTags": [
+                  "type:util",
+                  "type:ui",
+                  "type:models"
+                ]
               },
               {
                 "sourceTag": "type:util",
@@ -34,11 +53,20 @@
               },
               {
                 "sourceTag": "type:state",
-                "onlyDependOnLibsWithTags": ["type:util", "type:data-access", "type:models"]
+                "onlyDependOnLibsWithTags": [
+                  "type:util",
+                  "type:data-access",
+                  "type:models"
+                ]
               },
               {
                 "sourceTag": "type:data-access",
-                "onlyDependOnLibsWithTags": ["type:util", "type:dtos", "type:dtos", "type:models"]
+                "onlyDependOnLibsWithTags": [
+                  "type:util",
+                  "type:dtos",
+                  "type:dtos",
+                  "type:models"
+                ]
               },
               {
                 "sourceTag": "type:models",
@@ -81,7 +109,11 @@
     {
       "files": ["*.cy.{ts,js,tsx,jsx}", "cypress/**/*.{ts,js,tsx,jsx}"],
       "rules": {}
+    },
+    {
+      "files": ["e2e/**/*.{ts,js,tsx,jsx}"],
+      "rules": {}
     }
   ],
-  "extends": ["plugin:cypress/recommended"]
+  "extends": ["plugin:playwright/recommended", "plugin:cypress/recommended"]
 }
