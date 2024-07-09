@@ -19,7 +19,8 @@
       "@ui/card": ["libs/ui/card/src/index.ts"],
       "@ui/listbox": ["libs/ui/listbox/src/index.ts"],
       "@ui/toaster": ["libs/ui/toaster/src/index.ts"],
-      "@ui/vegetable-form": ["libs/ui/vegetable-form/src/index.ts"]
+      "@ui/vegetable-form": ["libs/ui/vegetable-form/src/index.ts"],
+      "@storybook-host": ["storybook-host/src/index.ts"]
     }
   }
 }

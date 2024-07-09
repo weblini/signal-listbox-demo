@@ -1,0 +1,18 @@
+{
+  "name": "storybook-host",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "storybook-host/src",
+  "prefix": "lib",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "build-storybook": {
+      "options": {
+        "styles": ["src/styles.css"]
+      }
+    }
+  }
+}
