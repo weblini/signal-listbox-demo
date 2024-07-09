@@ -11,6 +11,14 @@ const meta: Meta<VegetableFormComponent> = {
   args: toArgs<VegetableFormComponent>({
     status: Status.Idle,
   }),
+  argTypes: {
+    status: {
+      options: Status,
+      control: {
+        type: 'select',
+      },
+    },
+  },
 };
 
 export default meta;
