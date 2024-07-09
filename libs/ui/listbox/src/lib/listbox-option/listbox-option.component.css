@@ -1,0 +1,35 @@
+:host {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    min-width: 8rem;
+    min-height: 2rem;
+    user-select: none;
+    justify-content: space-between;
+    max-width: 400px;
+    border-radius: 2rem;
+    overflow: hidden;
+    transition: background-color 200ms ease-in;
+  }
+
+  :host[aria-disabled="true"] {
+    color: lightgray;
+    border-color: lightgray;
+    cursor: default;
+  }
+
+  :host:focus {
+    outline: 3px dashed orange;
+  }
+
+  :host:hover {
+    background-color: #fff9f3;
+    transition: background-color 150ms;
+  }
+
+  .marker {
+    font-weight: 1000;
+    font-size: 1.25em;
+  }
